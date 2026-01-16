@@ -1,0 +1,86 @@
+{
+  "Questions": [
+    {
+      "Id": 0,
+      "Text": " ",
+      "Answers": [
+        {
+          "Text": " ",
+          "Points": 0
+        },
+        {
+          "Text": " ",
+          "Points": 0
+        },
+        {
+          "Text": " ",
+          "Points": 0
+        },
+        {
+          "Text": " ",
+          "Points": 0
+        },
+        {
+          "Text": " ",
+          "Points": 0
+        }
+      ]
+    },
+    {
+      "Id": 1,
+      "Text": "Zwierze domowe",
+      "Answers": [
+        {
+          "Text": "Kot",
+          "Points": 25
+        },
+        {
+          "Text": "Pies",
+          "Points": 23
+        },
+        {
+          "Text": "Ryba",
+          "Points": 10
+        },
+        {
+          "Text": "Chomik",
+          "Points": 9
+        },
+        {
+          "Text": "Mucha",
+          "Points": 8
+        }
+      ]
+    },
+    {
+      "Id": 2,
+      "Text": "Rodzaj sportu",
+      "Answers": [
+        {
+          "Text": "Pilka nozna",
+          "Points": 21
+        },
+        {
+          "Text": "Bieganie",
+          "Points": 19
+        },
+        {
+          "Text": "Rowerowanie",
+          "Points": 14
+        },
+        {
+          "Text": "Karate",
+          "Points": 9
+        },
+        {
+          "Text": "Siatkowka",
+          "Points": 8
+        },
+        {
+          "Text": "Test",
+          "Points": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,14 +1,95 @@
 ﻿<Window x:Class="Familiada.Views.HostPanel"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Panel Prowadzącego"
-        Width="800"
-        Height="600">
+        xmlns:local="clr-namespace:Familiada.Converters"
 
-    <Grid>
-        <TextBlock Text="Panel Prowadzącego"
-                   FontSize="32"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+        Title="Panel Prowadzącego"
+        Background="Gray"
+        Width="800"
+        Height="600"
+        Left="1200"
+        Top="100"
+        WindowStartupLocation="Manual"
+        KeyDown="Window_KeyDown">
+    
+     <Window.Resources>
+        <local:PlusOneConverter x:Key="PlusOneConverter"/>
+     </Window.Resources>
+        
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Pytanie -->
+        <TextBlock  Grid.Row="0" FontSize="24"
+                   Margin="0,0,0,10"
+                   Text="{Binding CurrentQuestionText}"/>
+
+      
+
+
+        <!-- Lista odpowiedzi -->
+        <ItemsControl  Grid.Row="1" ItemsSource="{Binding RevealedAnswers}" HorizontalAlignment="Left" Width="680" AlternationCount="100">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Numer wiersza: alternation index + 1 -->
+                        <TextBlock Grid.Column="0"
+                           Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter}, 
+                            Path=(ItemsControl.AlternationIndex), Converter={StaticResource PlusOneConverter}}"
+                           FontSize="22"
+                           HorizontalAlignment="Center"/>
+
+
+                        <!-- Tekst odpowiedzi -->
+                        <TextBlock Grid.Column="1"
+                           Text="{Binding Text}"
+                           FontSize="22"/>
+
+                        <!-- Punkty -->
+                        <TextBlock Grid.Column="2"
+                           Text="{Binding Points}"
+                           HorizontalAlignment="Right"
+                           FontSize="22"/>
+
+                        <Button  Grid.Column="3" Content="Reveal" 
+                            Command="{Binding DataContext.RevealAnswerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                            CommandParameter="{Binding}"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2"
+              Orientation="Horizontal"
+              HorizontalAlignment="Center"
+              Margin="0,10,0,0">
+            <Button Content="Intro Music"
+              Width="140"
+              Command="{Binding IntroMusicCommand}"/>
+            <Button Content="Answer Correct"
+              Width="140"
+              Command="{Binding AnswerCorrectCommand}"/>
+
+            <Button Content="Answer Incorrect"
+              Width="140"
+              Command="{Binding AnswerIncorrectCommand}"/>
+
+            <Button Content="Next Round"
+              Width="140"
+              Command="{Binding TriggerNextRoundCommand}"/>
+        </StackPanel>
     </Grid>
 </Window>

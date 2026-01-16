@@ -1,29 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
-using Familiada.Views;
+namespace Familiada.Views;
 
-namespace Familiada
+public partial class HostPanel : Window
 {
-    public partial class App : Application
+    public HostPanel(GameViewModel viewModel)
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
+        InitializeComponent();
 
-            var hostPanel = new HostPanel();
-            hostPanel.Show();
+        DataContext = viewModel;
+    }
+
+    private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+    {
+        var vm = DataContext as GameViewModel;
+        if (vm == null) return;
+
+        if (e.Key == System.Windows.Input.Key.Q)
+        {
+            vm.PlayAnswerCorrectCommand.Execute(null);
+        }
+        else if (e.Key == System.Windows.Input.Key.W)
+        {
+            vm.PlayAnswerIncorrectCommand.Execute(null);
+        }
+        else if (e.Key == System.Windows.Input.Key.E)
+        {
+            vm.PlayDzwonkiCommand.Execute(null);
         }
     }
 }
