@@ -22,10 +22,22 @@ public class GameState : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new(propertyName));
     }
 
-    private int _teamAPoints;
-    private int _teamBPoints;
+    private int _teamAPoints = 1;
+    private int _teamBPoints = 2;
+    private int _roundPoints = 3;
     public int RoundNumber { get; set; } 
-
+    public int RoundPoints
+    {
+        get => _roundPoints;
+        set
+        {
+            if (_roundPoints != value)
+            {
+                _roundPoints = value;
+                OnPropertyChanged(nameof(RoundPoints));
+            }
+        }
+    }
 
     public int TeamAPoints
     {

@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Media;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
@@ -60,6 +61,49 @@ public class GameViewModel : INotifyPropertyChanged
     public ICommand PlayDzwonkiCommand { get; }
     public ICommand IntroMusicCommand { get; }
 
+
+    // ROUND POINTS
+
+    public int RoundPoints
+    {
+        get => GameState.RoundPoints;
+        set
+        {
+            if (GameState.RoundPoints != value)
+            {
+                GameState.RoundPoints = value;
+                OnPropertyChanged(nameof(RoundPoints));
+            }
+        }
+    }
+
+    public int TeamAPoints
+    {
+        get => GameState.TeamAPoints;
+        set
+        {
+            if (GameState.TeamAPoints != value)
+            {
+                GameState.TeamAPoints = value;
+                OnPropertyChanged(nameof(TeamAPoints));
+            }
+        }
+    }
+
+    public int TeamBPoints
+    {
+        get => GameState.TeamBPoints;
+        set
+        {
+            if (GameState.TeamBPoints != value)
+            {
+                GameState.TeamBPoints = value;
+                OnPropertyChanged(nameof(TeamBPoints));
+            }
+        }
+    }
+
+
     public GameViewModel(GameState gameState)
     {
         GameState = gameState;
@@ -68,9 +112,11 @@ public class GameViewModel : INotifyPropertyChanged
             GameState.Questions[GameState.RoundNumber].Answers
         );
 
+
         // 🔹 KOMENDA Z PARAMETREM
         RevealAnswerCommand = new RelayCommand<Answer>(answer =>
         {
+            PlaySound("Assets/Sounds/correct.wav");
             if (answer == null || answer.IsRevealed)
                 return;
 
@@ -78,23 +124,7 @@ public class GameViewModel : INotifyPropertyChanged
             GameState.TeamAPoints += answer.Points;
         });
 
-        // 🔹 BEZ PARAMETRU
-        TriggerNextRoundCommand = new RelayCommand(() =>
-        {
-            if (GameState.RoundNumber + 1 >= GameState.Questions.Count)
-                return;
 
-            GameState.RoundNumber++;
-
-            RevealedAnswers = new ObservableCollection<Answer>(
-                GameState.Questions[GameState.RoundNumber].Answers
-            );
-
-            OnPropertyChanged(nameof(CurrentQuestionText));
-        });
-
-        AnswerCorrectCommand = new RelayCommand(() =>
-            PlaySound("Assets/Sounds/correct.wav"));
 
         AnswerIncorrectCommand = new RelayCommand(() =>
             PlaySound("Assets/Sounds/incorrect.wav"));
@@ -110,6 +140,29 @@ public class GameViewModel : INotifyPropertyChanged
 
         IntroMusicCommand = new RelayCommand(() =>
             PlaySound("Assets/Sounds/intro.wav"));
+
+        // 🔹 BEZ PARAMETRU
+        TriggerNextRoundCommand = new RelayCommand(() =>
+        {
+            if (GameState.RoundNumber + 1 >= GameState.Questions.Count)
+                return;
+
+            GameState.RoundNumber++;
+
+            RevealedAnswers = new ObservableCollection<Answer>(
+                GameState.Questions[GameState.RoundNumber].Answers
+            );
+
+            PlaySound("Assets/Sounds/przed_i_po_rundzie.wav");
+
+            OnPropertyChanged(nameof(CurrentQuestionText));
+        });
+
+        // ROUND POINTS
+        GameState.PropertyChanged += GameState_PropertyChanged;
+
+
+
     }
 
     private void PlaySound(string relativePath)
@@ -119,4 +172,21 @@ public class GameViewModel : INotifyPropertyChanged
 
         new SoundPlayer(path).Play();
     }
+
+
+    // GameState event handler
+    private void GameState_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(GameState.RoundPoints))
+        {
+            OnPropertyChanged(nameof(RoundPoints));
+        }
+
+        if (e.PropertyName == nameof(GameState.RoundNumber))
+        {
+            OnPropertyChanged(nameof(CurrentQuestionText));
+        }
+    }
+
+
 }
