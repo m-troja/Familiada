@@ -45,7 +45,6 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Images\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

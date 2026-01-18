@@ -76,22 +76,26 @@
             </Grid.ColumnDefinitions>
 
             <!-- X Druzyna A -->
-            <StackPanel Grid.Column="0"
-                Orientation="Vertical"
-                VerticalAlignment="Center"
-                Margin="10">
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" >
+                <StackPanel 
+                    Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    Margin="10">
 
-                <TextBlock  FontSize="22" Text="{Binding DataContext.TeamAX1,
-                       RelativeSource={RelativeSource AncestorType=Window}}"/>
-                <TextBlock  FontSize="22" Text="{Binding DataContext.TeamAX2,
-                       RelativeSource={RelativeSource AncestorType=Window}}"/>
-                <TextBlock  FontSize="22"  Text="{Binding DataContext.TeamAX3,
-                       RelativeSource={RelativeSource AncestorType=Window}}"/>
-            </StackPanel>
-
+                    <TextBlock  FontSize="62" Text="{Binding DataContext.TeamAX1,
+                           RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    <TextBlock  FontSize="62" Text="{Binding DataContext.TeamAX2,
+                           RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    <TextBlock  FontSize="62"  Text="{Binding DataContext.TeamAX3,
+                           RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    <TextBlock  FontSize="92"  Text="{Binding DataContext.TeamALostFirstWinChance,
+                           RelativeSource={RelativeSource AncestorType=Window}}"/>
+                </StackPanel>
+            </Border>
+            
             <!-- Actual Scoreboard -->
             <ItemsControl Grid.Column="1"
-                          ItemsSource="{Binding RevealedAnswers}"
+                          ItemsSource="{Binding Answers}"
                           AlternationCount="100" Margin="0,13,0,0">
 
             <ItemsControl.ItemTemplate>
@@ -134,18 +138,21 @@
             </ItemsControl>
             
             <!-- X Druzyna B -->
-            <StackPanel Grid.Column="2"
-                            Orientation="Vertical"
-                            VerticalAlignment="Center"
-                            Margin="10,10,10,10">
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2">
+                <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                Margin="10,10,10,10">
 
-                <TextBlock  FontSize="22" Text="{Binding DataContext.TeamBX1,
+                    <TextBlock  FontSize="22" Text="{Binding DataContext.TeamBX1,
+                                        RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    <TextBlock  FontSize="22" Text="{Binding DataContext.TeamBX2,
                                     RelativeSource={RelativeSource AncestorType=Window}}"/>
-                <TextBlock  FontSize="22" Text="{Binding DataContext.TeamBX2,
-                                RelativeSource={RelativeSource AncestorType=Window}}"/>
-                <TextBlock  FontSize="22"  Text="{Binding DataContext.TeamBX3,
-                                RelativeSource={RelativeSource AncestorType=Window}}"/>
-            </StackPanel>
+                    <TextBlock  FontSize="22"  Text="{Binding DataContext.TeamBX3,
+                                    RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    <TextBlock  FontSize="92"  Text="{Binding DataContext.TeamBLostFirstWinChance,
+                                    RelativeSource={RelativeSource AncestorType=Window}}"/>
+                </StackPanel>
+            </Border>
         </Grid>
     </Grid>
 </Window>

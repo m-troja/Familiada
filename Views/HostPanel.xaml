@@ -21,6 +21,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Pytanie -->
@@ -28,11 +31,8 @@
                    Margin="0,0,0,10"
                    Text="{Binding CurrentQuestionText}"/>
 
-      
-
-
         <!-- Lista odpowiedzi -->
-        <ItemsControl  Grid.Row="1" ItemsSource="{Binding RevealedAnswers}" HorizontalAlignment="Left" Width="680" AlternationCount="100">
+        <ItemsControl  Grid.Row="1" ItemsSource="{Binding Answers}" HorizontalAlignment="Left" Width="680" AlternationCount="100">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,4">
@@ -40,6 +40,7 @@
                             <ColumnDefinition Width="40"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="60"/>
                             <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
 
@@ -62,7 +63,8 @@
                            HorizontalAlignment="Right"
                            FontSize="22"/>
 
-                        <Button  Grid.Column="3" Content="Reveal" 
+                        <!-- Button odkryj -->
+                        <Button  Grid.Column="3" Content="Odkryj" Margin="10,0,0,0" 
                             Command="{Binding DataContext.RevealAnswerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                             CommandParameter="{Binding}"/>
 
@@ -71,31 +73,57 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <!-- Buttons -->
-        <StackPanel Grid.Row="2"
+
+        <!-- Kto pierwszy ten lepszy text -->
+        <TextBlock  Grid.Row="2" FontSize="24"
+           Margin="0,0,0,10"
+           Text="{Binding FirstWinsText}"/>
+        
+        <!-- Odpowiada Team -->
+        <TextBlock  Grid.Row="3" FontSize="24"
+                   Margin="0,0,0,10"
+                   Text="{Binding TeamAnswersText}"/>
+
+        <!-- Buttons Odpowiada Team -->
+        <StackPanel Grid.Row="4"
               Orientation="Horizontal"
-              HorizontalAlignment="Center"
+              HorizontalAlignment="Left"
               Margin="0,10,0,0">
-            <Button Content="Intro Music"
-              Width="140"
-              Command="{Binding IntroMusicCommand}"/>
-            <Button Content="Answer Correct"
-              Width="140"
-              Command="{Binding AnswerCorrectCommand}"/>
 
-            <Button Content="Answer Incorrect"
+            <Button Content="Drużyna A"
               Width="140"
-              Command="{Binding AnswerIncorrectCommand}"/>
+              Command="{Binding TeamAAnsweringCommand}"/>
 
-            <Button Content="Next Round"
-              Width="140"
-              Command="{Binding TriggerNextRoundCommand}"/>
-
-            <Button Content="TestTeamALost3Chances"
+            <Button Content="Drużyna B"
                Width="140"
-               Command="{Binding TestTeamALost3Chances}"/>
-            
-            
+               Command="{Binding TeamBAnsweringCommand}"/>
+
         </StackPanel>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="5"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="0,10,0,0">
+                <Button Content="Intro Music"
+            Width="140"
+            Command="{Binding IntroMusicCommand}"/>
+                <Button Content="Answer Correct"
+            Width="140"
+            Command="{Binding AnswerCorrectCommand}"/>
+
+                <Button Content="Answer Incorrect"
+            Width="140"
+            Command="{Binding AnswerIncorrectCommand}"/>
+
+                <Button Content="Next Round"
+            Width="140"
+            Command="{Binding TriggerNextRoundCommand}"/>
+
+                <Button Content="TestTeamALost3Chances"
+             Width="140"
+             Command="{Binding TestTeamALost3Chances}"/>
+        </StackPanel>
+        
     </Grid>
 </Window>

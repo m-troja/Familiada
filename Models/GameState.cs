@@ -66,6 +66,90 @@ public class GameState : INotifyPropertyChanged
         }
     }
 
+    // First Wins
+    private int _firstWinsIterations = 1;
+    public int FirstWinsIterations
+    {
+        get => _firstWinsIterations;
+        set
+        {
+            if (_firstWinsIterations != value)
+            {
+                _firstWinsIterations = value;
+                OnPropertyChanged(nameof(FirstWinsIterations));
+            }
+        }
+    }
+
+    private bool _isFirstWins = false;
+    public bool IsFirstWins
+    {
+        get => _isFirstWins;
+        set
+        {
+            if (_isFirstWins != value)
+            {
+                _isFirstWins = value;
+                OnPropertyChanged(nameof(IsFirstWins));
+            }
+        }
+    }
+
+    private bool _isTeamAFirstWinsError = false;
+    public bool IsTeamAFirstWinsError
+    {
+        get => _isTeamAFirstWinsError;
+        set
+        {
+            if (_isTeamAFirstWinsError != value)
+            {
+                _isTeamAFirstWinsError = value;
+                OnPropertyChanged(nameof(IsTeamAFirstWinsError));
+            }
+        }
+    }
+
+    private bool _isTeamBFirstWinsError = false;
+    public bool IsTeamBFirstWinsError
+    {
+        get => _isTeamBFirstWinsError;
+        set
+        {
+            if (_isTeamBFirstWinsError != value)
+            {
+                _isTeamBFirstWinsError = value;
+                OnPropertyChanged(nameof(IsTeamBFirstWinsError));
+            }
+        }
+    }
+
+    // Team Answers
+    private bool _isTeamAAnswering = false;
+    public bool IsTeamAAnswering
+    {
+        get => _isTeamAAnswering;
+        set
+        {
+            if (_isTeamAAnswering != value)
+            {
+                _isTeamAAnswering = value;
+                OnPropertyChanged(nameof(IsTeamAAnswering));
+            }
+        }
+    }
+    private bool _isTeamBAnswering = false;
+    public bool IsTeamBAnswering
+    {
+        get => _isTeamBAnswering;
+        set
+        {
+            if (_isTeamBAnswering != value)
+            {
+                _isTeamBAnswering = value;
+                OnPropertyChanged(nameof(IsTeamBAnswering));
+            }
+        }
+    }
     // Lost changes
     private int _teamALostChances = 0;
     public int TeamALostChances
