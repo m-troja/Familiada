@@ -15,54 +15,137 @@
     <Window.Resources>
         <local:PlusOneConverter x:Key="PlusOneConverter"/>
     </Window.Resources>
-    
-    <Grid Margin="10">
+
+    <!-- Main Grid -->
+
+    <Grid x:Name="RootGrid" Margin="10">
         <Grid.RowDefinitions>
+           
+            <!-- Pula punktów -->
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+
+            <!-- Nazwy drużyn -->
             <RowDefinition Height="Auto"/>
+
+            <!-- Wartości punktów drużyn -->
+            <RowDefinition Height="Auto"/>
+
+            <!-- Scoreboard -->
+            <RowDefinition Height="Auto"/>
+            
         </Grid.RowDefinitions>
 
+        <!-- Pula punktów (środek) -->
+        <TextBlock Grid.Row="0"
+               FontSize="28"
+               HorizontalAlignment="Center"
+               Text="{Binding RoundPoints}"/>
 
-        <!-- Pytanie -->
-        <TextBlock  Grid.Row="0" FontSize="24"
-           Margin="0,0,0,10"
-           Text="{Binding CurrentQuestionText}"/>
+        <!-- Nazwy drużyn -->
+        <Grid x:Name="TeamNames" Margin="0,37,0,44" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" FontSize="24" HorizontalAlignment="Left" Text="{Binding TeamAPointsText}"/>
+            <TextBlock Grid.Column="1" FontSize="24" HorizontalAlignment="Right" Text="{Binding TeamBPointsText}"/>
+        </Grid>
+
+        <!-- Wartości punktów drużyn -->
+        <Grid x:Name="TeamPoints" Grid.Row="2" Margin="0,32,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" FontSize="28" HorizontalAlignment="Left" Text="{Binding TeamAPoints}"/>
+            <TextBlock Grid.Column="1" FontSize="28" HorizontalAlignment="Right" Text="{Binding TeamBPoints}"/>
+        </Grid>
 
 
-        <!-- Lista odpowiedzi -->
-        <ItemsControl  Grid.Row="1" ItemsSource="{Binding RevealedAnswers}"  AlternationCount="100">
+        <!-- Grid X + Scoreboard -->
+        <Grid x:Name="XandScoreboardGrid" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <!-- X Drużyna A -->
+                <ColumnDefinition Width="140"/>
+                <!-- Lista odpowiedzi -->
+                <ColumnDefinition Width="*"/>
+                <!-- X Drużyna B -->
+                <ColumnDefinition Width="140"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- X Druzyna A -->
+            <StackPanel Grid.Column="0"
+                Orientation="Vertical"
+                VerticalAlignment="Center"
+                Margin="10">
+
+                <TextBlock  FontSize="22" Text="{Binding DataContext.TeamAX1,
+                       RelativeSource={RelativeSource AncestorType=Window}}"/>
+                <TextBlock  FontSize="22" Text="{Binding DataContext.TeamAX2,
+                       RelativeSource={RelativeSource AncestorType=Window}}"/>
+                <TextBlock  FontSize="22"  Text="{Binding DataContext.TeamAX3,
+                       RelativeSource={RelativeSource AncestorType=Window}}"/>
+            </StackPanel>
+
+            <!-- Actual Scoreboard -->
+            <ItemsControl Grid.Column="1"
+                          ItemsSource="{Binding RevealedAnswers}"
+                          AlternationCount="100" Margin="0,13,0,0">
+
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="0,4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                     <Border BorderBrush="Red" BorderThickness="1">
+                        <Grid x:Name="ScoreboardGrid" Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <!-- Numer -->
+                                <ColumnDefinition Width="40"/>
+                                <!-- Tekst -->
+                                <ColumnDefinition Width="*"/>
+                                <!-- Punkty -->
+                                <ColumnDefinition Width="80"/>
+                            </Grid.ColumnDefinitions>
 
-                        <!-- Numer wiersza: alternation index + 1 -->
-                        <TextBlock Grid.Column="0"
-                            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter}, 
-                             Path=(ItemsControl.AlternationIndex), Converter={StaticResource PlusOneConverter}}"
-                            FontSize="22"
-                            HorizontalAlignment="Center"/>
+                            <!-- Numer -->
+                            <TextBlock Grid.Column="0"
+                                Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter},
+                                               Path=(ItemsControl.AlternationIndex),
+                                               Converter={StaticResource PlusOneConverter}}"
+                                FontSize="22"
+                                HorizontalAlignment="Center"/>
 
-                        <TextBlock  Grid.Column="1" 
-                                    Text="{Binding DisplayText}"
-                                    FontSize="22"/>
+                            <!-- Tekst -->
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding DisplayText}"
+                                       FontSize="22"/>
 
-                        
-                        <TextBlock  Grid.Column="2" 
-                                    Text="{Binding DisplayPoints}"
-                                    HorizontalAlignment="Right"
-                                    FontSize="22"/>
+                            <!-- Punkty -->
+                            <TextBlock Grid.Column="2"
+                                   Text="{Binding DisplayPoints}"
+                                   HorizontalAlignment="Right"
+                                   FontSize="22"/>
 
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
 
+                     </Grid>
+                     </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            
+            <!-- X Druzyna B -->
+            <StackPanel Grid.Column="2"
+                            Orientation="Vertical"
+                            VerticalAlignment="Center"
+                            Margin="10,10,10,10">
+
+                <TextBlock  FontSize="22" Text="{Binding DataContext.TeamBX1,
+                                    RelativeSource={RelativeSource AncestorType=Window}}"/>
+                <TextBlock  FontSize="22" Text="{Binding DataContext.TeamBX2,
+                                RelativeSource={RelativeSource AncestorType=Window}}"/>
+                <TextBlock  FontSize="22"  Text="{Binding DataContext.TeamBX3,
+                                RelativeSource={RelativeSource AncestorType=Window}}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
-
 </Window>

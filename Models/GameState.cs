@@ -50,7 +50,7 @@ public class GameState : INotifyPropertyChanged
                 OnPropertyChanged(nameof(TeamAPoints));
             }
         }
-    }
+    } 
 
 
     public int TeamBPoints
@@ -65,6 +65,37 @@ public class GameState : INotifyPropertyChanged
             }
         }
     }
+
+    // Lost changes
+    private int _teamALostChances = 0;
+    public int TeamALostChances
+    {
+        get => _teamALostChances;
+        set
+        {
+            if (_teamALostChances != value)
+            {
+                _teamALostChances = value;
+                OnPropertyChanged(nameof(TeamALostChances));
+            }
+        }
+    }
+
+    private int _teamBLostChances = 0;
+    public int TeamBLostChances
+    {
+        get => _teamBLostChances;
+        set
+        {
+            if (_teamBLostChances != value)
+            {
+                _teamBLostChances = value;
+                OnPropertyChanged(nameof(TeamBLostChances));
+            }
+        }
+    }
+
+
     public GameState()
     {
         var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "answers1.json");

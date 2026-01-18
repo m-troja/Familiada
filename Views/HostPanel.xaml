@@ -90,6 +90,12 @@
             <Button Content="Next Round"
               Width="140"
               Command="{Binding TriggerNextRoundCommand}"/>
+
+            <Button Content="TestTeamALost3Chances"
+               Width="140"
+               Command="{Binding TestTeamALost3Chances}"/>
+            
+            
         </StackPanel>
     </Grid>
 </Window>
