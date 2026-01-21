@@ -1,13 +1,7 @@
-﻿using Familiada.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Familiada.Models;
 
@@ -93,38 +87,38 @@ public class GameState : INotifyPropertyChanged
                 _isFirstWins = value;
                 if (_isFirstWins == false)
                 {
-                    OnPropertyChanged(nameof(IsTeamAFirstWinsError));
-                    OnPropertyChanged(nameof(IsTeamBFirstWinsError));
+                    OnPropertyChanged(nameof(IsTeamAdisplayBigX));
+                    OnPropertyChanged(nameof(IsTeamBdisplayBigX));
                 }
                 OnPropertyChanged(nameof(IsFirstWins));
             }
         }
     }
 
-    private bool _isTeamAFirstWinsError = false;
-    public bool IsTeamAFirstWinsError
+    private bool _isTeamAdisplayBigX = false;
+    public bool IsTeamAdisplayBigX
     {
-        get => _isTeamAFirstWinsError;
+        get => _isTeamAdisplayBigX;
         set
         {
-            if (_isTeamAFirstWinsError != value)
+            if (_isTeamAdisplayBigX != value)
             {
-                _isTeamAFirstWinsError = value;
-                OnPropertyChanged(nameof(IsTeamAFirstWinsError));
+                _isTeamAdisplayBigX = value;
+                OnPropertyChanged(nameof(IsTeamAdisplayBigX));
             }
         }
     }
 
-    private bool _isTeamBFirstWinsError = false;
-    public bool IsTeamBFirstWinsError
+    private bool _isTeamBdisplayBigX = false;
+    public bool IsTeamBdisplayBigX
     {
-        get => _isTeamBFirstWinsError;
+        get => _isTeamBdisplayBigX;
         set
         {
-            if (_isTeamBFirstWinsError != value)
+            if (_isTeamBdisplayBigX != value)
             {
-                _isTeamBFirstWinsError = value;
-                OnPropertyChanged(nameof(IsTeamBFirstWinsError));
+                _isTeamBdisplayBigX = value;
+                OnPropertyChanged(nameof(IsTeamBdisplayBigX));
             }
         }
     }
@@ -195,6 +189,21 @@ public class GameState : INotifyPropertyChanged
             {
                 _roundFinished = value;
                 OnPropertyChanged(nameof(RoundFinished));
+            }
+        }
+    }
+
+    // LAST CHANCE
+    private bool _isLastChance = false;
+    public bool IsLastChance
+    {
+        get => _isLastChance;
+        set
+        {
+            if (_isLastChance != value)
+            {
+                _isLastChance = value;
+                OnPropertyChanged(nameof(IsLastChance));
             }
         }
     }

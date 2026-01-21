@@ -103,10 +103,10 @@
                             FontSize="222"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Visibility="{Binding DataContext.IsTeamAFirstWinsError,
+                            Visibility="{Binding DataContext.IsTeamAdisplayBigX,
                                                  RelativeSource={RelativeSource AncestorType=Window},
                                                  Converter={StaticResource BoolToVisibility}}"
-                                                 Text="{Binding DataContext.TeamALostFirstWinChance,
+                                                 Text="{Binding DataContext.TeamAbigX,
                                                  RelativeSource={RelativeSource AncestorType=Window}}"/>
 
                 </Grid>
@@ -158,27 +158,29 @@
             
             <!-- X Druzyna B -->
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2" >
-                <StackPanel Orientation="Vertical"
-                                VerticalAlignment="Center"
-                                Margin="0">
+                <Grid>
+                    <StackPanel Orientation="Vertical"
+                                    VerticalAlignment="Center">
 
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" Text="{Binding DataContext.TeamBX1,
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" Text="{Binding DataContext.TeamBX1,
+                                            RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" Text="{Binding DataContext.TeamBX2,
                                         RelativeSource={RelativeSource AncestorType=Window}}"/>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" Text="{Binding DataContext.TeamBX2,
-                                    RelativeSource={RelativeSource AncestorType=Window}}"/>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" Text="{Binding DataContext.TeamBX3,
-                                    RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" Text="{Binding DataContext.TeamBX3,
+                                        RelativeSource={RelativeSource AncestorType=Window}}"/>
+                   
+                    </StackPanel>
                     <!-- IsFirstWin = true -->
                     <TextBlock
-                        FontSize="222"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Visibility="{Binding DataContext.IsTeamBFirstWinsError,
-                                             RelativeSource={RelativeSource AncestorType=Window},
-                                             Converter={StaticResource BoolToVisibility}}"
-                        Text="{Binding DataContext.TeamBLostFirstWinChance,
-                       RelativeSource={RelativeSource AncestorType=Window}}"/>  
-                </StackPanel>
+                         FontSize="222"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Visibility="{Binding DataContext.IsTeamBdisplayBigX,
+                                              RelativeSource={RelativeSource AncestorType=Window},
+                                              Converter={StaticResource BoolToVisibility}}"
+                         Text="{Binding DataContext.TeamBbigX,
+                                RelativeSource={RelativeSource AncestorType=Window}}"/>
+                </Grid>
             </Border>
         </Grid>
     </Grid>
