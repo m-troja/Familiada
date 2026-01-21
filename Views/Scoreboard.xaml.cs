@@ -15,11 +15,15 @@ using System.Windows.Shapes;
 
 namespace Familiada.Views;
 
-public partial class Scoreboard : Window
+public partial class Scoreboard : UserControl
 {
-    public Scoreboard(GameViewModel viewModel)
+    public Scoreboard()
     {
         InitializeComponent();
-        DataContext = viewModel; // Binding to ViewModel
+    }
+
+    public Scoreboard(GameViewModel viewModel) : this()
+    {
+        DataContext = viewModel;
     }
 }

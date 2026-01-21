@@ -16,6 +16,7 @@ public class GameState : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new(propertyName));
     }
 
+    public Phase Phase { get; set; } = Phase.NotStarted;
     private int _teamAPoints = 0;
     private int _teamBPoints = 0;
     private int _roundPoints = 0;
@@ -208,6 +209,20 @@ public class GameState : INotifyPropertyChanged
         }
     }
 
+    // FINAL
+    private bool _isFinalRound = false;
+    public bool IsFinalRound
+    {
+        get => _isFinalRound;
+        set
+        {
+            if (_isFinalRound != value)
+            {
+                _isFinalRound = value;
+                OnPropertyChanged(nameof(IsFinalRound));
+            }
+        }
+    }
     public GameState()
     {
         var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "answers1.json");

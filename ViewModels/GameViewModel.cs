@@ -8,8 +8,10 @@ using System.Media;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
 
-public class GameViewModel : INotifyPropertyChanged
+public class GameViewModel : INotifyPropertyChanged 
 {
+
+    private readonly RootViewModel _rootViewModel;
     private readonly SoundService _soundService = new SoundService();
     public ObservableCollection<int> QuestionIds
     {
@@ -174,11 +176,15 @@ public class GameViewModel : INotifyPropertyChanged
     public bool IsTeamAAnswering => GameState.IsTeamAAnswering;
     public bool IsTeamBAnswering => GameState.IsTeamBAnswering;
     public bool IsLastChance => GameState.IsLastChance;
+    public bool IsFinalRound => GameState.IsFinalRound;
+    private Phase Phase => GameState.Phase;
+    public GameViewModel() : this(new GameState(), null) { }
 
 
-    public GameViewModel(GameState gameState)
+    public GameViewModel(GameState gameState, RootViewModel rootViewModel)
     {
         GameState = gameState;
+        _rootViewModel = rootViewModel;
 
         Answers = new ObservableCollection<Answer>(
             GameState.Questions[GameState.RoundNumber].Answers
@@ -261,7 +267,7 @@ public class GameViewModel : INotifyPropertyChanged
 
             GameState.RoundPoints += answer.Points;
 
-            CheckGameCanBeFinished();
+            CheckRoundCanBeFinished();
         }
     }
 
@@ -340,8 +346,9 @@ public class GameViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(CurrentQuestionText));
         OnPropertyChanged(nameof(IsFirstWins));
         OnPropertyChanged(nameof(FirstWinsText));
+        OnPropertyChanged(nameof(FirstWinsText));
     }
-    private async void CheckGameCanBeFinished()
+    private async void CheckRoundCanBeFinished()
     {
         // Check if all answers are revealed
 
@@ -418,6 +425,18 @@ public class GameViewModel : INotifyPropertyChanged
         await _soundService.PlaySequenceAsync(
           "Assets/Sounds/przed_i_po_rundzie.wav"
          );
+
+        if (GameState.RoundNumber == GameState.Questions.Count)
+        {
+            EnterFinal();
+        }
+    }
+
+    private void EnterFinal()
+    {
+        GameState.Phase = Phase.Final;
+        UpdateFrontend();
+        _rootViewModel.SwitchToFinal();
     }
 
     private void CheckFirstWins()
@@ -507,5 +526,11 @@ public class GameViewModel : INotifyPropertyChanged
 
         if (e.PropertyName == nameof(GameState.IsLastChance))
             OnPropertyChanged(nameof(IsLastChance));
+
+        if (e.PropertyName == nameof(GameState.IsFinalRound))
+            OnPropertyChanged(nameof(IsFinalRound));
+        if (e.PropertyName == nameof(GameState.Phase))
+            OnPropertyChanged(nameof(Phase));
+
     }
 }

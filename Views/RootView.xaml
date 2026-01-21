@@ -1,0 +1,23 @@
+﻿<Window x:Class="Familiada.Views.RootView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Familiada.ViewModels"
+        xmlns:views="clr-namespace:Familiada.Views"
+        Title="Familiada" Height="800" Width="1200">
+
+    <Window.DataContext>
+        <vm:RootViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:GameViewModel}">
+            <views:Scoreboard/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:FinalViewModel}">
+            <views:FinalScoreboard/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <ContentControl Content="{Binding CurrentViewModel}"/>
+</Window>
