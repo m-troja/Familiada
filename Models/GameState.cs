@@ -22,9 +22,9 @@ public class GameState : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new(propertyName));
     }
 
-    private int _teamAPoints = 1;
-    private int _teamBPoints = 2;
-    private int _roundPoints = 3;
+    private int _teamAPoints = 0;
+    private int _teamBPoints = 0;
+    private int _roundPoints = 0;
     public int RoundNumber { get; set; } 
     public int RoundPoints
     {
@@ -87,9 +87,15 @@ public class GameState : INotifyPropertyChanged
         get => _isFirstWins;
         set
         {
+
             if (_isFirstWins != value)
             {
                 _isFirstWins = value;
+                if (_isFirstWins == false)
+                {
+                    OnPropertyChanged(nameof(IsTeamAFirstWinsError));
+                    OnPropertyChanged(nameof(IsTeamBFirstWinsError));
+                }
                 OnPropertyChanged(nameof(IsFirstWins));
             }
         }
@@ -179,6 +185,19 @@ public class GameState : INotifyPropertyChanged
         }
     }
 
+    private bool _roundFinished = false;
+    public bool RoundFinished
+    {
+        get => _roundFinished;
+        set
+        {
+            if (_roundFinished != value)
+            {
+                _roundFinished = value;
+                OnPropertyChanged(nameof(RoundFinished));
+            }
+        }
+    }
 
     public GameState()
     {

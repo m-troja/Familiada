@@ -36,6 +36,7 @@ public class GameViewModel : INotifyPropertyChanged
     public ICommand TestTeamALost3Chances { get; }
     public ICommand TeamAAnsweringCommand { get; }
     public ICommand TeamBAnsweringCommand { get; }
+    public ICommand CheckFirstWinsCommand { get; }
     public GameState GameState { get; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -101,7 +102,7 @@ public class GameViewModel : INotifyPropertyChanged
 
     public string TeamALostFirstWinChance => GameState.IsTeamAFirstWinsError ? "X" : "";
     public string TeamBLostFirstWinChance => GameState.IsTeamBFirstWinsError ? "X" : "";
-    public string FirstWinsText => GameState.IsFirstWins ? "Kto pierwszy ten lepszy!!!" : "";
+    public string FirstWinsText => GameState.IsFirstWins ? $"Kto pierwszy ten lepszy!!! Iteracja {GameState.FirstWinsIterations}" : "";
     public string TeamAnswersText
     {
         get
@@ -171,6 +172,7 @@ public class GameViewModel : INotifyPropertyChanged
     }
 
     public bool IsFirstWins => GameState.IsFirstWins;
+
     public bool IsTeamAFirstWinsError => GameState.IsTeamAFirstWinsError;
     public bool IsTeamBFirstWinsError => GameState.IsTeamBFirstWinsError;
     public  bool IsTeamAAnswering => GameState.IsTeamAAnswering;
@@ -185,54 +187,65 @@ public class GameViewModel : INotifyPropertyChanged
         );
 
 
-        // 🔹 KOMENDA Z PARAMETREM
         RevealAnswerCommand = new RelayCommand<Answer>(async answer =>
         {
-            GameState.IsFirstWins = false;
-
-            PlaySound("Assets/Sounds/correct.wav");
-            
             if (answer == null || answer.IsRevealed)
                 return;
-
+            
             answer.IsRevealed = true;
-            GameState.RoundPoints += answer.Points;
+            
+            PlaySound("Assets/Sounds/correct.wav");
 
-            // Check if all answers are revealed
-            if (Answers.All(a => a.IsRevealed))
+            if (!GameState.RoundFinished)
             {
-                await _soundService.PlaySequenceAsync(
-                  "Assets/Sounds/dzwonki.wav"
-                 );
-                if (IsTeamAAnswering)
-                {
-                    TeamAPoints += GameState.RoundPoints;
-                }
-                else if (IsTeamBAnswering)
-                {
-                    TeamBPoints += GameState.RoundPoints;
-                }
-                GameState.RoundPoints = 0;
+                GameState.IsFirstWins = false;
 
-                await _soundService.PlaySequenceAsync(
-                  "Assets/Sounds/przed_i_po_rundzie.wav"
-                 );
+                RemoveFirstWinsErrors();
 
+                GameState.RoundPoints += answer.Points;
+
+                CheckGameCanBeFinished();
             }
-
-            OnPropertyChanged(nameof(FirstWinsText));
-            OnPropertyChanged(nameof(TeamAPoints));
-            OnPropertyChanged(nameof(TeamBPoints));
-            OnPropertyChanged(nameof(RoundPoints));
-
         });
-
 
         AnswerCorrectCommand = new RelayCommand(() =>
             PlaySound("Assets/Sounds/correct.wav"));
 
         AnswerIncorrectCommand = new RelayCommand(() =>
-            PlaySound("Assets/Sounds/incorrect.wav"));
+        {
+            if (IsFirstWins)
+            {
+                if (IsTeamAAnswering)
+                {
+                    GameState.IsTeamAFirstWinsError = true;
+                    OnPropertyChanged(nameof(TeamALostFirstWinChance));
+                }
+                else if (IsTeamBAnswering)
+                {
+                    GameState.IsTeamBFirstWinsError = true;
+                    OnPropertyChanged(nameof(TeamBLostFirstWinChance));
+                }
+            }
+            else
+            {
+                if (IsTeamAAnswering)
+                {
+                    GameState.TeamALostChances++;
+                    OnPropertyChanged(nameof(TeamAX1));
+                    OnPropertyChanged(nameof(TeamAX2));
+                    OnPropertyChanged(nameof(TeamAX3));
+                }
+                else if (IsTeamBAnswering)
+                {
+                    GameState.TeamBLostChances++;
+                    OnPropertyChanged(nameof(TeamBX1));
+                    OnPropertyChanged(nameof(TeamBX2));
+                    OnPropertyChanged(nameof(TeamBX3));
+                }
+            }
+            PlaySound("Assets/Sounds/incorrect.wav");
+
+        });
 
         PlayAnswerCorrectCommand = new RelayCommand(() =>
             PlaySound("Assets/Sounds/correct.wav"));
@@ -259,24 +272,10 @@ public class GameViewModel : INotifyPropertyChanged
 
         } );
 
-        // 🔹 BEZ PARAMETRU
+        // 🔹 RelayCommand NoParam
         TriggerNextRoundCommand = new RelayCommand(() =>
         {
-            GameState.IsFirstWins = true;
-
-            if (GameState.RoundNumber + 1 >= GameState.Questions.Count)
-                return;
-
-            GameState.RoundNumber++;
-
-            Answers = new ObservableCollection<Answer>(
-                GameState.Questions[GameState.RoundNumber].Answers
-            );
-
-            PlaySound("Assets/Sounds/przed_i_po_rundzie.wav");
-
-            OnPropertyChanged(nameof(CurrentQuestionText));
-            OnPropertyChanged(nameof(FirstWinsText));
+            StartNewRound();
         });
 
         TestTeamALost3Chances = new RelayCommand(() =>
@@ -285,10 +284,145 @@ public class GameViewModel : INotifyPropertyChanged
             RoundPoints = -2;
         });
 
+        CheckFirstWinsCommand = new RelayCommand(() =>
+        {
+            CheckFirstWins();
+        });
+
         // ROUND POINTS
         GameState.PropertyChanged += GameState_PropertyChanged;
 
         
+    }
+
+    private async void CheckGameCanBeFinished()
+    {
+        // Check if all answers are revealed
+
+        if (Answers.All(a => a.IsRevealed) && GameState.RoundPoints != 0)
+        {
+            await _soundService.PlaySequenceAsync(
+              "Assets/Sounds/dzwonki.wav"
+             );
+
+            if (IsTeamAAnswering)
+            {
+                TeamAPoints += GameState.RoundPoints;
+                EndRound();
+
+            }
+            else if (IsTeamBAnswering)
+            {
+                TeamBPoints += GameState.RoundPoints;
+                EndRound();
+            }
+        }
+
+        // Check if any team lost 3 chances
+
+        if (GameState.TeamALostChances == 3 || GameState.TeamBLostChances == 3) await _soundService.PlaySequenceAsync(
+              "Assets/Sounds/dzwonki.wav"
+             );
+
+        if (GameState.TeamALostChances == 3)
+        {
+            TeamBPoints += GameState.RoundPoints;
+            EndRound();
+        }
+        else if (GameState.TeamBLostChances == 3)
+        {
+            TeamAPoints += GameState.RoundPoints;
+            EndRound();
+        }
+    }
+
+    private void RemoveFirstWinsErrors()
+    {
+        GameState.IsTeamAFirstWinsError = false;
+        GameState.IsTeamBFirstWinsError = false;
+        OnPropertyChanged(nameof(IsTeamAFirstWinsError));
+        OnPropertyChanged(nameof(IsTeamBFirstWinsError));
+
+
+    }
+    private async void StartNewRound()
+    {
+        GameState.IsFirstWins = true;
+        GameState.RoundFinished = false;
+
+        if (GameState.RoundNumber + 1 >= GameState.Questions.Count)
+            return;
+
+        GameState.RoundNumber++;
+
+        Answers = new ObservableCollection<Answer>(
+            GameState.Questions[GameState.RoundNumber].Answers
+        );
+
+        GameState.RoundPoints = 0;
+        GameState.TeamALostChances = 0;
+        GameState.TeamBLostChances = 0;
+
+        await _soundService.PlaySequenceAsync(
+          "Assets/Sounds/przed_i_po_rundzie.wav"
+         );
+
+        RemoveFirstWinsErrors();
+        OnPropertyChanged(nameof(CurrentQuestionText));
+        OnPropertyChanged(nameof(IsFirstWins));
+        OnPropertyChanged(nameof(FirstWinsText));
+        OnPropertyChanged(nameof(TeamAPoints));
+        OnPropertyChanged(nameof(TeamBPoints));
+        OnPropertyChanged(nameof(RoundPoints));
+        OnPropertyChanged(nameof(TeamAX1));
+        OnPropertyChanged(nameof(TeamAX2));
+        OnPropertyChanged(nameof(TeamAX3));
+        OnPropertyChanged(nameof(TeamBX1));
+        OnPropertyChanged(nameof(TeamBX2));
+        OnPropertyChanged(nameof(TeamBX3));
+    }
+
+    private async void EndRound()
+    {
+       GameState.RoundFinished = true;
+        RoundPoints = 0;
+        await _soundService.PlaySequenceAsync(
+          "Assets/Sounds/przed_i_po_rundzie.wav"
+         );
+    }
+
+    private void CheckFirstWins()
+    {
+        GameState.IsFirstWins = true;
+        GameState.FirstWinsIterations++;
+        GameState.TeamALostChances = 0;
+        GameState.TeamBLostChances = 0;
+        GameState.IsTeamAFirstWinsError = false;
+        GameState.IsTeamBFirstWinsError = false;
+        OnPropertyChanged(nameof(IsFirstWins));
+        OnPropertyChanged(nameof(FirstWinsText));
+        OnPropertyChanged(nameof(IsFirstWins));
+        OnPropertyChanged(nameof(IsTeamAFirstWinsError));
+        OnPropertyChanged(nameof(IsTeamBFirstWinsError));
+        OnPropertyChanged(nameof(TeamALostFirstWinChance));
+        OnPropertyChanged(nameof(TeamBLostFirstWinChance));
+    }
+
+    private void EndFirstWins()
+    {
+        GameState.IsFirstWins = true;
+        GameState.FirstWinsIterations = 0;
+        GameState.TeamALostChances = 0;
+        GameState.TeamBLostChances = 0;
+        GameState.IsTeamAFirstWinsError = false;
+        GameState.IsTeamBFirstWinsError = false;
+        OnPropertyChanged(nameof(IsFirstWins));
+        OnPropertyChanged(nameof(FirstWinsText));
+        OnPropertyChanged(nameof(IsFirstWins));
+        OnPropertyChanged(nameof(IsTeamAFirstWinsError));
+        OnPropertyChanged(nameof(IsTeamBFirstWinsError));
+        OnPropertyChanged(nameof(TeamALostFirstWinChance));
+        OnPropertyChanged(nameof(TeamBLostFirstWinChance));
     }
 
     private void PlaySound(string relativePath)
@@ -354,6 +488,4 @@ public class GameViewModel : INotifyPropertyChanged
         if (e.PropertyName == nameof(GameState.IsTeamBAnswering))
             OnPropertyChanged(nameof(IsTeamBAnswering));
     }
-
-
 }
