@@ -81,12 +81,10 @@ public class GameViewModel : INotifyPropertyChanged
         }
     }
 
-
     // Lost chances
     public bool IsAX1Lost => GameState.TeamALostChances >= 1;
     public bool IsAX2Lost => GameState.TeamALostChances >= 2;
     public bool IsAX3Lost => GameState.TeamALostChances >= 3;
-
     public bool IsBX1Lost => GameState.TeamBLostChances >= 1;
     public bool IsBX2Lost => GameState.TeamBLostChances >= 2;
     public bool IsBX3Lost => GameState.TeamBLostChances >= 3;
@@ -95,7 +93,6 @@ public class GameViewModel : INotifyPropertyChanged
     public string TeamAX1 => IsAX1Lost ? "X" : "";
     public string TeamAX2 => IsAX2Lost ? "X" : "";
     public string TeamAX3 => IsAX3Lost ? "X" : "";
-
     public string TeamBX1 => IsBX1Lost ? "X" : "";
     public string TeamBX2 => IsBX2Lost ? "X" : "";
     public string TeamBX3 => IsBX3Lost ? "X" : "";
@@ -174,8 +171,8 @@ public class GameViewModel : INotifyPropertyChanged
     public bool IsFirstWins => GameState.IsFirstWins;
     public bool IsTeamAdisplayBigX => GameState.IsTeamAdisplayBigX;
     public bool IsTeamBdisplayBigX => GameState.IsTeamBdisplayBigX;
-    public  bool IsTeamAAnswering => GameState.IsTeamAAnswering;
-    public  bool IsTeamBAnswering => GameState.IsTeamBAnswering;
+    public bool IsTeamAAnswering => GameState.IsTeamAAnswering;
+    public bool IsTeamBAnswering => GameState.IsTeamBAnswering;
     public bool IsLastChance => GameState.IsLastChance;
 
 
@@ -186,7 +183,6 @@ public class GameViewModel : INotifyPropertyChanged
         Answers = new ObservableCollection<Answer>(
             GameState.Questions[GameState.RoundNumber].Answers
         );
-
 
         RevealAnswerCommand = new RelayCommand<Answer>(async answer =>
         {
@@ -212,7 +208,6 @@ public class GameViewModel : INotifyPropertyChanged
 
         TeamAAnsweringCommand = new RelayCommand(() =>
         {
-
             GameState.IsTeamAAnswering = true;
             GameState.IsTeamBAnswering = false;
             OnPropertyChanged(nameof(TeamAnswersText));
@@ -245,8 +240,6 @@ public class GameViewModel : INotifyPropertyChanged
 
         // ROUND POINTS
         GameState.PropertyChanged += GameState_PropertyChanged;
-
-        
     }
 
     private void HandleRevealAnswer(Answer answer)
