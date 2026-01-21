@@ -1,0 +1,108 @@
+﻿{
+  "Questions": [
+    {
+      "Id": 1,
+      "Text": "Podaj coś, co ludzie robią w windzie",
+      "Answers": [
+        {
+          "Text": "Patrzą w telefon",
+          "Points": 30
+        },
+        {
+          "Text": "Stoją w ciszy",
+          "Points": 24
+        },
+        {
+          "Text": "Patrzą na numery pięter",
+          "Points": 20
+        },
+        {
+          "Text": "Rozmawiają",
+          "Points": 14
+        },
+        {
+          "Text": "Udają, że nikogo nie widzą",
+          "Points": 12
+        }
+      ]
+    },
+    {
+      "Id": 2,
+      "Text": "Podaj coś, co można zgubić w domu",
+      "Answers": [
+        {
+          "Text": "Klucze",
+          "Points": 38
+        },
+        {
+          "Text": "Pilot",
+          "Points": 26
+        },
+        {
+          "Text": "Telefon",
+          "Points": 18
+        },
+        {
+          "Text": "Okulary",
+          "Points": 10
+        },
+        {
+          "Text": "Portfel",
+          "Points": 8
+        }
+      ]
+    },
+    {
+      "Id": 3,
+      "Text": "Podaj coś, co robimy, gdy nie możemy zasnąć",
+      "Answers": [
+        {
+          "Text": "Przeglądamy telefon",
+          "Points": 34
+        },
+        {
+          "Text": "Przewracamy się z boku na bok",
+          "Points": 24
+        },
+        {
+          "Text": "Liczymy w myślach",
+          "Points": 16
+        },
+        {
+          "Text": "Wstajemy z łóżka",
+          "Points": 14
+        },
+        {
+          "Text": "Włączamy telewizor",
+          "Points": 12
+        }
+      ]
+    },
+    {
+      "Id": 4,
+      "Text": "Podaj coś, co denerwuje kierowców",
+      "Answers": [
+        {
+          "Text": "Korki",
+          "Points": 40
+        },
+        {
+          "Text": "Wolna jazda innych",
+          "Points": 22
+        },
+        {
+          "Text": "Brak miejsc parkingowych",
+          "Points": 16
+        },
+        {
+          "Text": "Piesi",
+          "Points": 12
+        },
+        {
+          "Text": "Radar/policja",
+          "Points": 10
+        }
+      ]
+    }
+  ]
+}

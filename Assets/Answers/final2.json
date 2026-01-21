@@ -1,0 +1,134 @@
+﻿{
+  "Questions": [
+      {
+      "Id": 1,
+      "Text": "Podaj coś, co ludzie jedzą na szybko",
+      "Answers": [
+        {
+          "Text": "Kanapkę",
+          "Points": 34
+        },
+        {
+          "Text": "Pizzę",
+          "Points": 22
+        },
+        {
+          "Text": "Hot-doga",
+          "Points": 18
+        },
+        {
+          "Text": "Batonika",
+          "Points": 14
+        },
+        {
+          "Text": "Zupkę instant",
+          "Points": 12
+        }
+      ]
+    },
+    {
+      "Id": 2,
+      "Text": "Podaj coś, co sprawdzamy przed wyjściem z domu",
+      "Answers": [
+        {
+          "Text": "Czy mamy klucze",
+          "Points": 36
+        },
+        {
+          "Text": "Telefon",
+          "Points": 24
+        },
+        {
+          "Text": "Portfel",
+          "Points": 20
+        },
+        {
+          "Text": "Pogodę",
+          "Points": 10
+        },
+        {
+          "Text": "Czy zamknęliśmy drzwi",
+          "Points": 10
+        }
+      ]
+    },
+    {
+      "Id": 3,
+      "Text": "Podaj coś, co ludzie robią w weekend",
+      "Answers": [
+        {
+          "Text": "Odpoczywają",
+          "Points": 30
+        },
+        {
+          "Text": "Sprzątają",
+          "Points": 22
+        },
+        {
+          "Text": "Spotykają się ze znajomymi",
+          "Points": 20
+        },
+        {
+          "Text": "Śpią dłużej",
+          "Points": 16
+        },
+        {
+          "Text": "Oglądają filmy",
+          "Points": 12
+        }
+      ]
+    },
+    {
+      "Id": 4,
+      "Text": "Podaj coś, co może się zepsuć w domu",
+      "Answers": [
+        {
+          "Text": "Pralka",
+          "Points": 28
+        },
+        {
+          "Text": "Telewizor",
+          "Points": 24
+        },
+        {
+          "Text": "Lodówka",
+          "Points": 20
+        },
+        {
+          "Text": "Zmywarka",
+          "Points": 16
+        },
+        {
+          "Text": "Czajnik",
+          "Points": 12
+        }
+      ]
+    },
+    {
+      "Id": 5,
+      "Text": "Podaj coś, co robimy, gdy pada deszcz",
+      "Answers": [
+        {
+          "Text": "Otwieramy parasol",
+          "Points": 38
+        },
+        {
+          "Text": "Uciekamy pod dach",
+          "Points": 24
+        },
+        {
+          "Text": "Zakładamy kurtkę",
+          "Points": 18
+        },
+        {
+          "Text": "Narzekamy",
+          "Points": 12
+        },
+        {
+          "Text": "Czekamy aż przestanie",
+          "Points": 8
+        }
+      ]
+    }
+  ]
+}
