@@ -8,23 +8,14 @@ using System.Media;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
 
-public class GameViewModel : INotifyPropertyChanged
+namespace Familiada.ViewModels;
+
+public class GameViewModel : INotifyPropertyChanged 
 {
+
+    private readonly RootViewModel _rootViewModel;
     private readonly SoundService _soundService = new SoundService();
-    public ObservableCollection<int> QuestionIds
-    {
-        get
-        {
-            int i = 1;
-            while (i <= GameState.Questions.Count)
-            {
-                QuestionIds.Add(i);
-                i++;
-                return QuestionIds;
-            }
-            return new ObservableCollection<int> { 0, 0, 0, 0, 0 };
-        }
-    }
+
     public ICommand RevealAnswerCommand { get; }
     public ICommand TriggerNextRoundCommand { get; }
     public ICommand AnswerCorrectCommand { get; }
@@ -58,28 +49,14 @@ public class GameViewModel : INotifyPropertyChanged
     {
         get
         {
-            if (GameState.RoundNumber < 1) { return "Rozpocznij grę"; }
-            else { return $"Pytanie {GameState.RoundNumber}: {GameState.Questions[GameState.RoundNumber].Text}"; }
+            if (GameState.Phase == Phase.NotStarted) { return "Rozpocznij grę"; }
+            else { return $"Pytanie {GameState.RoundNumber}: {GameState.Questions[GameState.RoundNumber -1].Text}"; }
         }
     }
 
-    public string TeamAPointsText
-    {
-        get
-        {
-            if (GameState.RoundNumber < 1) { return "Punkty DrużynaA"; }
-            else { return "Punkty DrużynaA"; }
-        }
-    }
+    public string TeamAPointsText => "Punkty DrużynaA";
 
-    public string TeamBPointsText
-    {
-        get
-        {
-            if (GameState.RoundNumber < 1) { return "Punkty DrużynaB"; }
-            else { return "Punkty DrużynaB"; }
-        }
-    }
+    public string TeamBPointsText => "Punkty DrużynaB";
 
     // Lost chances
     public bool IsAX1Lost => GameState.TeamALostChances >= 1;
@@ -174,15 +151,17 @@ public class GameViewModel : INotifyPropertyChanged
     public bool IsTeamAAnswering => GameState.IsTeamAAnswering;
     public bool IsTeamBAnswering => GameState.IsTeamBAnswering;
     public bool IsLastChance => GameState.IsLastChance;
+    public bool IsFinalRound => GameState.IsFinalRound;
+    private Phase Phase => GameState.Phase;
+    public GameViewModel() : this(new GameState(), null) { }
 
 
-    public GameViewModel(GameState gameState)
+    public GameViewModel(GameState gameState, RootViewModel rootViewModel)
     {
         GameState = gameState;
+        _rootViewModel = rootViewModel;
 
-        Answers = new ObservableCollection<Answer>(
-            GameState.Questions[GameState.RoundNumber].Answers
-        );
+        Answers = new ObservableCollection<Answer>();
 
         RevealAnswerCommand = new RelayCommand<Answer>(async answer =>
         {
@@ -230,7 +209,6 @@ public class GameViewModel : INotifyPropertyChanged
         TestTeamALost3Chances = new RelayCommand(() =>
         {
             GameState.TeamALostChances = 3;
-            RoundPoints = -2;
         });
 
         CheckFirstWinsCommand = new RelayCommand(() =>
@@ -238,7 +216,6 @@ public class GameViewModel : INotifyPropertyChanged
             CheckFirstWins();
         });
 
-        // ROUND POINTS
         GameState.PropertyChanged += GameState_PropertyChanged;
     }
 
@@ -261,7 +238,7 @@ public class GameViewModel : INotifyPropertyChanged
 
             GameState.RoundPoints += answer.Points;
 
-            CheckGameCanBeFinished();
+            CheckRoundCanBeFinished();
         }
     }
 
@@ -340,8 +317,9 @@ public class GameViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(CurrentQuestionText));
         OnPropertyChanged(nameof(IsFirstWins));
         OnPropertyChanged(nameof(FirstWinsText));
+        OnPropertyChanged(nameof(FirstWinsText));
     }
-    private async void CheckGameCanBeFinished()
+    private async void CheckRoundCanBeFinished()
     {
         // Check if all answers are revealed
 
@@ -389,13 +367,22 @@ public class GameViewModel : INotifyPropertyChanged
         GameState.IsFirstWins = true;
         GameState.RoundFinished = false;
 
-        if (GameState.RoundNumber + 1 >= GameState.Questions.Count)
+        if (GameState.RoundNumber + 1 > GameState.Questions.Count)
             return;
 
-        GameState.RoundNumber++;
+        if (GameState.Phase != Phase.MainGame && GameState.Phase != Phase.Final)
+        {
+            GameState.RoundNumber = 1;
+            GameState.Phase = Phase.MainGame;
+
+        }
+        else
+        {
+            GameState.RoundNumber++;
+        }
 
         Answers = new ObservableCollection<Answer>(
-            GameState.Questions[GameState.RoundNumber].Answers
+            GameState.Questions[GameState.RoundNumber -1].Answers
         );
 
         GameState.RoundPoints = 0;
@@ -418,6 +405,18 @@ public class GameViewModel : INotifyPropertyChanged
         await _soundService.PlaySequenceAsync(
           "Assets/Sounds/przed_i_po_rundzie.wav"
          );
+
+        if (GameState.RoundNumber == GameState.Questions.Count)
+        {
+            EnterFinal();
+        }
+    }
+
+    private void EnterFinal()
+    {
+        GameState.Phase = Phase.Final;
+        UpdateFrontend();
+        _rootViewModel.SwitchToFinal();
     }
 
     private void CheckFirstWins()
@@ -507,5 +506,12 @@ public class GameViewModel : INotifyPropertyChanged
 
         if (e.PropertyName == nameof(GameState.IsLastChance))
             OnPropertyChanged(nameof(IsLastChance));
+
+        if (e.PropertyName == nameof(GameState.IsFinalRound))
+            OnPropertyChanged(nameof(IsFinalRound));
+
+        if (e.PropertyName == nameof(GameState.Phase))
+            OnPropertyChanged(nameof(Phase));
+
     }
 }

@@ -16,6 +16,7 @@ public class GameState : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new(propertyName));
     }
 
+    public Phase Phase { get; set; } = Phase.NotStarted;
     private int _teamAPoints = 0;
     private int _teamBPoints = 0;
     private int _roundPoints = 0;
@@ -208,6 +209,34 @@ public class GameState : INotifyPropertyChanged
         }
     }
 
+    // FINAL
+    private bool _isFinalRound = false;
+    public bool IsFinalRound
+    {
+        get => _isFinalRound;
+        set
+        {
+            if (_isFinalRound != value)
+            {
+                _isFinalRound = value;
+                OnPropertyChanged(nameof(IsFinalRound));
+            }
+        }
+    }
+
+    public bool _isFinalSecondPlayerAnswering = false;
+    public bool IsFinalSecondPlayerAnswering
+    {
+        get => _isFinalSecondPlayerAnswering;
+        set
+        {
+            if (_isFinalSecondPlayerAnswering != value)
+            {
+                _isFinalSecondPlayerAnswering = value;
+                OnPropertyChanged(nameof(IsFinalSecondPlayerAnswering));
+            }
+        }
+    }
     public GameState()
     {
         var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "answers1.json");
@@ -216,8 +245,9 @@ public class GameState : INotifyPropertyChanged
         var wrapper = JsonSerializer.Deserialize<QuestionsWrapper>(json) ?? throw new Exception("Error reading json of questions");
         Questions = new ObservableCollection<Question>(wrapper.Questions) ;
 
-        RoundNumber = 0;
-        Answers = new ObservableCollection<Answer>(Questions[RoundNumber].Answers);
+        RoundNumber = -1;
+        Answers = new ObservableCollection<Answer>();
+        Phase = Phase.NotStarted;
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Familiada.Converters;
+using Familiada.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,11 @@ using System.Windows.Shapes;
 
 namespace Familiada.Views;
 
-public partial class Scoreboard : Window
+public partial class ScoreboardGameUserControl : UserControl
 {
-    public Scoreboard(GameViewModel viewModel)
+    public ScoreboardGameUserControl()
     {
         InitializeComponent();
-        DataContext = viewModel; // Binding to ViewModel
     }
+
 }

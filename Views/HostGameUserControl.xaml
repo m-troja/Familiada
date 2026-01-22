@@ -1,20 +1,14 @@
-﻿<Window x:Class="Familiada.Views.HostPanel"
+﻿<UserControl  x:Class="Familiada.Views.HostGameUserControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Familiada.Converters"
 
-        Title="Panel Prowadzącego"
         Background="Gray"
-        Width="800"
-        Height="600"
-        Left="1200"
-        Top="100"
-        WindowStartupLocation="Manual"
         KeyDown="Window_KeyDown">
     
-     <Window.Resources>
+     <UserControl.Resources>
         <local:PlusOneConverter x:Key="PlusOneConverter"/>
-     </Window.Resources>
+     </UserControl.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -28,7 +22,7 @@
 
         <!-- Pytanie -->
         <TextBlock  Grid.Row="0" FontSize="24"
-                   Margin="0,0,0,10"
+                   Margin="0,0,0,10" 
                    Text="{Binding CurrentQuestionText}"/>
 
         <!-- Lista odpowiedzi -->
@@ -65,7 +59,7 @@
 
                         <!-- Button odkryj -->
                         <Button  Grid.Column="3" Content="Odkryj" Margin="10,0,0,0" 
-                            Command="{Binding DataContext.RevealAnswerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                            Command="{Binding DataContext.RevealAnswerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                             CommandParameter="{Binding}"/>
 
                     </Grid>
@@ -133,4 +127,4 @@
         </StackPanel>
         
     </Grid>
-</Window>
+</UserControl>
