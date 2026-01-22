@@ -15,9 +15,14 @@ namespace Familiada.Views
     /// <summary>
     /// Interaction logic for RootView.xaml
     /// </summary>
-    public partial class RootView : Window
+    public partial class RootScoreboardView : Window
     {
-        public RootView()
+        public RootScoreboardView(ViewModels.RootViewModel viewModel)
+        {
+            InitializeComponent();
+            DataContext = viewModel;
+        }
+        public RootScoreboardView()
         {
             InitializeComponent();
         }

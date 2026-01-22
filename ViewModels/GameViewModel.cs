@@ -8,6 +8,8 @@ using System.Media;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
 
+namespace Familiada.ViewModels;
+
 public class GameViewModel : INotifyPropertyChanged 
 {
 

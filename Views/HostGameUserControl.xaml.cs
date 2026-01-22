@@ -1,15 +1,14 @@
-﻿using System.Windows;
-using Familiada.ViewModels;
+﻿using Familiada.ViewModels;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Familiada.Views;
 
-public partial class HostPanel : Window
+public partial class HostGameUserControl : UserControl
 {
-    public HostPanel(GameViewModel viewModel)
+    public HostGameUserControl()
     {
-        InitializeComponent();
 
-        DataContext = viewModel;
     }
 
     private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)

@@ -1,15 +1,15 @@
 ﻿using Familiada.ViewModels;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Familiada.Views;
 
-public partial class FinalHostPanel : Window
+public partial class HostFinalUserControl : UserControl
 {
-    public FinalHostPanel(FinalViewModel viewModel)
+    public HostFinalUserControl()
     {
         InitializeComponent();
 
-        DataContext = viewModel;
     }
 
 }

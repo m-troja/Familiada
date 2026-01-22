@@ -21,10 +21,11 @@ namespace Familiada.ViewModels
             }
         }
 
-        public RootViewModel()
+        public RootViewModel(GameState gameState)
         {
             GameState = new GameState();
             CurrentViewModel = new GameViewModel(GameState, this);
+            GameState = gameState;
         }
 
         public void SwitchToFinal()

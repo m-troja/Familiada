@@ -48,6 +48,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\RootHostView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Assets\Answers\answers1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -1,20 +1,14 @@
-﻿<Window x:Class="Familiada.Views.HostPanel"
+﻿<UserControl x:Class="Familiada.Views.HostFinalUserControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Familiada.Converters"
 
-        Title="Panel Prowadzącego"
         Background="Gray"
-        Width="800"
-        Height="600"
-        Left="1200"
-        Top="100"
-        WindowStartupLocation="Manual"
-        KeyDown="Window_KeyDown">
-    
-     <Window.Resources>
+>
+
+    <UserControl.Resources>
         <local:PlusOneConverter x:Key="PlusOneConverter"/>
-     </Window.Resources>
+    </UserControl.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -37,34 +31,25 @@
                 <DataTemplate>
                     <Grid Margin="0,4">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="40"/>
                             <ColumnDefinition Width="60"/>
                             <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Numer wiersza: alternation index + 1 -->
-                        <TextBlock Grid.Column="0"
-                           Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter}, 
-                            Path=(ItemsControl.AlternationIndex), Converter={StaticResource PlusOneConverter}}"
-                           FontSize="22"
-                           HorizontalAlignment="Center"/>
-
-
                         <!-- Tekst odpowiedzi -->
-                        <TextBlock Grid.Column="1"
+                        <TextBlock Grid.Column="0"
                            Text="{Binding Text}"
                            FontSize="22"/>
 
                         <!-- Punkty -->
-                        <TextBlock Grid.Column="2"
+                        <TextBlock Grid.Column="1"
                            Text="{Binding Points}"
                            HorizontalAlignment="Right"
                            FontSize="22"/>
 
                         <!-- Button odkryj -->
-                        <Button  Grid.Column="3" Content="Odkryj" Margin="10,0,0,0" 
+                        <Button  Grid.Column="2" Content="Odkryj" Margin="10,0,0,0" 
                             Command="{Binding DataContext.RevealAnswerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                             CommandParameter="{Binding}"/>
 
@@ -133,4 +118,4 @@
         </StackPanel>
         
     </Grid>
-</Window>
+</UserControl>
