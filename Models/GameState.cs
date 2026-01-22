@@ -223,6 +223,20 @@ public class GameState : INotifyPropertyChanged
             }
         }
     }
+
+    public bool _isFinalSecondPlayerAnswering = false;
+    public bool IsFinalSecondPlayerAnswering
+    {
+        get => _isFinalSecondPlayerAnswering;
+        set
+        {
+            if (_isFinalSecondPlayerAnswering != value)
+            {
+                _isFinalSecondPlayerAnswering = value;
+                OnPropertyChanged(nameof(IsFinalSecondPlayerAnswering));
+            }
+        }
+    }
     public GameState()
     {
         var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "answers1.json");

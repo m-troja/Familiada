@@ -25,32 +25,6 @@
           "Points": 8
         }
       ]
-    },
-    {
-      "Id": 2,
-      "Text": "Zwierzę domowe2",
-      "Answers": [
-        {
-          "Text": "Pies2",
-          "Points": 30
-        },
-        {
-          "Text": "Kot2",
-          "Points": 27
-        },
-        {
-          "Text": "Rybka",
-          "Points": 15
-        },
-        {
-          "Text": "Chomik",
-          "Points": 12
-        },
-        {
-          "Text": "Papuga",
-          "Points": 8
-        }
-      ]
     }
   ]
 }

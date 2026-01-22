@@ -15,20 +15,7 @@ public class GameViewModel : INotifyPropertyChanged
 
     private readonly RootViewModel _rootViewModel;
     private readonly SoundService _soundService = new SoundService();
-    public ObservableCollection<int> QuestionIds
-    {
-        get
-        {
-            int i = 1;
-            while (i <= GameState.Questions.Count)
-            {
-                QuestionIds.Add(i);
-                i++;
-                return QuestionIds;
-            }
-            return new ObservableCollection<int> { 0, 0, 0, 0, 0 };
-        }
-    }
+
     public ICommand RevealAnswerCommand { get; }
     public ICommand TriggerNextRoundCommand { get; }
     public ICommand AnswerCorrectCommand { get; }
@@ -229,7 +216,6 @@ public class GameViewModel : INotifyPropertyChanged
             CheckFirstWins();
         });
 
-        // ROUND POINTS
         GameState.PropertyChanged += GameState_PropertyChanged;
     }
 
@@ -523,6 +509,7 @@ public class GameViewModel : INotifyPropertyChanged
 
         if (e.PropertyName == nameof(GameState.IsFinalRound))
             OnPropertyChanged(nameof(IsFinalRound));
+
         if (e.PropertyName == nameof(GameState.Phase))
             OnPropertyChanged(nameof(Phase));
 
