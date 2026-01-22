@@ -22,7 +22,7 @@
 
         <!-- Pytanie -->
         <TextBlock  Grid.Row="0" FontSize="24"
-                   Margin="0,0,0,10"
+                   Margin="0,0,0,10" 
                    Text="{Binding CurrentQuestionText}"/>
 
         <!-- Lista odpowiedzi -->
@@ -59,7 +59,7 @@
 
                         <!-- Button odkryj -->
                         <Button  Grid.Column="3" Content="Odkryj" Margin="10,0,0,0" 
-                            Command="{Binding DataContext.RevealAnswerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                            Command="{Binding DataContext.RevealAnswerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                             CommandParameter="{Binding}"/>
 
                     </Grid>

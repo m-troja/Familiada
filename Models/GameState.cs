@@ -231,8 +231,9 @@ public class GameState : INotifyPropertyChanged
         var wrapper = JsonSerializer.Deserialize<QuestionsWrapper>(json) ?? throw new Exception("Error reading json of questions");
         Questions = new ObservableCollection<Question>(wrapper.Questions) ;
 
-        RoundNumber = 0;
-        Answers = new ObservableCollection<Answer>(Questions[RoundNumber].Answers);
+        RoundNumber = -1;
+        Answers = new ObservableCollection<Answer>();
+        Phase = Phase.NotStarted;
 
     }
 }

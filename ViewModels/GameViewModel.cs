@@ -62,28 +62,14 @@ public class GameViewModel : INotifyPropertyChanged
     {
         get
         {
-            if (GameState.RoundNumber < 1) { return "Rozpocznij grę"; }
-            else { return $"Pytanie {GameState.RoundNumber}: {GameState.Questions[GameState.RoundNumber].Text}"; }
+            if (GameState.Phase == Phase.NotStarted) { return "Rozpocznij grę"; }
+            else { return $"Pytanie {GameState.RoundNumber}: {GameState.Questions[GameState.RoundNumber -1].Text}"; }
         }
     }
 
-    public string TeamAPointsText
-    {
-        get
-        {
-            if (GameState.RoundNumber < 1) { return "Punkty DrużynaA"; }
-            else { return "Punkty DrużynaA"; }
-        }
-    }
+    public string TeamAPointsText => "Punkty DrużynaA";
 
-    public string TeamBPointsText
-    {
-        get
-        {
-            if (GameState.RoundNumber < 1) { return "Punkty DrużynaB"; }
-            else { return "Punkty DrużynaB"; }
-        }
-    }
+    public string TeamBPointsText => "Punkty DrużynaB";
 
     // Lost chances
     public bool IsAX1Lost => GameState.TeamALostChances >= 1;
@@ -188,9 +174,7 @@ public class GameViewModel : INotifyPropertyChanged
         GameState = gameState;
         _rootViewModel = rootViewModel;
 
-        Answers = new ObservableCollection<Answer>(
-            GameState.Questions[GameState.RoundNumber].Answers
-        );
+        Answers = new ObservableCollection<Answer>();
 
         RevealAnswerCommand = new RelayCommand<Answer>(async answer =>
         {
@@ -238,7 +222,6 @@ public class GameViewModel : INotifyPropertyChanged
         TestTeamALost3Chances = new RelayCommand(() =>
         {
             GameState.TeamALostChances = 3;
-            RoundPoints = -2;
         });
 
         CheckFirstWinsCommand = new RelayCommand(() =>
@@ -398,13 +381,22 @@ public class GameViewModel : INotifyPropertyChanged
         GameState.IsFirstWins = true;
         GameState.RoundFinished = false;
 
-        if (GameState.RoundNumber + 1 >= GameState.Questions.Count)
+        if (GameState.RoundNumber + 1 > GameState.Questions.Count)
             return;
 
-        GameState.RoundNumber++;
+        if (GameState.Phase != Phase.MainGame && GameState.Phase != Phase.Final)
+        {
+            GameState.RoundNumber = 1;
+            GameState.Phase = Phase.MainGame;
+
+        }
+        else
+        {
+            GameState.RoundNumber++;
+        }
 
         Answers = new ObservableCollection<Answer>(
-            GameState.Questions[GameState.RoundNumber].Answers
+            GameState.Questions[GameState.RoundNumber -1].Answers
         );
 
         GameState.RoundPoints = 0;

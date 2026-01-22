@@ -8,7 +8,7 @@ public partial class HostGameUserControl : UserControl
 {
     public HostGameUserControl()
     {
-
+        InitializeComponent();
     }
 
     private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
