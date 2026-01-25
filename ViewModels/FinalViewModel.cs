@@ -23,7 +23,6 @@ namespace Familiada.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string name)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        
         private ObservableCollection<Answer> _currentAnswers = new();
         public ObservableCollection<Answer> Answers
         {
@@ -41,20 +40,6 @@ namespace Familiada.ViewModels
         public int RoundNumber => GameState.RoundNumber;
         public string FinalText => $"Odpowiada gracz {(GameState.IsFinalSecondPlayerAnswering ? 2 : 1)}";
         public bool IsFinalSecondPlayerAnswering => GameState.IsFinalSecondPlayerAnswering;
-        public string PlayerAnsweringText
-        {
-            get
-            {
-                if (IsFinalSecondPlayerAnswering)
-                {
-                    return "Drugi gracz odpowiada";
-                }
-                else
-                {
-                    return "Pierwszy gracz odpowiada";
-                }
-            }
-        }
         public string RoundPointsText => $"Punkty razem: {GameState.RoundPoints}";
 
         public int _timerSeconds;
@@ -70,7 +55,6 @@ namespace Familiada.ViewModels
 
         private CancellationTokenSource? _timerCts;
 
-
         public ObservableCollection<Question> AllQuestionsInFinal => GameState.QuestionsFinal;
 
         public FinalViewModel(GameState gameState)
@@ -80,9 +64,7 @@ namespace Familiada.ViewModels
             GameState.RoundNumber = 0;
             Answers = new ObservableCollection<Answer>(GameState.QuestionsFinal[RoundNumber].Answers); // single question
 
-
             Init();
-
 
             TriggerNextPlayerAnsweringCommand = new RelayCommand(() =>
             {
@@ -143,6 +125,11 @@ namespace Familiada.ViewModels
 
         private void Reset()
         {
+            foreach (var answer in GameState.QuestionsFinal.SelectMany(q => q.Answers))
+            {
+                answer.IsRevealed = false;
+            }
+
             GameState.AnswersFinalPlayer1.Clear();
             GameState.AnswersFinalPlayer2.Clear();
             GameState.IsFinalSecondPlayerAnswering = false;
@@ -176,7 +163,7 @@ namespace Familiada.ViewModels
             {
                 PlaySound("Assets/Sounds/dzwonki.wav");
             }
-
+            answer.IsRevealed = true;
             UpdateFrontend();
             
             GameState.RoundPoints += answer.Points;

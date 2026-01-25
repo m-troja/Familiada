@@ -8,11 +8,11 @@
 
     <UserControl.Resources>
         <local:PlusOneConverter x:Key="PlusOneConverter"/>
+        <local:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
     </UserControl.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -86,7 +86,9 @@
                                                   RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding}"
                                                 FontSize="8"
-                                                        />
+                                                Visibility="{Binding IsRevealed, Converter={StaticResource InverseBoolToVisibilityConverter}}"
+                                                />
+                                                
                                             </Grid>
 
                                         </DataTemplate>
@@ -147,13 +149,8 @@
         </Border>
 
 
-        <!-- Text Odpowiada Gracz -->
-        <TextBlock  Grid.Row="3" FontSize="25"
-                   Margin="0,0,0,10"
-                   Text="{Binding PlayerAnsweringText}"/>
-
         <!-- Button Odpowiada Gracz -->
-        <StackPanel Grid.Row="4"
+        <StackPanel Grid.Row="3"
               Orientation="Horizontal"
               HorizontalAlignment="Left"
               Margin="0,10,0,0">
@@ -169,7 +166,7 @@
         </StackPanel>
 
         <!-- Timer -->
-        <StackPanel Grid.Row="5"
+        <StackPanel Grid.Row="4"
               Orientation="Horizontal"
               HorizontalAlignment="Left"
               Margin="0,10,0,0">
@@ -189,7 +186,7 @@
         </StackPanel>
 
         <!-- Buttons --> 
-        <StackPanel Grid.Row="6"
+        <StackPanel Grid.Row="5"
             Orientation="Horizontal"
             HorizontalAlignment="Center"
             Margin="0,10,0,0">

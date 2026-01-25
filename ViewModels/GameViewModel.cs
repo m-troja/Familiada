@@ -170,7 +170,29 @@ public class GameViewModel : INotifyPropertyChanged
 
         RevealAnswerCommand = new RelayCommand<Answer>(async answer =>
         {
-            HandleRevealAnswer(answer);
+            if (answer != null) HandleRevealAnswer(answer);
+        });
+
+
+        // 🔹 RelayCommand NoParam
+        TriggerNextRoundCommand = new RelayCommand(() =>
+        {
+            StartNewRound();
+        });
+
+        TestTeamALost3Chances = new RelayCommand(() =>
+        {
+            GameState.TeamALostChances = 3;
+        });
+
+        CheckFirstWinsCommand = new RelayCommand(() =>
+        {
+            CheckFirstWins();
+        });
+
+        TestSwitchToFinal = new RelayCommand(() =>
+        {
+            EnterFinal();
         });
 
         AnswerCorrectCommand = new RelayCommand(() =>
@@ -203,29 +225,7 @@ public class GameViewModel : INotifyPropertyChanged
             GameState.IsTeamBAnswering = true;
             OnPropertyChanged(nameof(TeamAnswersText));
 
-        } );
-
-        // 🔹 RelayCommand NoParam
-        TriggerNextRoundCommand = new RelayCommand(() =>
-        {
-            StartNewRound();
         });
-
-        TestTeamALost3Chances = new RelayCommand(() =>
-        {
-            GameState.TeamALostChances = 3;
-        });
-
-        CheckFirstWinsCommand = new RelayCommand(() =>
-        {
-            CheckFirstWins();
-        });
-
-        TestSwitchToFinal = new RelayCommand(() =>
-        {
-            EnterFinal();
-        });
-
 
         GameState.PropertyChanged += GameState_PropertyChanged;
     }

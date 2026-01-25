@@ -8,7 +8,8 @@
     
      <UserControl.Resources>
         <local:PlusOneConverter x:Key="PlusOneConverter"/>
-     </UserControl.Resources>
+        <local:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+    </UserControl.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -60,7 +61,9 @@
                         <!-- Button odkryj -->
                         <Button  Grid.Column="3" Content="Odkryj" Margin="10,0,0,0" 
                             Command="{Binding DataContext.RevealAnswerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                            CommandParameter="{Binding}"/>
+                            CommandParameter="{Binding}"
+                            Visibility="{Binding IsRevealed, Converter={StaticResource InverseBoolToVisibilityConverter}}"
+                                 />
 
                     </Grid>
                 </DataTemplate>
@@ -75,7 +78,7 @@
                 Text="{Binding FirstWinsText}"/>
             
             <Button Content="CheckFirstWins"
-               Width="140"
+               Width="120"
                Command="{Binding CheckFirstWinsCommand}"/>
 
         </StackPanel>
@@ -91,12 +94,10 @@
               HorizontalAlignment="Left"
               Margin="0,10,0,0">
 
-            <Button Content="Drużyna A"
-              Width="140"
+            <Button Content="Drużyna A" Width="100"
               Command="{Binding TeamAAnsweringCommand}"/>
 
-            <Button Content="Drużyna B"
-               Width="140"
+            <Button Content="Drużyna B" Width="100"
                Command="{Binding TeamBAnsweringCommand}"/>
 
         </StackPanel>
@@ -106,28 +107,18 @@
             Orientation="Horizontal"
             HorizontalAlignment="Center"
             Margin="0,10,0,0">
-                <Button Content="Intro Music"
-            Width="140"
-            Command="{Binding IntroMusicCommand}"/>
-                <Button Content="Answer Correct"
-            Width="140"
-            Command="{Binding AnswerCorrectCommand}"/>
-
-                <Button Content="Answer Incorrect"
-            Width="140"
-            Command="{Binding AnswerIncorrectCommand}"/>
             
-            <Button Content="Next Round"
-            Width="140"
-            Command="{Binding TriggerNextRoundCommand}"/>
+            <Button Content="Intro Music"  Margin="5" Width="100"
+                Command="{Binding IntroMusicCommand}"/>
 
-                <Button Content="TestTeamALost3Chances"
-             Width="140"
-             Command="{Binding TestTeamALost3Chances}"/>
+            <Button Content="Answer Incorrect" Background="Red" Margin="5" Width="100"
+                Command="{Binding AnswerIncorrectCommand}"/>
 
-            <Button Content="Final"
-            Width="140"
-            Command="{Binding TestSwitchToFinal}"/>
+            <Button Content="Next Round"  Margin="5" Width="100"
+                Command="{Binding TriggerNextRoundCommand}"/>
+
+            <Button Content="Final" Margin="5" Width="100" 
+                Command="{Binding TestSwitchToFinal}"/>
             
         </StackPanel>
         
