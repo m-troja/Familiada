@@ -8,5 +8,6 @@ public enum Phase
 {
     NotStarted,
     MainGame,
-    Final
+    Final,
+    Ended
 }

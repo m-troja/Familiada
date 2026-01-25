@@ -125,10 +125,12 @@ namespace Familiada.ViewModels
                 answer.IsRevealed = false;
             }
 
-            GameState.AnswersFinalPlayer1.Clear();
-            GameState.AnswersFinalPlayer2.Clear();
+            GameState.AnswersFinalPlayer1 = new ObservableCollection<Answer>(new List<Answer> { new(), new(), new(), new(), new() });
+            GameState.AnswersFinalPlayer2 = new ObservableCollection<Answer>(new List<Answer> { new(), new(), new(), new(), new() });
             GameState.IsFinalSecondPlayerAnswering = false;
+            GameState.RoundNumber = 0;
             GameState.RoundPoints = 0;
+            GameState.Phase = Phase.Final;
 
             ResetTimer();
 
@@ -145,6 +147,8 @@ namespace Familiada.ViewModels
 
         private void HandleRevealAnswer(Answer answer)
         {
+            if (answer.IsRevealed) return;
+
             if (!IsFinalSecondPlayerAnswering)
             {
                 RevealAnswerByPlayer(answer, false);
@@ -153,7 +157,6 @@ namespace Familiada.ViewModels
             {
                 RevealAnswerByPlayer(answer, true);
             }
-
         }
 
         private async void RevealAnswerByPlayer(Answer answer, bool IsFinalSecondPlayerAnswering)
@@ -161,25 +164,23 @@ namespace Familiada.ViewModels
             if (!IsFinalSecondPlayerAnswering)
             {
                 var answerInCollection = GameState.AnswersFinalPlayer1.Where(a => a.DisplayPoints == "@@").FirstOrDefault();
-                if (answerInCollection != null)
-                {
-                    answerInCollection.Text = answer.Text;
-                    answerInCollection.Points = answer.Points;
-                    answerInCollection.IsRevealed = true;
-                }
-                UpdateFrontend();
+                if (answerInCollection == null) return;
+                answerInCollection.Text = answer.Text;
+                answerInCollection.Points = answer.Points;
+                answerInCollection.IsRevealed = true;
             }
             else
             {
                 var answerInCollection = GameState.AnswersFinalPlayer2.Where(a => a.DisplayPoints == "@@").FirstOrDefault();
-                if (answerInCollection != null)
-                {
-                    answerInCollection.Text = answer.Text;
-                    answerInCollection.Points = answer.Points;
-                    answerInCollection.IsRevealed = true;
-                }
+                if (answerInCollection == null) return;
+                answerInCollection.Text = answer.Text;
+                answerInCollection.Points = answer.Points;
+                answerInCollection.IsRevealed = true;
             }
-            
+
+            answer.IsRevealed = true;
+            if (GameState.Phase == Phase.Ended) return;
+
             GameState.RoundPoints += answer.Points;
             UpdateFrontend();
 
@@ -187,6 +188,7 @@ namespace Familiada.ViewModels
 
             if (GameState.RoundPoints >= 200)
             {
+                GameState.Phase = Phase.Ended;
                 await _soundService.PlaySequenceAsync("Assets/Sounds/dzwonki.wav");
             }
 
