@@ -13,84 +13,195 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Pytanie -->
-        <TextBlock  Grid.Row="0" FontSize="24"
-                   Margin="0,0,0,10"
-                   Text="{Binding FinalText}"/>
-
-        <!-- Lista odpowiedzi -->
-        <ItemsControl  Grid.Row="1" ItemsSource="{Binding Answers}" HorizontalAlignment="Left" Width="680" AlternationCount="100">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="60"/>
-                        </Grid.ColumnDefinitions>
-
-                        <!-- Tekst odpowiedzi -->
-                        <TextBlock Grid.Column="0"
-                           Text="{Binding Text}"
-                           FontSize="22"/>
-
-                        <!-- Punkty -->
-                        <TextBlock Grid.Column="1"
-                           Text="{Binding Points}"
-                           HorizontalAlignment="Right"
-                           FontSize="22"/>
-
-                        <!-- Button odkryj -->
-                        <Button  Grid.Column="2" Content="Odkryj" Margin="10,0,0,0" 
-                            Command="{Binding DataContext.RevealAnswerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                            CommandParameter="{Binding}"/>
-
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
 
 
+        <!-- Lista odpowiedzi all pytania-->
+        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+              VerticalScrollBarVisibility="Disabled">
 
-        <!-- Odpowiada Team -->
-        <TextBlock  Grid.Row="2" FontSize="24"
+            <ItemsControl ItemsSource="{Binding AllQuestionsInFinal}">
+
+                <!-- HORIZONTAL QUESTIONS -->
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <!-- SINGLE QUESTION COLUMN -->
+                        <Border Margin="8"
+                        Padding="10"
+                        BorderBrush="DarkGray"
+                        BorderThickness="1"
+                        Width="Auto">
+
+                            <StackPanel>
+
+                                <!-- Question text -->
+                                <TextBlock Text="{Binding Text}"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   TextWrapping="Wrap"
+                                   Margin="0,0,0,8"/>
+
+                                <!-- ANSWERS -->
+                                <ItemsControl ItemsSource="{Binding Answers}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+
+                                            <Grid Margin="0,4">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="50"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Answer -->
+                                                <TextBlock Grid.Column="0"
+                                                   Text="{Binding Text}"
+                                                   FontSize="18"
+                                                   TextWrapping="Wrap"/>
+
+                                                <!-- Points -->
+                                                <TextBlock Grid.Column="1"
+                                                   Text="{Binding Points}"
+                                                   FontSize="18"
+                                                   HorizontalAlignment="Center"/>
+
+                                                <!-- Reveal -->
+                                                <Button Grid.Column="2"
+                                                Content="Reveal"
+                                                Command="{Binding DataContext.RevealAnswerCommand,
+                                                  RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"/>
+                                            </Grid>
+
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                            </StackPanel>
+                        </Border>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Scoreboard Preview text -->
+        <Grid Grid.Row="1">
+            <TextBlock FontSize="22" Text="Scoreboard live preview:"/>
+        </Grid>
+
+
+        <!-- Scoreboard Preview  -->
+        <Border Grid.Row="2" Margin="8"
+             Padding="10"
+             BorderBrush="DarkGray"
+             BorderThickness="1"
+             Width="Auto">
+         
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ItemsControl  Grid.Column="0" ItemsSource="{Binding AnswersFinalPlayer1}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Center">
+                                <TextBlock FontSize="12" Text="{Binding Text}"/>
+                                <TextBlock FontSize="12" Text="{Binding Points}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <ItemsControl Grid.Column="1" ItemsSource="{Binding AnswersFinalPlayer2}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel  HorizontalAlignment="Center">
+                                <TextBlock FontSize="12" Text="{Binding Points}"/>
+                                <TextBlock FontSize="12" Text="{Binding Text}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </Grid>
+        </Border>
+
+
+        <!-- Text Odpowiada Gracz -->
+        <TextBlock  Grid.Row="3" FontSize="25"
                    Margin="0,0,0,10"
                    Text="{Binding PlayerAnsweringText}"/>
 
-        <!-- Buttons Odpowiada Team -->
-        <StackPanel Grid.Row="3"
+        <!-- Button Odpowiada Gracz -->
+        <StackPanel Grid.Row="4"
               Orientation="Horizontal"
               HorizontalAlignment="Left"
               Margin="0,10,0,0">
 
-            <Button Content="Drużyna A"
-              Width="140"
-              Command="{Binding TriggerNextPlayerCommand}"/>
+            <Button Content="Następny gracz odpowiada" Margin="5"
+              Width="Auto"
+              Command="{Binding TriggerNextPlayerAnsweringCommand}" Click="Button_Click"/>
+            
+            <TextBlock  FontSize="24"
+                   Margin="0,0,0,10"
+                   Text="{Binding FinalText}"/>
+
+        </StackPanel>
+
+        <!-- Timer -->
+        <StackPanel Grid.Row="5"
+              Orientation="Horizontal"
+              HorizontalAlignment="Left"
+              Margin="0,10,0,0">
+
+            <Button Content="Start timer"  Margin="5"
+              Width="150"
+              Command="{Binding StartFinalRoundCommand}" Click="Button_Click"/>
+
+            <TextBlock  FontSize="24"
+                   Margin="0,0,0,10"
+                   Text="{Binding TimerSeconds}"/>
 
         </StackPanel>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="4"
+        <StackPanel Grid.Row="6"
             Orientation="Horizontal"
             HorizontalAlignment="Center"
             Margin="0,10,0,0">
-                <Button Content="Intro Music"
-            Width="140"
+            
+            <Button Content="Intro Music"
+            Width="140" Height="50" 
             Command="{Binding IntroMusicCommand}"/>
-                <Button Content="Answer Correct"
-            Width="140"
-            Command="{Binding AnswerCorrectCommand}"/>
 
-                <Button Content="Answer Incorrect"
+            <Button Content="Answer Correct" Background="ForestGreen"
             Width="140"
-            Command="{Binding AnswerIncorrectCommand}"/>
+            Command="{Binding AnswerCorrectCommand}"  />
+
+            <Button Content="Answer Incorrect" Background="Red" Width="140" 
+                    Command="{Binding AnswerIncorrectCommand}"> </Button>
+
+            <Button Content="Zacznij rundę"
+            Width="140"
+            Command="{Binding StartFinalRoundCommand}"/>
 
         </StackPanel>
         

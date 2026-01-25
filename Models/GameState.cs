@@ -7,9 +7,34 @@ namespace Familiada.Models;
 
 public class GameState : INotifyPropertyChanged
 {
-    public ObservableCollection<Question> Questions { get; set; } = new();
-    public ObservableCollection<Answer> Answers { get; set; } = new();
-
+    public ObservableCollection<Question> QuestionsGame { get; set; } = new();
+    public ObservableCollection<Question> QuestionsFinal { get; set; } = new();
+    private ObservableCollection<Answer> _answersFinalPlayer1  = new();
+    public ObservableCollection<Answer> AnswersFinalPlayer1
+    {
+        get => _answersFinalPlayer1;
+        set
+        {
+            if (_answersFinalPlayer1 != value)
+            {
+                _answersFinalPlayer1 = value;
+                OnPropertyChanged(nameof(AnswersFinalPlayer1));
+            }
+        }
+    }
+    private ObservableCollection<Answer> _answersFinalPlayer2  = new();
+    public ObservableCollection<Answer> AnswersFinalPlayer2
+    {
+        get => _answersFinalPlayer2;
+        set
+        {
+            if (_answersFinalPlayer2 != value)
+            {
+                _answersFinalPlayer2 = value;
+                OnPropertyChanged(nameof(AnswersFinalPlayer2));
+            }
+        }
+    }
     public event PropertyChangedEventHandler? PropertyChanged;
     private void OnPropertyChanged(string propertyName)
     {
@@ -239,15 +264,18 @@ public class GameState : INotifyPropertyChanged
     }
     public GameState()
     {
-        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "answers1.json");
-        var json = File.ReadAllText(path);
+        var pathGameAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "answers1.json");
+        var pathFinalAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "final3.json");
+        var jsonGameAnswers = File.ReadAllText(pathGameAnswers);
+        var jsonFinalAnswers = File.ReadAllText(pathFinalAnswers);
 
-        var wrapper = JsonSerializer.Deserialize<QuestionsWrapper>(json) ?? throw new Exception("Error reading json of questions");
-        Questions = new ObservableCollection<Question>(wrapper.Questions) ;
-
+        var wrapperGame = JsonSerializer.Deserialize<QuestionsWrapper>(jsonGameAnswers) ?? throw new Exception("Error reading game json of questions");
+        var wrapperFinal = JsonSerializer.Deserialize<QuestionsWrapper>(jsonFinalAnswers) ?? throw new Exception("Error reading final json of questions");
+        QuestionsGame = new ObservableCollection<Question>(wrapperGame.Questions) ;
+        QuestionsFinal = new ObservableCollection<Question>(wrapperFinal.Questions);
+        AnswersFinalPlayer1 = new ObservableCollection<Answer>(new List<Answer>  { new(),  new(),  new(), new(), new()  } );
+        AnswersFinalPlayer2 = new ObservableCollection<Answer>(new List<Answer>  { new(),  new(),  new(), new(), new()  } );
         RoundNumber = -1;
-        Answers = new ObservableCollection<Answer>();
         Phase = Phase.NotStarted;
-
     }
 }

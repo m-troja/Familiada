@@ -116,14 +116,19 @@
                 <Button Content="Answer Incorrect"
             Width="140"
             Command="{Binding AnswerIncorrectCommand}"/>
-
-                <Button Content="Next Round"
+            
+            <Button Content="Next Round"
             Width="140"
             Command="{Binding TriggerNextRoundCommand}"/>
 
                 <Button Content="TestTeamALost3Chances"
              Width="140"
              Command="{Binding TestTeamALost3Chances}"/>
+
+            <Button Content="Final"
+            Width="140"
+            Command="{Binding TestSwitchToFinal}"/>
+            
         </StackPanel>
         
     </Grid>

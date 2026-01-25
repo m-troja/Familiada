@@ -2,7 +2,7 @@
   "Questions": [
     {
       "Id": 1,
-      "Text": "Podaj coś, co ludzie robią w windzie",
+      "Text": "Co ludzie robią w windzie",
       "Answers": [
         {
           "Text": "Patrzą w telefon",
@@ -17,6 +17,7 @@
           "Points": 20
         },
         {
+        {
           "Text": "Rozmawiają",
           "Points": 14
         },
@@ -28,7 +29,7 @@
     },
     {
       "Id": 2,
-      "Text": "Podaj coś, co można zgubić w domu",
+      "Text": "Co można zgubić w domu",
       "Answers": [
         {
           "Text": "Klucze",
@@ -54,7 +55,7 @@
     },
     {
       "Id": 3,
-      "Text": "Podaj coś, co robimy, gdy nie możemy zasnąć",
+      "Text": "Co robimy, gdy nie możemy zasnąć",
       "Answers": [
         {
           "Text": "Przeglądamy telefon",
@@ -80,7 +81,7 @@
     },
     {
       "Id": 4,
-      "Text": "Podaj coś, co denerwuje kierowców",
+      "Text": "Co denerwuje kierowców",
       "Answers": [
         {
           "Text": "Korki",
@@ -101,6 +102,32 @@
         {
           "Text": "Radar/policja",
           "Points": 10
+        }
+      ]
+    },
+    {
+      "Id": 5,
+      "Text": "Co ludzie jedzą na szybko",
+      "Answers": [
+        {
+          "Text": "Kanapkę",
+          "Points": 34
+        },
+        {
+          "Text": "Pizzę",
+          "Points": 22
+        },
+        {
+          "Text": "Hot-doga",
+          "Points": 18
+        },
+        {
+          "Text": "Batonika",
+          "Points": 14
+        },
+        {
+          "Text": "Zupkę instant",
+          "Points": 12
         }
       ]
     }

@@ -28,6 +28,7 @@ public class GameViewModel : INotifyPropertyChanged
     public ICommand TeamAAnsweringCommand { get; }
     public ICommand TeamBAnsweringCommand { get; }
     public ICommand CheckFirstWinsCommand { get; }
+    public ICommand TestSwitchToFinal { get; }
     public GameState GameState { get; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -44,13 +45,12 @@ public class GameViewModel : INotifyPropertyChanged
             OnPropertyChanged(nameof(Answers));
         }
     }
-
     public string CurrentQuestionText
     {
         get
         {
             if (GameState.Phase == Phase.NotStarted) { return "Rozpocznij grę"; }
-            else { return $"Pytanie {GameState.RoundNumber}: {GameState.Questions[GameState.RoundNumber -1].Text}"; }
+            else { return $"Pytanie {GameState.RoundNumber}: {GameState.QuestionsGame[GameState.RoundNumber -1].Text}"; }
         }
     }
 
@@ -216,6 +216,12 @@ public class GameViewModel : INotifyPropertyChanged
             CheckFirstWins();
         });
 
+        TestSwitchToFinal = new RelayCommand(() =>
+        {
+            EnterFinal();
+        });
+
+
         GameState.PropertyChanged += GameState_PropertyChanged;
     }
 
@@ -367,7 +373,7 @@ public class GameViewModel : INotifyPropertyChanged
         GameState.IsFirstWins = true;
         GameState.RoundFinished = false;
 
-        if (GameState.RoundNumber + 1 > GameState.Questions.Count)
+        if (GameState.RoundNumber + 1 > GameState.QuestionsGame.Count)
             return;
 
         if (GameState.Phase != Phase.MainGame && GameState.Phase != Phase.Final)
@@ -382,7 +388,7 @@ public class GameViewModel : INotifyPropertyChanged
         }
 
         Answers = new ObservableCollection<Answer>(
-            GameState.Questions[GameState.RoundNumber -1].Answers
+            GameState.QuestionsGame[GameState.RoundNumber -1].Answers
         );
 
         GameState.RoundPoints = 0;
@@ -406,7 +412,7 @@ public class GameViewModel : INotifyPropertyChanged
           "Assets/Sounds/przed_i_po_rundzie.wav"
          );
 
-        if (GameState.RoundNumber == GameState.Questions.Count)
+        if (GameState.RoundNumber == GameState.QuestionsGame.Count)
         {
             EnterFinal();
         }
@@ -414,6 +420,7 @@ public class GameViewModel : INotifyPropertyChanged
 
     private void EnterFinal()
     {
+        GameState.RoundNumber = 0;
         GameState.Phase = Phase.Final;
         UpdateFrontend();
         _rootViewModel.SwitchToFinal();
