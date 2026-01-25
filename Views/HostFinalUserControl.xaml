@@ -200,9 +200,12 @@
             <Button Content="Wstaw złą odp" Background="Red" Width="140" 
                 Command="{Binding InsertWrongAnswerCommand}"></Button>
 
-            <Button Content="Reset finału" Background="CadetBlue" Width="140" Margin="10"
+            <Button Content="Reset finału" Background="CadetBlue" Width="80" Margin="10"
                 Command="{Binding ResetCommand}"></Button>
-
+            
+            <Button Content="Outro" Background="Wheat" Width="80" Margin="5"
+                Command="{Binding PlayOutroCommand}"></Button>
+            
         </StackPanel>
         
     </Grid>

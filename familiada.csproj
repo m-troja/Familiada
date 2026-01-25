@@ -14,7 +14,6 @@
     <None Remove="Assets\Sounds\dzwonki.wav" />
     <None Remove="Assets\Sounds\final_powtorzenie.wav" />
     <None Remove="Assets\Sounds\incorrect.wav" />
-    <None Remove="Assets\Sounds\intro.wav" />
     <None Remove="Assets\Sounds\po_1_rundzie_finalu.wav" />
     <None Remove="Assets\Sounds\przed_i_po_rundzie.wav" />
   </ItemGroup>
@@ -30,9 +29,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Sounds\incorrect.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Sounds\intro.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Sounds\po_1_rundzie_finalu.wav">
@@ -68,6 +64,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Answers\final2.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Sounds\intro.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Sounds\outro.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -18,6 +18,7 @@ namespace Familiada.ViewModels
         public ICommand StartTimerCommand { get; }
         public ICommand ResetTimerCommand { get; }
         public ICommand ResetCommand { get; }
+        public ICommand PlayOutroCommand { get; }
         public FinalViewModel() : this(new GameState()) { }
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string name)
@@ -133,6 +134,11 @@ namespace Familiada.ViewModels
                 Reset();
             });
 
+            PlayOutroCommand = new RelayCommand(() =>
+            {
+                PlaySound("Assets/Sounds/outro.wav");
+            });
+
         }
 
         private void Reset()
@@ -164,6 +170,11 @@ namespace Familiada.ViewModels
             else if (IsFinalSecondPlayerAnswering && GameState.AnswersFinalPlayer2.Count < 5)
             {
                 GameState.AnswersFinalPlayer2.Add(answer);
+            }
+
+            if (GameState.RoundPoints >= 200)
+            {
+                PlaySound("Assets/Sounds/dzwonki.wav");
             }
 
             UpdateFrontend();
