@@ -42,6 +42,8 @@ public class GameState : INotifyPropertyChanged
     }
 
     public Phase Phase { get; set; } = Phase.NotStarted;
+    public string Team1Name = null!;
+    public string Team2Name = null!;
     private int _teamAPoints = 0;
     private int _teamBPoints = 0;
     private int _roundPoints = 0;
@@ -266,15 +268,19 @@ public class GameState : INotifyPropertyChanged
     {
         var pathGameAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "answers1.json");
         var pathFinalAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "final3.json");
+        var pathTeam1Name = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Teams", "team1.txt");
+        var pathTeam2Name = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Teams", "team2.txt");
         var jsonGameAnswers = File.ReadAllText(pathGameAnswers);
         var jsonFinalAnswers = File.ReadAllText(pathFinalAnswers);
+        Team1Name = File.ReadAllText(pathTeam1Name);
+        Team2Name = File.ReadAllText(pathTeam2Name);
 
         var wrapperGame = JsonSerializer.Deserialize<QuestionsWrapper>(jsonGameAnswers) ?? throw new Exception("Error reading game json of questions");
         var wrapperFinal = JsonSerializer.Deserialize<QuestionsWrapper>(jsonFinalAnswers) ?? throw new Exception("Error reading final json of questions");
         QuestionsGame = new ObservableCollection<Question>(wrapperGame.Questions) ;
         QuestionsFinal = new ObservableCollection<Question>(wrapperFinal.Questions);
-        //AnswersFinalPlayer1 = new ObservableCollection<Answer>(new List<Answer>  { new(),  new(),  new(), new(), new()  } );
-        //AnswersFinalPlayer2 = new ObservableCollection<Answer>(new List<Answer>  { new(),  new(),  new(), new(), new()  } );
+        AnswersFinalPlayer1 = new ObservableCollection<Answer>(new List<Answer>  { new(), new(), new(), new(), new() });
+        AnswersFinalPlayer2 = new ObservableCollection<Answer>(new List<Answer> { new(),  new(),  new(), new(), new()  } );
         RoundNumber = -1;
         Phase = Phase.NotStarted;
     }

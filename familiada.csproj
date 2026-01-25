@@ -15,12 +15,15 @@
 
   <ItemGroup>
     <None Remove="Assets\Answers\final1.json" />
+    <None Remove="Assets\Fonts\familiada.ttf" />
     <None Remove="Assets\Sounds\correct.wav" />
     <None Remove="Assets\Sounds\dzwonki.wav" />
     <None Remove="Assets\Sounds\final_powtorzenie.wav" />
     <None Remove="Assets\Sounds\incorrect.wav" />
     <None Remove="Assets\Sounds\po_1_rundzie_finalu.wav" />
     <None Remove="Assets\Sounds\przed_i_po_rundzie.wav" />
+    <None Remove="Assets\Teams\team1.txt" />
+    <None Remove="Assets\Teams\team2.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,6 +50,18 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Fonts\familiada.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Assets\Teams\team1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Teams\team2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

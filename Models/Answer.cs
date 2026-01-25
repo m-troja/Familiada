@@ -12,7 +12,7 @@ public  class Answer : INotifyPropertyChanged
 {
     public string Text { get;set; } = string.Empty;
     public int Points { get; set; }
-    public int DisplayPoints => IsRevealed ? Points : 0;
+    public string DisplayPoints => IsRevealed ? Points.ToString() : "@@";
 
     public string DisplayText => IsRevealed ? Text : "......................................";
 

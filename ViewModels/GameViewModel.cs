@@ -59,9 +59,9 @@ public class GameViewModel : INotifyPropertyChanged
 
     }
 
-    public string TeamAPointsText => "Punkty DrużynaA";
+    public string TeamAPointsText => "Drużyna 1";
 
-    public string TeamBPointsText => "Punkty DrużynaB";
+    public string TeamBPointsText => "Drużyna 2";
 
     // Lost chances
     public bool IsAX1Lost => GameState.TeamALostChances >= 1;
@@ -71,6 +71,8 @@ public class GameViewModel : INotifyPropertyChanged
     public bool IsBX2Lost => GameState.TeamBLostChances >= 2;
     public bool IsBX3Lost => GameState.TeamBLostChances >= 3;
 
+    public string Team1Name => GameState.Team1Name;
+    public string Team2Name => GameState.Team2Name;
 
     public string TeamAX1 => IsAX1Lost ? "X" : "";
     public string TeamAX2 => IsAX2Lost ? "X" : "";
@@ -87,9 +89,9 @@ public class GameViewModel : INotifyPropertyChanged
         get
         {
             if (GameState.IsTeamAAnswering)
-                return "Odpowiada drużyna A";
+                return $"Odpowiada drużyna A: {Team1Name}";
             else if (GameState.IsTeamBAnswering)
-                return "Odpowiada drużyna B";
+                return $"Odpowiada drużyna B: {Team2Name}";
             else
                 return "Odpowiada drużyna: Wybierz drużynę!!";
         }
@@ -110,7 +112,7 @@ public class GameViewModel : INotifyPropertyChanged
             }
         }
     }
-
+    public string TotalPointsText => $"SUMA: {GameState.RoundPoints}";
     public int TeamAPoints
     {
         get => GameState.TeamAPoints;
@@ -329,13 +331,16 @@ public class GameViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(IsFirstWins));
         OnPropertyChanged(nameof(FirstWinsText));
         OnPropertyChanged(nameof(FirstWinsText));
+        OnPropertyChanged(nameof(TotalPointsText));
     }
     private async void CheckRoundCanBeFinished()
     {
         // Check if all answers are revealed
+        bool roundFinished = false;
 
         if (Answers.All(a => a.IsRevealed) && GameState.RoundPoints != 0)
         {
+            roundFinished = true;
             await _soundService.PlaySequenceAsync(
               "Assets/Sounds/dzwonki.wav"
              );
@@ -353,7 +358,8 @@ public class GameViewModel : INotifyPropertyChanged
 
         // Check if any team lost 3 chances
 
-        if (GameState.TeamALostChances == 3 || GameState.TeamBLostChances == 3) await _soundService.PlaySequenceAsync(
+        if (!roundFinished && (GameState.TeamALostChances == 3 || GameState.TeamBLostChances == 3)) 
+            await _soundService.PlaySequenceAsync(
               "Assets/Sounds/dzwonki.wav"
              );
 
@@ -416,16 +422,12 @@ public class GameViewModel : INotifyPropertyChanged
         await _soundService.PlaySequenceAsync(
           "Assets/Sounds/przed_i_po_rundzie.wav"
          );
-
-        if (GameState.RoundNumber == GameState.QuestionsGame.Count)
-        {
-            EnterFinal();
-        }
     }
 
     private void EnterFinal()
     {
         GameState.RoundNumber = 0;
+        GameState.RoundPoints = 0;
         GameState.Phase = Phase.Final;
         UpdateFrontend();
         _rootViewModel.SwitchToFinal();
@@ -468,6 +470,7 @@ public class GameViewModel : INotifyPropertyChanged
         if (e.PropertyName == nameof(GameState.RoundPoints))
         {
             OnPropertyChanged(nameof(RoundPoints));
+            OnPropertyChanged(nameof(TotalPointsText));
         }
 
         if (e.PropertyName == nameof(GameState.RoundNumber))
