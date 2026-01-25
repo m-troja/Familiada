@@ -273,8 +273,8 @@ public class GameState : INotifyPropertyChanged
         var wrapperFinal = JsonSerializer.Deserialize<QuestionsWrapper>(jsonFinalAnswers) ?? throw new Exception("Error reading final json of questions");
         QuestionsGame = new ObservableCollection<Question>(wrapperGame.Questions) ;
         QuestionsFinal = new ObservableCollection<Question>(wrapperFinal.Questions);
-        AnswersFinalPlayer1 = new ObservableCollection<Answer>(new List<Answer>  { new(),  new(),  new(), new(), new()  } );
-        AnswersFinalPlayer2 = new ObservableCollection<Answer>(new List<Answer>  { new(),  new(),  new(), new(), new()  } );
+        //AnswersFinalPlayer1 = new ObservableCollection<Answer>(new List<Answer>  { new(),  new(),  new(), new(), new()  } );
+        //AnswersFinalPlayer2 = new ObservableCollection<Answer>(new List<Answer>  { new(),  new(),  new(), new(), new()  } );
         RoundNumber = -1;
         Phase = Phase.NotStarted;
     }

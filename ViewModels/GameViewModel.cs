@@ -50,8 +50,13 @@ public class GameViewModel : INotifyPropertyChanged
         get
         {
             if (GameState.Phase == Phase.NotStarted) { return "Rozpocznij grę"; }
-            else { return $"Pytanie {GameState.RoundNumber}: {GameState.QuestionsGame[GameState.RoundNumber -1].Text}"; }
+            else if (GameState.Phase == Phase.MainGame)
+            {
+                return $"Pytanie {GameState.RoundNumber}: {GameState.QuestionsGame[GameState.RoundNumber - 1].Text}";
+            }
+            return "";
         }
+
     }
 
     public string TeamAPointsText => "Punkty DrużynaA";

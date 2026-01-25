@@ -2,9 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Familiada.Converters"
-
         Background="Gray"
->
+        KeyDown="Window_KeyDown"
+        >
 
     <UserControl.Resources>
         <local:PlusOneConverter x:Key="PlusOneConverter"/>
@@ -50,7 +50,7 @@
 
                                 <!-- Question text -->
                                 <TextBlock Text="{Binding Text}"
-                                   FontSize="18"
+                                   FontSize="14"
                                    FontWeight="Bold"
                                    TextWrapping="Wrap"
                                    Margin="0,0,0,8"/>
@@ -62,21 +62,21 @@
 
                                             <Grid Margin="0,4">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="50"/>
-                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="100"/>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="30"/>
                                                 </Grid.ColumnDefinitions>
 
                                                 <!-- Answer -->
                                                 <TextBlock Grid.Column="0"
                                                    Text="{Binding Text}"
-                                                   FontSize="18"
+                                                   FontSize="9"
                                                    TextWrapping="Wrap"/>
 
                                                 <!-- Points -->
                                                 <TextBlock Grid.Column="1"
                                                    Text="{Binding Points}"
-                                                   FontSize="18"
+                                                   FontSize="9"
                                                    HorizontalAlignment="Center"/>
 
                                                 <!-- Reveal -->
@@ -84,7 +84,9 @@
                                                 Content="Reveal"
                                                 Command="{Binding DataContext.RevealAnswerCommand,
                                                   RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                CommandParameter="{Binding}"/>
+                                                CommandParameter="{Binding}"
+                                                FontSize="8"
+                                                        />
                                             </Grid>
 
                                         </DataTemplate>
@@ -102,7 +104,7 @@
 
         <!-- Scoreboard Preview text -->
         <Grid Grid.Row="1">
-            <TextBlock FontSize="22" Text="Scoreboard live preview:"/>
+            <TextBlock FontSize="22" Text="{Binding RoundPointsText}"/>
         </Grid>
 
 
@@ -122,19 +124,19 @@
                 <ItemsControl  Grid.Column="0" ItemsSource="{Binding AnswersFinalPlayer1}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel HorizontalAlignment="Center">
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,30,0">
                                 <TextBlock FontSize="12" Text="{Binding Text}"/>
-                                <TextBlock FontSize="12" Text="{Binding Points}"/>
+                                <TextBlock FontSize="12" Text="{Binding Points}"  Margin="10,0,0,0"/>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <ItemsControl Grid.Column="1" ItemsSource="{Binding AnswersFinalPlayer2}">
+                <ItemsControl Grid.Column="1" ItemsSource="{Binding AnswersFinalPlayer2}" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel  HorizontalAlignment="Center">
-                                <TextBlock FontSize="12" Text="{Binding Points}"/>
+                            <StackPanel  HorizontalAlignment="Left" Orientation="Horizontal" Margin="30,0,0,0">
+                                <TextBlock FontSize="12" Text="{Binding Points}" Margin="0,0,10,0"/>
                                 <TextBlock FontSize="12" Text="{Binding Text}"/>
                             </StackPanel>
                         </DataTemplate>
@@ -158,7 +160,7 @@
 
             <Button Content="Następny gracz odpowiada" Margin="5"
               Width="Auto"
-              Command="{Binding TriggerNextPlayerAnsweringCommand}" Click="Button_Click"/>
+              Command="{Binding TriggerNextPlayerAnsweringCommand}" />
             
             <TextBlock  FontSize="24"
                    Margin="0,0,0,10"
@@ -173,8 +175,12 @@
               Margin="0,10,0,0">
 
             <Button Content="Start timer"  Margin="5"
-              Width="150"
-              Command="{Binding StartFinalRoundCommand}" Click="Button_Click"/>
+              Width="100"
+              Command="{Binding StartTimerCommand}" />
+
+            <Button Content="Reset timer"  Margin="5"
+              Width="100"
+              Command="{Binding ResetTimerCommand}" />
 
             <TextBlock  FontSize="24"
                    Margin="0,0,0,10"
@@ -182,26 +188,20 @@
 
         </StackPanel>
 
-        <!-- Buttons -->
+        <!-- Buttons --> 
         <StackPanel Grid.Row="6"
             Orientation="Horizontal"
             HorizontalAlignment="Center"
             Margin="0,10,0,0">
             
-            <Button Content="Intro Music"
-            Width="140" Height="50" 
-            Command="{Binding IntroMusicCommand}"/>
+            <Button Content="Potwórzenie (spacja)" Background="OrangeRed" Width="140" 
+                    Command="{Binding PlayAnswerIncorrectCommand}"> </Button>
 
-            <Button Content="Answer Correct" Background="ForestGreen"
-            Width="140"
-            Command="{Binding AnswerCorrectCommand}"  />
+            <Button Content="Wstaw złą odp" Background="Red" Width="140" 
+                Command="{Binding InsertWrongAnswerCommand}"></Button>
 
-            <Button Content="Answer Incorrect" Background="Red" Width="140" 
-                    Command="{Binding AnswerIncorrectCommand}"> </Button>
-
-            <Button Content="Zacznij rundę"
-            Width="140"
-            Command="{Binding StartFinalRoundCommand}"/>
+            <Button Content="Reset finału" Background="CadetBlue" Width="140" Margin="10"
+                Command="{Binding ResetCommand}"></Button>
 
         </StackPanel>
         

@@ -1,6 +1,8 @@
 ﻿using Familiada.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
+using System.Media;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -11,13 +13,11 @@ namespace Familiada.ViewModels
     {
         public ICommand RevealAnswerCommand { get; }
         public ICommand TriggerNextPlayerAnsweringCommand { get; }
-        public ICommand AnswerCorrectCommand { get; }
-        public ICommand AnswerIncorrectCommand { get; }
-        public ICommand PlayAnswerCorrectCommand { get; }
         public ICommand PlayAnswerIncorrectCommand { get; }
-        public ICommand PlayDzwonkiCommand { get; }
-        public ICommand IntroMusicCommand { get; }
-        public ICommand StartFinalRoundCommand { get; }
+        public ICommand InsertWrongAnswerCommand { get; }
+        public ICommand StartTimerCommand { get; }
+        public ICommand ResetTimerCommand { get; }
+        public ICommand ResetCommand { get; }
         public FinalViewModel() : this(new GameState()) { }
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string name)
@@ -38,7 +38,7 @@ namespace Familiada.ViewModels
 
         public GameState GameState { get; }
         public int RoundNumber => GameState.RoundNumber;
-        public string FinalText => $"Finał! Runda {RoundNumber}, odpowiada gracz {(GameState.IsFinalSecondPlayerAnswering ? 2 : 1)}";
+        public string FinalText => $"Odpowiada gracz {(GameState.IsFinalSecondPlayerAnswering ? 2 : 1)}";
         public bool IsFinalSecondPlayerAnswering => GameState.IsFinalSecondPlayerAnswering;
         public string PlayerAnsweringText
         {
@@ -54,12 +54,21 @@ namespace Familiada.ViewModels
                 }
             }
         }
+        public string RoundPointsText => $"Punkty razem: {GameState.RoundPoints}";
+
         public int _timerSeconds;
         public int TimerSeconds
         {
             get => _timerSeconds;
-            set => _timerSeconds = value;
+            set 
+            {
+                _timerSeconds = value;
+                OnPropertyChanged(nameof(TimerSeconds));
+            }
         }
+
+        private CancellationTokenSource? _timerCts;
+
 
         public ObservableCollection<Question> AllQuestionsInFinal => GameState.QuestionsFinal;
 
@@ -82,40 +91,120 @@ namespace Familiada.ViewModels
                 UpdateFrontend();
             });
 
-            StartFinalRoundCommand = new RelayCommand( async () =>
+            RevealAnswerCommand = new RelayCommand<Answer>(async answer =>
             {
-                await StartFinalRound();
+                if (answer != null) HandleRevealAnswer(answer);
             });
-        }
 
+            PlayAnswerIncorrectCommand = new RelayCommand(() =>
+                PlaySound("Assets/Sounds/final_powtorzenie.wav"));
 
-        private async Task<Task> StartFinalRound()
-        {
-            int playerAnswering = IsFinalSecondPlayerAnswering ? 2 : 1;
-
-            _ =  StartTimerAsync(playerAnswering);
-
-            GameState.RoundNumber++;
-            UpdateFrontend();
-            return Task.CompletedTask;
-
-        }
-
-        private async Task StartTimerAsync(int playerAnswering)
-        {
-            int TimerDuration = playerAnswering == 1 ? 15 : 20;
-            
-            for (int secondsLeft = TimerDuration;  secondsLeft >= 0; secondsLeft--)
+            InsertWrongAnswerCommand = new RelayCommand(() =>
             {
-                TimerSeconds = secondsLeft;
+                if (!IsFinalSecondPlayerAnswering && GameState.AnswersFinalPlayer1.Count < 5)
+                {
+                    GameState.AnswersFinalPlayer1.Add(new Answer { Text = "..............................", Points = 0 });
+                    UpdateFrontend();
+                }
+                else if (IsFinalSecondPlayerAnswering && GameState.AnswersFinalPlayer2.Count < 5)
+                {
+                    GameState.AnswersFinalPlayer2.Add(new Answer { Text = "..............................", Points = 0 });
+                    UpdateFrontend();
+                }
+                PlaySound("Assets/Sounds/incorrect.wav");
+            });
+
+            StartTimerCommand = new RelayCommand(() =>
+            {
+                int playerAnswering = IsFinalSecondPlayerAnswering ? 2 : 1;
+                _timerCts = new CancellationTokenSource();
+                _ = StartTimerAsync(playerAnswering, _timerCts.Token);
+
                 UpdateFrontend();
-                await Task.Delay(1000);
-            }
+            });
+            
+            ResetTimerCommand = new RelayCommand(() =>
+            {
+                ResetTimer();
+            });
+           
+            ResetCommand = new RelayCommand(() =>
+            {
+                Reset();
+            });
+
+        }
+
+        private void Reset()
+        {
+            GameState.AnswersFinalPlayer1.Clear();
+            GameState.AnswersFinalPlayer2.Clear();
+            GameState.IsFinalSecondPlayerAnswering = false;
+            GameState.RoundPoints = 0;
+
+            ResetTimer();
+
+            UpdateFrontend();
+        }
+
+        private void ResetTimer()
+        {
+            if (_timerCts != null) _timerCts.Cancel();
+
             TimerSeconds = 0;
             UpdateFrontend();
         }
+
+        private void HandleRevealAnswer(Answer answer)
+        {
+            if (!IsFinalSecondPlayerAnswering && GameState.AnswersFinalPlayer1.Count < 5)
+            {
+                GameState.AnswersFinalPlayer1.Add(answer);
+            }
+            else if (IsFinalSecondPlayerAnswering && GameState.AnswersFinalPlayer2.Count < 5)
+            {
+                GameState.AnswersFinalPlayer2.Add(answer);
+            }
+
+            UpdateFrontend();
+            
+            GameState.RoundPoints += answer.Points;
+
+            PlaySound("Assets/Sounds/correct.wav");
+        }
+
+        private async Task StartTimerAsync(int playerAnswering, CancellationToken token)
+        {
+            int timerDuration = playerAnswering == 1 ? 15 : 20;
+
+            try
+            {
+                for (int secondsLeft = timerDuration; secondsLeft >= 0; secondsLeft--)
+                {
+                    token.ThrowIfCancellationRequested();
+
+                    TimerSeconds = secondsLeft;
+                    UpdateFrontend();
+
+                    await Task.Delay(1000, token);
+                }
+
+                if (!IsFinalSecondPlayerAnswering)
+                {
+                    PlaySound("Assets/Sounds/po_1_rundzie_finalu.wav");
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                TimerSeconds = 0;
+                UpdateFrontend();
+            }
+        }
+
         private void Init()
         {
+            GameState.RoundPoints = 0;
+            GameState.Phase = Phase.Final;
             UpdateFrontend();
         }
 
@@ -127,6 +216,14 @@ namespace Familiada.ViewModels
             OnPropertyChanged(nameof(AnswersFinalPlayer1));
             OnPropertyChanged(nameof(AnswersFinalPlayer2));
             OnPropertyChanged(nameof(AllQuestionsInFinal));
+        }
+
+        private void PlaySound(string relativePath)
+        {
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
+            if (!File.Exists(path)) return;
+
+            new SoundPlayer(path).Play();
         }
 
         private void GameState_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -151,7 +248,11 @@ namespace Familiada.ViewModels
             {
                 OnPropertyChanged(nameof(AllQuestionsInFinal));
             }
+            if (e.PropertyName == nameof(GameState.RoundPoints))
+            {
+                OnPropertyChanged(nameof(RoundPointsText));
+            }
         }
-
     }
+
 }
