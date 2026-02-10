@@ -1,12 +1,14 @@
 ﻿using Familiada.Models;
 using Familiada.Services;
 using Familiada.ViewModels;
+using irnin.FirstPressDevice;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Media;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
+using irnin.FirstPressDevice;
 
 namespace Familiada.ViewModels;
 
@@ -30,6 +32,7 @@ public class GameViewModel : INotifyPropertyChanged
     public ICommand CheckFirstWinsCommand { get; }
     public ICommand TestSwitchToFinal { get; }
     public GameState GameState { get; }
+    private FirstPressDevice device;
 
     public event PropertyChangedEventHandler? PropertyChanged;
     private void OnPropertyChanged(string name)
@@ -160,11 +163,15 @@ public class GameViewModel : INotifyPropertyChanged
     public bool IsLastChance => GameState.IsLastChance;
     public bool IsFinalRound => GameState.IsFinalRound;
     private Phase Phase => GameState.Phase;
-    public GameViewModel() : this(new GameState(), null) { }
+    public GameViewModel() : this(new GameState(), null) {
+        //InitDevice();
+    }
 
 
     public GameViewModel(GameState gameState, RootViewModel rootViewModel)
     {
+        InitDevice();
+
         GameState = gameState;
         _rootViewModel = rootViewModel;
 
@@ -216,22 +223,31 @@ public class GameViewModel : INotifyPropertyChanged
 
         TeamAAnsweringCommand = new RelayCommand(() =>
         {
-            GameState.IsTeamAAnswering = true;
-            GameState.IsTeamBAnswering = false;
-            OnPropertyChanged(nameof(TeamAnswersText));
+            HandleTeamAAnswering();
         });
 
         TeamBAnsweringCommand = new RelayCommand(() =>
         {
-            GameState.IsTeamAAnswering = false;
-            GameState.IsTeamBAnswering = true;
-            OnPropertyChanged(nameof(TeamAnswersText));
-
+            HandleTeamBAnswering();
         });
 
         GameState.PropertyChanged += GameState_PropertyChanged;
     }
 
+    private void HandleTeamAAnswering()
+    {
+        GameState.IsTeamAAnswering = true;
+        GameState.IsTeamBAnswering = false;
+
+        OnPropertyChanged(nameof(TeamAnswersText));
+    }
+    private void HandleTeamBAnswering()
+    {
+        GameState.IsTeamAAnswering = false;
+        GameState.IsTeamBAnswering = true;
+
+        OnPropertyChanged(nameof(TeamAnswersText));
+    }
     private void HandleRevealAnswer(Answer answer)
     {
         GameState.IsFirstWins = false;
@@ -435,6 +451,7 @@ public class GameViewModel : INotifyPropertyChanged
 
     private void CheckFirstWins()
     {
+        device.Reset();
         GameState.IsFirstWins = true;
         GameState.FirstWinsIterations++;
         GameState.TeamALostChances = 0;
@@ -527,6 +544,21 @@ public class GameViewModel : INotifyPropertyChanged
 
         if (e.PropertyName == nameof(GameState.Phase))
             OnPropertyChanged(nameof(Phase));
+    }
+
+    private void InitDevice()
+    {
+        device = new FirstPressDevice();
+        device.Connect("COM5");
+        device.Reset();
+        device.OnTeamAPressed = () =>
+        {
+            HandleTeamAAnswering();
+        };
+        device.OnTeamBPressed = () =>
+        {
+            HandleTeamBAnswering();
+        };
 
     }
 }

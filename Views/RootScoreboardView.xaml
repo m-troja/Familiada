@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:Familiada.ViewModels"
         xmlns:views="clr-namespace:Familiada.Views"
-        Title="Familiada" Height="800" Width="1200"
+        Title="Familiada" Height="1080" Width="1920"
         Left="1200"
         Top="200">
 

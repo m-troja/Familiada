@@ -300,6 +300,7 @@ namespace Familiada.ViewModels
                 OnPropertyChanged(nameof(RoundPointsText));
                 OnPropertyChanged(nameof(TotalPointsText));
             }
+
         }
     }
 

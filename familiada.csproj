@@ -71,7 +71,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Assets\Answers\answers1 - Copy.json">
+    <None Update="Assets\Answers\answers2.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Answers\answers1.json">
@@ -92,6 +92,10 @@
     <None Update="Assets\Sounds\outro.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\FirstPressedButton\irnin.FirstPressDevice\irnin.FirstPressDevice.csproj" />
   </ItemGroup>
 
 </Project>

@@ -266,8 +266,8 @@ public class GameState : INotifyPropertyChanged
     }
     public GameState()
     {
-        var pathGameAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "answers1.json");
-        var pathFinalAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "final3.json");
+        var pathGameAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "answers2.json");
+        var pathFinalAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "final2.json");
         var pathTeam1Name = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Teams", "team1.txt");
         var pathTeam2Name = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Teams", "team2.txt");
         var jsonGameAnswers = File.ReadAllText(pathGameAnswers);
