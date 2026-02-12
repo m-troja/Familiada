@@ -12,9 +12,6 @@ using System.Windows.Shapes;
 
 namespace Familiada.Views
 {
-    /// <summary>
-    /// Interaction logic for RootView.xaml
-    /// </summary>
     public partial class RootScoreboardView : Window
     {
         public RootScoreboardView(ViewModels.RootViewModel viewModel)

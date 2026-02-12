@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 
 namespace Familiada.Views
 {
@@ -8,6 +9,8 @@ namespace Familiada.Views
         {
             InitializeComponent();
             DataContext = viewModel;
+            this.Width = viewModel.HostWidth;
+            this.Height = viewModel.HostHeight;
         }
         public RootHostView()
         {

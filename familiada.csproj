@@ -27,7 +27,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Assets\Sounds\correct.wav">
+      <None Update="dev.env">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+<Content Include="Assets\Sounds\correct.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Sounds\dzwonki.wav">
@@ -65,6 +68,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Views\RootHostView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -96,6 +108,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\FirstPressedButton\irnin.FirstPressDevice\irnin.FirstPressDevice.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

@@ -6,9 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Media;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
-using irnin.FirstPressDevice;
 
 namespace Familiada.ViewModels;
 
@@ -32,7 +30,7 @@ public class GameViewModel : INotifyPropertyChanged
     public ICommand CheckFirstWinsCommand { get; }
     public ICommand TestSwitchToFinal { get; }
     public GameState GameState { get; }
-    private FirstPressDevice device;
+    //private FirstPressDevice device;
 
     public event PropertyChangedEventHandler? PropertyChanged;
     private void OnPropertyChanged(string name)
@@ -164,13 +162,12 @@ public class GameViewModel : INotifyPropertyChanged
     public bool IsFinalRound => GameState.IsFinalRound;
     private Phase Phase => GameState.Phase;
     public GameViewModel() : this(new GameState(), null) {
-        //InitDevice();
     }
 
 
     public GameViewModel(GameState gameState, RootViewModel rootViewModel)
     {
-        InitDevice();
+        //InitDevice();
 
         GameState = gameState;
         _rootViewModel = rootViewModel;
@@ -183,7 +180,7 @@ public class GameViewModel : INotifyPropertyChanged
         });
 
 
-        // 🔹 RelayCommand NoParam
+        //  RelayCommand NoParam
         TriggerNextRoundCommand = new RelayCommand(() =>
         {
             StartNewRound();
@@ -451,7 +448,7 @@ public class GameViewModel : INotifyPropertyChanged
 
     private void CheckFirstWins()
     {
-        device.Reset();
+        //device.Reset();
         GameState.IsFirstWins = true;
         GameState.FirstWinsIterations++;
         GameState.TeamALostChances = 0;
@@ -546,19 +543,20 @@ public class GameViewModel : INotifyPropertyChanged
             OnPropertyChanged(nameof(Phase));
     }
 
-    private void InitDevice()
-    {
-        device = new FirstPressDevice();
-        device.Connect("COM5");
-        device.Reset();
-        device.OnTeamAPressed = () =>
-        {
-            HandleTeamAAnswering();
-        };
-        device.OnTeamBPressed = () =>
-        {
-            HandleTeamBAnswering();
-        };
+    //private void InitDevice()
+    //{
+    //    device = new FirstPressDevice();
+    //    device.Connect("COM5");
+    //    device.Reset();
+    //    device.OnTeamAPressed = () =>
+    //    {
+    //        HandleTeamAAnswering();
+    //    }
+    //    ;
+    //    device.OnTeamBPressed = () =>
+    //    {
+    //        HandleTeamBAnswering();
+    //    };
 
-    }
+    //}
 }

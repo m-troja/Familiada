@@ -3,10 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:Familiada.ViewModels"
         xmlns:views="clr-namespace:Familiada.Views"
-        Title="Familiada" Height="1080" Width="1920"
-        Left="1200"
+        Title="Familiada" Height="{Binding ScoreboardHeight}" Width="{Binding ScoreboardWidth}"
+        Left="100"
         Top="200">
 
+    <Window.DataContext>
+        <vm:RootViewModel/>
+    </Window.DataContext>
+    
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:GameViewModel}">
             <views:ScoreboardGameUserControl/>

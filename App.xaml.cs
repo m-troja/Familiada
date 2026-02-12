@@ -3,22 +3,21 @@ using Familiada.ViewModels;
 using Familiada.Views;
 using System.Windows;
 
-namespace Familiada;
-
-public partial class App : Application
+namespace Familiada
 {
-    protected override void OnStartup(StartupEventArgs e)
+    public partial class App : Application
     {
-        base.OnStartup(e);
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
 
-        var gameState = new GameState();
+            var gameState = new GameState();
+            var viewModel = new RootViewModel(gameState);
+            var hostPanel = new RootHostView(viewModel);
+            var scoreboard = new RootScoreboardView(viewModel);
 
-        var viewModel = new RootViewModel(gameState);
-
-        var hostPanel = new RootHostView(viewModel);
-        var scoreboard = new RootScoreboardView(viewModel);
-
-        hostPanel.Show();
-        scoreboard.Show();
+            hostPanel.Show();
+            scoreboard.Show();
+        }
     }
 }
