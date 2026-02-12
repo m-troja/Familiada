@@ -4,8 +4,13 @@
         xmlns:vm="clr-namespace:Familiada.ViewModels"
         xmlns:views="clr-namespace:Familiada.Views"
         Title="Familiada" Height="{Binding ScoreboardHeight}" Width="{Binding ScoreboardWidth}"
-        Left="100"
-        Top="200">
+        Left="{Binding ScoreboardOffsetX}"
+        Top="{Binding ScoreboardOffsetY}"
+        >
+
+    <Window.Icon>
+        <BitmapImage UriSource="pack://application:,,,/Assets/Images/karol.ico" />
+    </Window.Icon>
 
     <Window.DataContext>
         <vm:RootViewModel/>

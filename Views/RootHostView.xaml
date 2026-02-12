@@ -4,10 +4,15 @@
         xmlns:vm="clr-namespace:Familiada.ViewModels"
         xmlns:views="clr-namespace:Familiada.Views"
         Title="Familiada Panel Prowadzącego"
-        Left="100"
-        Top="100"
+        Left="{Binding HostOffsetX}"
+        Top="{Binding HostOffsetY}"
         >
 
+
+    <Window.Icon>
+        <BitmapImage UriSource="pack://application:,,,/Assets/Images/karol.ico" />
+    </Window.Icon>
+    
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:GameViewModel}">
             <views:HostGameUserControl/>

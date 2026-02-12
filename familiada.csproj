@@ -14,8 +14,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Images\**" />
+    <EmbeddedResource Remove="Images\**" />
+    <None Remove="Images\**" />
+    <Page Remove="Images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Assets\Answers\final1.json" />
     <None Remove="Assets\Fonts\familiada.ttf" />
+    <None Remove="Assets\Images\karol.ico" />
     <None Remove="Assets\Sounds\correct.wav" />
     <None Remove="Assets\Sounds\dzwonki.wav" />
     <None Remove="Assets\Sounds\final_powtorzenie.wav" />
@@ -51,13 +59,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\Images\" />
-    <Folder Include="Images\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Assets\Fonts\familiada.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\karol.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Assets\Teams\team1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

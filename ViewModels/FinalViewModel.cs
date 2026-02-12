@@ -76,6 +76,8 @@ namespace Familiada.ViewModels
                 GameState.IsFinalSecondPlayerAnswering =  GameState.IsFinalSecondPlayerAnswering == true ? 
                     GameState.IsFinalSecondPlayerAnswering = false : 
                     GameState.IsFinalSecondPlayerAnswering = true;
+
+                ResetTimer();
                 UpdateFrontend();
             });
 
@@ -141,7 +143,7 @@ namespace Familiada.ViewModels
         {
             if (_timerCts != null) _timerCts.Cancel();
 
-            TimerSeconds = 0;
+            TimerSeconds = IsFinalSecondPlayerAnswering ?  20 :  15;
             UpdateFrontend();
         }
 
@@ -241,8 +243,11 @@ namespace Familiada.ViewModels
             }
             catch (OperationCanceledException)
             {
-                TimerSeconds = 0;
-                UpdateFrontend();
+                if (_timerCts != null) _timerCts.Cancel();
+
+                TimerSeconds = IsFinalSecondPlayerAnswering ? 20 : 15;
+
+                UpdateFrontend(); UpdateFrontend();
             }
         }
 
@@ -250,6 +255,7 @@ namespace Familiada.ViewModels
         {
             GameState.RoundPoints = 0;
             GameState.Phase = Phase.Final;
+            ResetTimer();
             UpdateFrontend();
         }
 
