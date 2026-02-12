@@ -30,8 +30,6 @@
     <None Remove="Assets\Sounds\incorrect.wav" />
     <None Remove="Assets\Sounds\po_1_rundzie_finalu.wav" />
     <None Remove="Assets\Sounds\przed_i_po_rundzie.wav" />
-    <None Remove="Assets\Teams\team1.txt" />
-    <None Remove="Assets\Teams\team2.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,12 +63,6 @@
     <Resource Include="Assets\Images\karol.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Assets\Teams\team1.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Teams\team2.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>

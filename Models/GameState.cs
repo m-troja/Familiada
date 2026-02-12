@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 
@@ -266,14 +267,11 @@ public class GameState : INotifyPropertyChanged
     }
     public GameState()
     {
+        LoadEnvironmentVariables();
         var pathGameAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "answers2.json");
         var pathFinalAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "final2.json");
-        var pathTeam1Name = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Teams", "team1.txt");
-        var pathTeam2Name = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Teams", "team2.txt");
         var jsonGameAnswers = File.ReadAllText(pathGameAnswers);
         var jsonFinalAnswers = File.ReadAllText(pathFinalAnswers);
-        Team1Name = File.ReadAllText(pathTeam1Name);
-        Team2Name = File.ReadAllText(pathTeam2Name);
 
         var wrapperGame = JsonSerializer.Deserialize<QuestionsWrapper>(jsonGameAnswers) ?? throw new Exception("Error reading game json of questions");
         var wrapperFinal = JsonSerializer.Deserialize<QuestionsWrapper>(jsonFinalAnswers) ?? throw new Exception("Error reading final json of questions");
@@ -283,5 +281,16 @@ public class GameState : INotifyPropertyChanged
         AnswersFinalPlayer2 = new ObservableCollection<Answer>(new List<Answer> { new(),  new(),  new(), new(), new()  } );
         RoundNumber = -1;
         Phase = Phase.NotStarted;
+    }
+
+    private void LoadEnvironmentVariables()
+    {
+        string envFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dev.env");
+        DotNetEnv.Env.Load(envFilePath);
+        Team1Name = Environment.GetEnvironmentVariable("FAMILIADA_TEAM_A_NAME") ?? "Druzyna A";
+        Team2Name = Environment.GetEnvironmentVariable("FAMILIADA_TEAM_B_NAME") ?? "Druzyna B";
+
+        Debug.WriteLine("Parsed Team1Name: " + Team1Name);
+        Debug.WriteLine("Parsed Team2Name: " + Team2Name);
     }
 }
