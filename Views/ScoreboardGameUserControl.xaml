@@ -36,7 +36,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0"
-                       FontSize="24"
+                       FontSize="{Binding FontsizeGameScoreboard}"
                        HorizontalAlignment="Left"
                        Text="{Binding Team1Name}"
                        FontFamily="{StaticResource FamiliadaFont}"
@@ -44,7 +44,7 @@
                        />
 
             <TextBlock Grid.Column="1"
-                       FontSize="24"
+                       FontSize="{Binding FontsizeGameScoreboard}"
                        HorizontalAlignment="Right"
                        Text="{Binding Team2Name}"  
                        FontFamily="{StaticResource FamiliadaFont}"
@@ -59,10 +59,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" FontSize="28" HorizontalAlignment="Left" Text="{Binding TeamAPoints}" FontFamily="{StaticResource FamiliadaFont}"
+            <TextBlock Grid.Column="0"  FontSize="{Binding FontsizeGameScoreboard}" HorizontalAlignment="Left" Text="{Binding TeamAPoints}" FontFamily="{StaticResource FamiliadaFont}"
                        Foreground="Yellow"
                        />
-            <TextBlock Grid.Column="1" FontSize="28" HorizontalAlignment="Right" Text="{Binding TeamBPoints}" FontFamily="{StaticResource FamiliadaFont}"
+            <TextBlock Grid.Column="1"  FontSize="{Binding FontsizeGameScoreboard}" HorizontalAlignment="Right" Text="{Binding TeamBPoints}" FontFamily="{StaticResource FamiliadaFont}"
                 Foreground="Yellow"
                        />
         </Grid>
@@ -70,23 +70,23 @@
         <!-- Grid X + Scoreboard -->
         <Grid x:Name="XandScoreboardGrid" Grid.Row="3" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
 
             <!-- X Drużyna A -->
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0">
                 <Grid>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock  Margin="11" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100"
+                        <TextBlock  Margin="11" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="{Binding FontsizeGameScoreboardX}"
                                    Text="{Binding TeamAX1}" FontFamily="{StaticResource FamiliadaFont}" Foreground="Yellow" />
-                        <TextBlock  Margin="11" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100"
+                        <TextBlock  Margin="11" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="{Binding FontsizeGameScoreboardX}"
                                    Text="{Binding TeamAX2}" FontFamily="{StaticResource FamiliadaFont}" Foreground="Yellow" />
-                        <TextBlock  Margin="11" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100"
+                        <TextBlock  Margin="11" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="{Binding FontsizeGameScoreboardX}"
                                    Text="{Binding TeamAX3}" FontFamily="{StaticResource FamiliadaFont}" Foreground="Yellow" />
                     </StackPanel>
-                    <TextBlock FontSize="111" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    <TextBlock FontSize="211" HorizontalAlignment="Center" VerticalAlignment="Center"
                                Visibility="{Binding IsTeamAdisplayBigX, Converter={StaticResource BoolToVisibility}}"
                                Text="{Binding TeamAbigX}" FontFamily="{StaticResource FamiliadaFont}" Foreground="Yellow" />
                 </Grid> 
@@ -106,21 +106,24 @@
                             <Border BorderBrush="Black" BorderThickness="1">
                                 <Grid Margin="0,4">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="120"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="120"/>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Grid.Column="0" Margin="10"
-                                               Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter},
-                                                      Path=(ItemsControl.AlternationIndex),
-                                                      Converter={StaticResource PlusOneConverter}}" FontFamily="{StaticResource FamiliadaFont}"
-                                               FontSize="32" HorizontalAlignment="Center" Foreground="Yellow" 
+                                               Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter},  Path=(ItemsControl.AlternationIndex),
+                                                      Converter={StaticResource PlusOneConverter}}" FontFamily="{StaticResource FamiliadaFont}" 
+                                               FontSize="{Binding DataContext.FontsizeGameScoreboard,  RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                               HorizontalAlignment="Center" Foreground="Yellow" 
                                                />
-                                    <TextBlock Grid.Column="1" Text="{Binding DisplayText}" FontSize="32"  Margin="10"
-                                               Foreground="Yellow" FontFamily="{StaticResource FamiliadaFont}"
+                                    <TextBlock Grid.Column="1" Text="{Binding DisplayText}"   
+                                               FontSize="{Binding DataContext.FontsizeGameScoreboard,  RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                               Margin="10" Foreground="Yellow" FontFamily="{StaticResource FamiliadaFont}"
                                                />
-                                    <TextBlock Grid.Column="2" Text="{Binding DisplayPoints}" FontSize="32" HorizontalAlignment="Right" Margin="10"
+                                    <TextBlock Grid.Column="2" Text="{Binding DisplayPoints}"  
+                                               FontSize="{Binding DataContext.FontsizeGameScoreboard, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                               HorizontalAlignment="Right" Margin="10"
                                                FontFamily="{StaticResource FamiliadaFont}" Foreground="Yellow" 
                                                />
                                 </Grid>
@@ -129,7 +132,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <TextBlock Grid.Row="1" Text="{Binding TotalPointsText}" FontSize="32" HorizontalAlignment="Right" Margin="0,50,10,0"
+                <TextBlock Grid.Row="1" Text="{Binding TotalPointsText}"  FontSize="{Binding FontsizeGameScoreboard}" HorizontalAlignment="Right" Margin="0,50,10,0"
                FontFamily="{StaticResource FamiliadaFont}" Foreground="Yellow"  />
                 
             </Grid>
@@ -139,14 +142,14 @@
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2">
                 <Grid>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock Margin="11" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" Text="{Binding TeamBX1}" 
+                        <TextBlock Margin="11" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="{Binding FontsizeGameScoreboardX}" Text="{Binding TeamBX1}" 
                                    FontFamily="{StaticResource FamiliadaFont}" Foreground="Yellow"/>
-                        <TextBlock Margin="11" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" Text="{Binding TeamBX2}" 
+                        <TextBlock Margin="11" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="{Binding FontsizeGameScoreboardX}" Text="{Binding TeamBX2}" 
                                    FontFamily="{StaticResource FamiliadaFont}" Foreground="Yellow"/>
-                        <TextBlock Margin="11" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" Text="{Binding TeamBX3}" 
+                        <TextBlock Margin="11" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="{Binding FontsizeGameScoreboardX}" Text="{Binding TeamBX3}" 
                                    FontFamily="{StaticResource FamiliadaFont}" Foreground="Yellow"/>
                     </StackPanel>
-                    <TextBlock FontSize="111" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    <TextBlock FontSize="211" HorizontalAlignment="Center" VerticalAlignment="Center"
                                Visibility="{Binding IsTeamBdisplayBigX, Converter={StaticResource BoolToVisibility}}"
                                Text="{Binding TeamBbigX}" FontFamily="{StaticResource FamiliadaFont}" Foreground="Yellow"/>
                 </Grid>

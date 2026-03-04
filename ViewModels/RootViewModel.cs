@@ -21,6 +21,36 @@ public class RootViewModel : INotifyPropertyChanged
     private double _hostOffsetX;
     private double _hostOffsetY;
 
+    private double _fontsizeGameScoreboard;
+    private double _fontsizeGameScoreboardX;
+    public double FontsizeGameScoreboardX
+    {
+        get => _fontsizeGameScoreboardX;
+        set
+        {
+            if (_fontsizeGameScoreboardX != value)
+            {
+                _fontsizeGameScoreboardX = value;
+                OnPropertyChanged(nameof(FontsizeGameScoreboardX));
+            }
+        }
+    }
+
+    public double FontsizeGameScoreboard { 
+    get => _fontsizeGameScoreboard;
+    set
+        {
+
+            if (_fontsizeGameScoreboard != value)
+            {
+                _fontsizeGameScoreboard = value;
+                OnPropertyChanged(nameof(FontsizeGameScoreboard));
+            }
+        }
+    
+    } 
+
+
     public double HostOffsetX
     {
         get => _hostOffsetX;
@@ -139,8 +169,6 @@ public class RootViewModel : INotifyPropertyChanged
 
     private void LoadEnvironmentVariables()
     {
-        string envFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dev.env");
-        DotNetEnv.Env.Load(envFilePath);
         string? envScoreboardWidth = Environment.GetEnvironmentVariable("FAMILIADA_SCOREBOARD_WIDTH");
         string? envScoreboardHeight = Environment.GetEnvironmentVariable("FAMILIADA_SCOREBOARD_HEIGHT");
         string? envHostWidth = Environment.GetEnvironmentVariable("FAMILIADA_HOST_WIDTH");
@@ -149,6 +177,8 @@ public class RootViewModel : INotifyPropertyChanged
         string? envScoreboardOffsetY = Environment.GetEnvironmentVariable("FAMILIADA_SCOREBOARD_OFFSET_Y");
         string? envHostOffsetX = Environment.GetEnvironmentVariable("FAMILIADA_HOST_OFFSET_X");
         string? envHostOffsetY = Environment.GetEnvironmentVariable("FAMILIADA_HOST_OFFSET_Y");
+        string? envFontsizeGameScoreboard = Environment.GetEnvironmentVariable("FAMILIADA_FONTSIZE_GAME_SCOREBOARD");
+        string? envFontsizeGameScoreboardX = Environment.GetEnvironmentVariable("FAMILIADA_FONTSIZE_GAME_SCOREBOARD_X");
 
         _scoreboardWidth = double.TryParse(envScoreboardWidth, out double scoreboardWidth) ? scoreboardWidth : 501;
         _scoreboardHeight = double.TryParse(envScoreboardHeight, out double scoreboardHeight) ? scoreboardHeight : 502;
@@ -158,6 +188,8 @@ public class RootViewModel : INotifyPropertyChanged
         _scoreboardOffsetY = double.TryParse(envScoreboardOffsetY, out double scoreboardOffsetY) ? scoreboardOffsetY : 506;
         _hostOffsetX = double.TryParse(envHostOffsetX, out double hostOffsetX) ? hostOffsetX : 507;
         _hostOffsetY = double.TryParse(envHostOffsetY, out double hostOffsetY) ? hostOffsetY : 508;
+        _fontsizeGameScoreboard = double.TryParse(envFontsizeGameScoreboard, out double fontsizeGameScoreboard) ? fontsizeGameScoreboard :66;
+        _fontsizeGameScoreboardX = double.TryParse(envFontsizeGameScoreboard, out double fontsizeGameScoreboardX) ? fontsizeGameScoreboardX : 100;
 
         Debug.WriteLine("Parsed ScoreboardWidth: " + _scoreboardWidth);
         Debug.WriteLine("Parsed ScoreboardHeight: " + _scoreboardHeight);

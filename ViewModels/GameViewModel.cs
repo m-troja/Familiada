@@ -30,7 +30,7 @@ public class GameViewModel : INotifyPropertyChanged
     public ICommand CheckFirstWinsCommand { get; }
     public ICommand TestSwitchToFinal { get; }
     public GameState GameState { get; }
-    //private FirstPressDevice device;
+    private FirstPressDevice device;
 
     public event PropertyChangedEventHandler? PropertyChanged;
     private void OnPropertyChanged(string name)
@@ -60,6 +60,9 @@ public class GameViewModel : INotifyPropertyChanged
 
     }
 
+    public double FontsizeGameScoreboard => _rootViewModel?.FontsizeGameScoreboard ?? 66;
+    public double FontsizeGameScoreboardX => _rootViewModel?.FontsizeGameScoreboardX ?? 100;
+
     public string TeamAPointsText => "Drużyna 1";
 
     public string TeamBPointsText => "Drużyna 2";
@@ -85,16 +88,18 @@ public class GameViewModel : INotifyPropertyChanged
     public string TeamAbigX => GameState.IsTeamAdisplayBigX ? "X" : "";
     public string TeamBbigX => GameState.IsTeamBdisplayBigX ? "X" : "";
     public string FirstWinsText => GameState.IsFirstWins ? $"Kto pierwszy ten lepszy!!! Iteracja {GameState.FirstWinsIterations}" : "";
+
     public string TeamAnswersText
     {
         get
         {
             if (GameState.IsTeamAAnswering)
-                return $"Odpowiada drużyna A: {Team1Name}";
-            else if (GameState.IsTeamBAnswering)
-                return $"Odpowiada drużyna B: {Team2Name}";
-            else
-                return "Odpowiada drużyna: Wybierz drużynę!!";
+                return $"Odpowiadają {Team1Name}";
+
+            if (GameState.IsTeamBAnswering)
+                return $"Odpowiadają {Team2Name}";
+
+            return "";
         }
     }
 
@@ -167,7 +172,7 @@ public class GameViewModel : INotifyPropertyChanged
 
     public GameViewModel(GameState gameState, RootViewModel rootViewModel)
     {
-        //InitDevice();
+        InitDevice();
 
         GameState = gameState;
         _rootViewModel = rootViewModel;
@@ -227,7 +232,10 @@ public class GameViewModel : INotifyPropertyChanged
         {
             HandleTeamBAnswering();
         });
-
+        IntroMusicCommand = new RelayCommand(() =>
+        {
+            PlaySound("Assets/Sounds/intro.wav");
+        });
         GameState.PropertyChanged += GameState_PropertyChanged;
     }
 
@@ -236,17 +244,24 @@ public class GameViewModel : INotifyPropertyChanged
         GameState.IsTeamAAnswering = true;
         GameState.IsTeamBAnswering = false;
 
-        OnPropertyChanged(nameof(TeamAnswersText));
+        UpdateFrontend();
     }
     private void HandleTeamBAnswering()
     {
         GameState.IsTeamAAnswering = false;
         GameState.IsTeamBAnswering = true;
 
-        OnPropertyChanged(nameof(TeamAnswersText));
+        UpdateFrontend();
     }
     private void HandleRevealAnswer(Answer answer)
     {
+        if (!GameState.IsTeamAAnswering && !GameState.IsTeamBAnswering)
+        {
+            return;
+        }
+
+        device.Reset();
+
         GameState.IsFirstWins = false;
 
         if (answer == null || answer.IsRevealed)
@@ -275,13 +290,13 @@ public class GameViewModel : INotifyPropertyChanged
             if (IsTeamAAnswering)
             {
                 GameState.IsTeamAdisplayBigX = true;
-                UpdateFrontend();
             }
             else if (IsTeamBAnswering)
             {
                 GameState.IsTeamBdisplayBigX = true;
-                UpdateFrontend();
             }
+            device.Reset();
+            SwitchTeamAnswering();
         }
         else if(!IsFirstWins)
         {
@@ -292,7 +307,13 @@ public class GameViewModel : INotifyPropertyChanged
                     GameState.IsTeamAdisplayBigX = true;
                     TeamBwinsRound();
                 }
-                else
+                else if (GameState.TeamBLostChances == 2)
+                {
+                    GameState.IsTeamAdisplayBigX = true;
+                    GameState.TeamBLostChances++;
+                    SwitchTeamAnswering();
+                }
+                else 
                 {
                     GameState.TeamALostChances++;
                 }
@@ -306,6 +327,12 @@ public class GameViewModel : INotifyPropertyChanged
                     GameState.IsTeamBdisplayBigX = true;
                     TeamAwinsRound();
                 }
+                else if (GameState.TeamALostChances == 2)
+                {
+                    GameState.IsTeamBdisplayBigX = true;
+                    GameState.TeamBLostChances++;
+                    SwitchTeamAnswering();
+                }
                 else
                 {
                     GameState.TeamBLostChances++;
@@ -314,6 +341,7 @@ public class GameViewModel : INotifyPropertyChanged
                 UpdateFrontend();            
             }
         }
+        UpdateFrontend();
         PlaySound("Assets/Sounds/incorrect.wav");
     }
 
@@ -345,6 +373,9 @@ public class GameViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(FirstWinsText));
         OnPropertyChanged(nameof(FirstWinsText));
         OnPropertyChanged(nameof(TotalPointsText));
+        OnPropertyChanged(nameof(TeamAnswersText));
+        OnPropertyChanged(nameof(IsTeamAdisplayBigX));
+        OnPropertyChanged(nameof(IsTeamBdisplayBigX));
     }
     private async void CheckRoundCanBeFinished()
     {
@@ -386,6 +417,20 @@ public class GameViewModel : INotifyPropertyChanged
         }
     }
 
+    private void SwitchTeamAnswering()
+    {
+        if (GameState.IsTeamAAnswering)
+        {
+            GameState.IsTeamAAnswering = false;
+            GameState.IsTeamBAnswering = true;
+        }
+        else if (GameState.IsTeamBAnswering)
+        {
+            GameState.IsTeamAAnswering = true;
+            GameState.IsTeamBAnswering = false;
+        }
+        UpdateFrontend();
+    }
     private void RemoveFirstWinsErrors()
     {
         GameState.IsTeamAdisplayBigX = false;
@@ -425,6 +470,7 @@ public class GameViewModel : INotifyPropertyChanged
          );
 
         RemoveFirstWinsErrors();
+        device.Reset();
         UpdateFrontend();
     }
 
@@ -448,7 +494,9 @@ public class GameViewModel : INotifyPropertyChanged
 
     private void CheckFirstWins()
     {
-        //device.Reset();
+        GameState.IsTeamAAnswering = false;
+        GameState.IsTeamBAnswering = false;
+        device.Reset();
         GameState.IsFirstWins = true;
         GameState.FirstWinsIterations++;
         GameState.TeamALostChances = 0;
@@ -481,82 +529,77 @@ public class GameViewModel : INotifyPropertyChanged
     // GameState event handler
     private void GameState_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(GameState.RoundPoints))
-        {
-            OnPropertyChanged(nameof(RoundPoints));
-            OnPropertyChanged(nameof(TotalPointsText));
-        }
+        if (e.PropertyName == nameof(GameState.RoundPoints))  
+            UpdateFrontend();
 
-        if (e.PropertyName == nameof(GameState.RoundNumber))
-        {
-            OnPropertyChanged(nameof(CurrentQuestionText));
-        }
+        if (e.PropertyName == nameof(GameState.RoundNumber)) 
+            UpdateFrontend();
 
-        if (e.PropertyName == nameof(GameState.TeamALostChances))
-        {
-            OnPropertyChanged(nameof(TeamAX1));
-            OnPropertyChanged(nameof(TeamAX2));
-            OnPropertyChanged(nameof(TeamAX3));
-        }
+        if (e.PropertyName == nameof(GameState.TeamALostChances))   
+            UpdateFrontend();
 
-        if (e.PropertyName == nameof(GameState.TeamBLostChances))
-        {
-            OnPropertyChanged(nameof(TeamBX1));
-            OnPropertyChanged(nameof(TeamBX2));
-            OnPropertyChanged(nameof(TeamBX3));
-        }
+        if (e.PropertyName == nameof(GameState.TeamBLostChances))  
+            UpdateFrontend();
 
         if (e.PropertyName == nameof(GameState.RoundPoints))
-            OnPropertyChanged(nameof(RoundPoints));
+            UpdateFrontend();
 
         if (e.PropertyName == nameof(GameState.TeamAPoints))
-            OnPropertyChanged(nameof(TeamAPoints));
+            UpdateFrontend();
 
         if (e.PropertyName == nameof(GameState.TeamBPoints))
-            OnPropertyChanged(nameof(TeamBPoints));
+            UpdateFrontend();
 
         if (e.PropertyName == nameof(GameState.FirstWinsIterations))
-            OnPropertyChanged(nameof(FirstWinsIterations));
+            UpdateFrontend();
 
         if (e.PropertyName == nameof(GameState.IsFirstWins))
-            OnPropertyChanged(nameof(IsFirstWins));
+            UpdateFrontend();
 
         if (e.PropertyName == nameof(GameState.IsTeamAdisplayBigX))
-            OnPropertyChanged(nameof(IsTeamAdisplayBigX));
+            UpdateFrontend();
 
         if (e.PropertyName == nameof(GameState.IsTeamBdisplayBigX))
-            OnPropertyChanged(nameof(IsTeamBdisplayBigX));
+            UpdateFrontend();
 
         if (e.PropertyName == nameof(GameState.IsTeamAAnswering))
-            OnPropertyChanged(nameof(IsTeamAAnswering));
+            UpdateFrontend();
 
         if (e.PropertyName == nameof(GameState.IsTeamBAnswering))
-            OnPropertyChanged(nameof(IsTeamBAnswering));
+            UpdateFrontend();
 
         if (e.PropertyName == nameof(GameState.IsLastChance))
-            OnPropertyChanged(nameof(IsLastChance));
+            UpdateFrontend();
 
         if (e.PropertyName == nameof(GameState.IsFinalRound))
-            OnPropertyChanged(nameof(IsFinalRound));
+            UpdateFrontend();
 
         if (e.PropertyName == nameof(GameState.Phase))
-            OnPropertyChanged(nameof(Phase));
+            UpdateFrontend();
     }
 
-    //private void InitDevice()
-    //{
-    //    device = new FirstPressDevice();
-    //    device.Connect("COM5");
-    //    device.Reset();
-    //    device.OnTeamAPressed = () =>
-    //    {
-    //        HandleTeamAAnswering();
-    //    }
-    //    ;
-    //    device.OnTeamBPressed = () =>
-    //    {
-    //        HandleTeamBAnswering();
-    //    };
+    private async Task InitDevice()
+    {
+        device = new FirstPressDevice();
+        var comPortName = System.Environment.GetEnvironmentVariable("SERIAL_PORT_NAME") ?? "COM5";
 
-    //}
+        if (!device.Connect(comPortName))
+        {
+            Console.WriteLine("Device not connected!!!!!!!!!!");
+            return;
+        }
+
+        await Task.Delay(2000); 
+        device.Reset();
+
+        device.OnTeamAPressed = () =>
+        {
+            HandleTeamAAnswering();
+        }
+        ;
+        device.OnTeamBPressed = () =>
+        {
+            HandleTeamBAnswering();
+        };
+    }
 }

@@ -285,8 +285,7 @@ public class GameState : INotifyPropertyChanged
 
     private void LoadEnvironmentVariables()
     {
-        string envFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dev.env");
-        DotNetEnv.Env.Load(envFilePath);
+        DotNetEnv.Env.Load("C:\\tmp\\familiada.dev.env");
         Team1Name = Environment.GetEnvironmentVariable("FAMILIADA_TEAM_A_NAME") ?? "Druzyna A";
         Team2Name = Environment.GetEnvironmentVariable("FAMILIADA_TEAM_B_NAME") ?? "Druzyna B";
 

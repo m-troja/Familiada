@@ -33,9 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-      <None Update="dev.env">
-    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-  </None>
 <Content Include="Assets\Sounds\correct.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
