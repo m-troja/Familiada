@@ -8,9 +8,14 @@
    	<UseWPF>true</UseWPF>
 
   	<PublishSingleFile>true</PublishSingleFile>
+	  <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+
  	 <SelfContained>true</SelfContained>
  	 <RuntimeIdentifier>win-x64</RuntimeIdentifier>
  	 <PublishTrimmed>false</PublishTrimmed>
+	<DebugType>none</DebugType>
+	<ApplicationIcon>Assets\Images\karol.ico</ApplicationIcon>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +28,6 @@
   <ItemGroup>
     <None Remove="Assets\Answers\final1.json" />
     <None Remove="Assets\Fonts\familiada.ttf" />
-    <None Remove="Assets\Images\karol.ico" />
     <None Remove="Assets\Sounds\correct.wav" />
     <None Remove="Assets\Sounds\dzwonki.wav" />
     <None Remove="Assets\Sounds\final_powtorzenie.wav" />
@@ -51,14 +55,12 @@
     <Content Include="Assets\Sounds\przed_i_po_rundzie.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Assets\Fonts\familiada.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\Images\karol.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 

@@ -9,9 +9,6 @@
         >
 
 
-    <Window.Icon>
-        <BitmapImage UriSource="pack://application:,,,/Assets/Images/karol.ico" />
-    </Window.Icon>
     
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:GameViewModel}">

@@ -8,9 +8,6 @@
         Top="{Binding ScoreboardOffsetY}"
         >
 
-    <Window.Icon>
-        <BitmapImage UriSource="pack://application:,,,/Assets/Images/karol.ico" />
-    </Window.Icon>
 
     <Window.DataContext>
         <vm:RootViewModel/>
