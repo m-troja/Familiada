@@ -348,11 +348,11 @@ public class GameViewModel : INotifyPropertyChanged
 
     private void TeamAwinsRound()
     {
-        if (GameState.RoundNumber == 3)
+        if (GameState.RoundNumber == 5)
         {
             TeamAPoints += GameState.RoundPoints * 2;
         }
-        else if (GameState.RoundNumber == 4)
+        else if (GameState.RoundNumber == 6)
         {
             TeamAPoints += GameState.RoundPoints * 3;
         }
@@ -487,14 +487,15 @@ public class GameViewModel : INotifyPropertyChanged
         GameState.TeamALostChances = 0;
         GameState.TeamBLostChances = 0;
         GameState.FirstWinsIterations = 1;
+        RemoveFirstWinsErrors();
+
+        UpdateFrontend();
 
         await _soundService.PlaySequenceAsync(
           "Assets/Sounds/przed_i_po_rundzie.wav"
          );
 
-        RemoveFirstWinsErrors();
         device.Reset();
-        UpdateFrontend();
     }
 
     private async void EndRound()
@@ -617,12 +618,13 @@ public class GameViewModel : INotifyPropertyChanged
 
         device.OnTeamAPressed = () =>
         {
-            HandleTeamAAnswering();
+            if (GameState.IsFirstWins) HandleTeamAAnswering();
+
         }
         ;
         device.OnTeamBPressed = () =>
         {
-            HandleTeamBAnswering();
+            if (GameState.IsFirstWins)  HandleTeamBAnswering();
         };
     }
 }
