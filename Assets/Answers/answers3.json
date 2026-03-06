@@ -1,0 +1,134 @@
+{
+  "Questions": [
+    {
+      "Id": 1,
+      "Text": "Jaki może być klucz",
+      "Answers": [
+        {
+          "Text": "Do zamka",
+          "Points": 30
+        },
+        {
+          "Text": "wiolinowy",
+          "Points": 24
+        },
+        {
+          "Text": "francuski",
+          "Points": 18
+        },
+        {
+          "Text": "hydrauliczny",
+          "Points": 16
+        },
+        {
+          "Text": "ptaków",
+          "Points": 12
+        }
+      ]
+    },
+    {
+      "Id": 2,
+      "Text": "Ma zęby a nie gryzie",
+      "Answers": [
+        {
+          "Text": "grzebień",
+          "Points": 28
+        },
+        {
+          "Text": "piła",
+          "Points": 24
+        },
+        {
+          "Text": "koło zębate",
+          "Points": 18
+        },
+        {
+          "Text": "grabie",
+          "Points": 16
+        },
+        {
+          "Text": "widelec",
+          "Points": 12
+        }
+      ]
+    },
+    {
+      "Id": 3,
+      "Text": "Co pływa po wodzie",
+      "Answers": [
+        {
+          "Text": "statek",
+          "Points": 30
+        },
+        {
+          "Text": "łódka",
+          "Points": 24
+        },
+        {
+          "Text": "kaczka",
+          "Points": 18
+        },
+        {
+          "Text": "lód",
+          "Points": 16
+        },
+        {
+          "Text": "butelka",
+          "Points": 12
+        }
+      ]
+    },
+    {
+      "Id": 4,
+      "Text": "Co można włożyć do lodówki",
+      "Answers": [
+        {
+          "Text": "jedzenie",
+          "Points": 30
+        },
+        {
+          "Text": "napój",
+          "Points": 24
+        },
+        {
+          "Text": "masło",
+          "Points": 18
+        },
+        {
+          "Text": "owoce",
+          "Points": 16
+        },
+        {
+          "Text": "lód",
+          "Points": 12
+        }
+      ]
+    },
+    {
+      "Id": 5,
+      "Text": "Nie ma nóg a chodzi",
+      "Answers": [
+        {
+          "Text": "czas",
+          "Points": 30
+        },
+        {
+          "Text": "rzeka",
+          "Points": 24
+        },
+        {
+          "Text": "plotka",
+          "Points": 18
+        },
+        {
+          "Text": "zegarek",
+          "Points": 16
+        },
+        {
+          "Text": "internet",
+          "Points": 12
+        }
+      ]
+    }
+  ]
+}

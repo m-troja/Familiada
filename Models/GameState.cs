@@ -45,6 +45,8 @@ public class GameState : INotifyPropertyChanged
     public Phase Phase { get; set; } = Phase.NotStarted;
     public string Team1Name = null!;
     public string Team2Name = null!;
+    public string GameQuestionsSet = null!;
+    public string FinalQuestionsSet = null!;
     private int _teamAPoints = 0;
     private int _teamBPoints = 0;
     private int _roundPoints = 0;
@@ -74,7 +76,6 @@ public class GameState : INotifyPropertyChanged
             }
         }
     } 
-
 
     public int TeamBPoints
     {
@@ -268,8 +269,8 @@ public class GameState : INotifyPropertyChanged
     public GameState()
     {
         LoadEnvironmentVariables();
-        var pathGameAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "answers2.json");
-        var pathFinalAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", "final2.json");
+        var pathGameAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", $"answers{GameQuestionsSet}.json");
+        var pathFinalAnswers = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Answers", $"final{FinalQuestionsSet}.json");
         var jsonGameAnswers = File.ReadAllText(pathGameAnswers);
         var jsonFinalAnswers = File.ReadAllText(pathFinalAnswers);
 
@@ -285,9 +286,10 @@ public class GameState : INotifyPropertyChanged
 
     private void LoadEnvironmentVariables()
     {
-        DotNetEnv.Env.Load("familiada.dev.env");
         Team1Name = Environment.GetEnvironmentVariable("FAMILIADA_TEAM_A_NAME") ?? "Druzyna A";
         Team2Name = Environment.GetEnvironmentVariable("FAMILIADA_TEAM_B_NAME") ?? "Druzyna B";
+        GameQuestionsSet = Environment.GetEnvironmentVariable("FAMILIADA_GAME_QUESTIONS_SET") ?? "1";
+        FinalQuestionsSet = Environment.GetEnvironmentVariable("FAMILIADA_FINAL_QUESTIONS_SET") ?? "1";
 
         Debug.WriteLine("Parsed Team1Name: " + Team1Name);
         Debug.WriteLine("Parsed Team2Name: " + Team2Name);

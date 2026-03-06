@@ -2,132 +2,132 @@
   "Questions": [
     {
       "Id": 1,
-      "Text": "Co ludzie robią w windzie",
+      "Text": "Coś gorącego",
       "Answers": [
         {
-          "Text": "Patrzą w telefon",
-          "Points": 30
+          "Text": "herbata",
+          "Points": 28
         },
         {
-          "Text": "Stoją w ciszy",
+          "Text": "zupa",
           "Points": 24
         },
         {
-          "Text": "Patrzą na numery pięter",
-          "Points": 20
+          "Text": "lato",
+          "Points": 18
         },
         {
+          "Text": "temat",
+          "Points": 16
+        },
         {
-          "Text": "Rozmawiają",
+          "Text": "piasek",
           "Points": 14
-        },
-        {
-          "Text": "Udają, że nikogo nie widzą",
-          "Points": 12
         }
       ]
     },
     {
       "Id": 2,
-      "Text": "Co można zgubić w domu",
+      "Text": "Co można złamać",
       "Answers": [
         {
-          "Text": "Klucze",
-          "Points": 38
+          "Text": "nogę",
+          "Points": 30
         },
         {
-          "Text": "Pilot",
-          "Points": 26
+          "Text": "rękę",
+          "Points": 24
         },
         {
-          "Text": "Telefon",
-          "Points": 18
+          "Text": "serce",
+          "Points": 20
         },
         {
-          "Text": "Okulary",
+          "Text": "gałąź",
+          "Points": 16
+        },
+        {
+          "Text": "zasady",
           "Points": 10
-        },
-        {
-          "Text": "Portfel",
-          "Points": 8
         }
       ]
     },
     {
       "Id": 3,
-      "Text": "Co robimy, gdy nie możemy zasnąć",
+      "Text": "Coś ujemnego",
       "Answers": [
         {
-          "Text": "Przeglądamy telefon",
-          "Points": 34
+          "Text": "liczba",
+          "Points": 28
         },
         {
-          "Text": "Przewracamy się z boku na bok",
+          "Text": "saldo",
           "Points": 24
         },
         {
-          "Text": "Liczymy w myślach",
+          "Text": "wynik",
+          "Points": 20
+        },
+        {
+          "Text": "temperatura",
           "Points": 16
         },
         {
-          "Text": "Wstajemy z łóżka",
-          "Points": 14
-        },
-        {
-          "Text": "Włączamy telewizor",
+          "Text": "ładunek",
           "Points": 12
         }
       ]
     },
     {
       "Id": 4,
-      "Text": "Co denerwuje kierowców",
+      "Text": "Coś macierzyńskiego",
       "Answers": [
         {
-          "Text": "Korki",
-          "Points": 40
+          "Text": "instynkt",
+          "Points": 30
         },
         {
-          "Text": "Wolna jazda innych",
-          "Points": 22
+          "Text": "miłość",
+          "Points": 24
         },
         {
-          "Text": "Brak miejsc parkingowych",
-          "Points": 16
-        },
-        {
-          "Text": "Piesi",
-          "Points": 12
-        },
-        {
-          "Text": "Radar/policja",
-          "Points": 10
-        }
-      ]
-    },
-    {
-      "Id": 5,
-      "Text": "Co ludzie jedzą na szybko",
-      "Answers": [
-        {
-          "Text": "Kanapkę",
-          "Points": 34
-        },
-        {
-          "Text": "Pizzę",
-          "Points": 22
-        },
-        {
-          "Text": "Hot-doga",
+          "Text": "urlop",
           "Points": 18
         },
         {
-          "Text": "Batonika",
+          "Text": "zasiłek",
+          "Points": 16
+        },
+        {
+          "Text": "opieka",
+          "Points": 12
+        }
+      ]
+    },
+    
+    {
+      "Id": 5,
+      "Text": "Co zmienia kolor",
+      "Answers": [
+        {
+          "Text": "kameleon",
+          "Points": 36
+        },
+        {
+          "Text": "niebo",
+          "Points": 24
+        },
+        {
+          "Text": "włosy",
+          "Points": 18
+        },
+        {
+          "Text": "liście",
           "Points": 14
         },
         {
-          "Text": "Zupkę instant",
-          "Points": 12
+          "Text": "skóra",
+          "Points": 8
         }
       ]
     }

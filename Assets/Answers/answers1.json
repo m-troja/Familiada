@@ -2,27 +2,169 @@
   "Questions": [
     {
       "Id": 1,
-      "Text": "Zwierzę domowe",
+      "Text": "Ma oczy a nie widzi",
       "Answers": [
         {
-          "Text": "Pies",
+          "Text": "igła",
           "Points": 30
         },
         {
-          "Text": "Kot",
-          "Points": 27
+          "Text": "ziemniak",
+          "Points": 24
         },
         {
-          "Text": "Rybka",
+          "Text": "sieć",
+          "Points": 18
+        },
+        {
+          "Text": "burza",
+          "Points": 16
+        },
+        {
+          "Text": "kostka do gry",
+          "Points": 12
+        }
+      ]
+    }
+    {
+      "Id": 2,
+      "Text": "Co może być złote",
+      "Answers": [
+        {
+          "Text": "pierścionek",
+          "Points": 29
+        },
+        {
+          "Text": "medal",
+          "Points": 21
+        },
+        {
+          "Text": "zegarek",
+          "Points": 17
+        },
+        {
+          "Text": "jesień",
+          "Points": 13
+        },
+        {
+          "Text": "myśl",
+          "Points": 11
+        },
+        {
+          "Text": "rybka",
+          "Points": 9
+        }
+      ]
+    },
+    {
+      "Id": 3,
+      "Text": "Co można otworzyć",
+      "Answers": [
+        {
+          "Text": "drzwi",
+          "Points": 28
+        },
+        {
+          "Text": "okno",
+          "Points": 22
+        },
+        {
+          "Text": "butelkę",
+          "Points": 18
+        },
+        {
+          "Text": "konto",
+          "Points": 14
+        },
+        {
+          "Text": "sklep",
+          "Points": 10
+        },
+        {
+          "Text": "parasol",
+          "Points": 8
+        }
+      ]
+    },
+    {
+      "Id": 4,
+      "Text": "Nie ma nóg a chodzi",
+      "Answers": [
+        {
+          "Text": "czas",
+          "Points": 26
+        },
+        {
+          "Text": "zegarek",
+          "Points": 23
+        },
+        {
+          "Text": "rzeka",
+          "Points": 19
+        },
+        {
+          "Text": "plotka",
           "Points": 15
         },
         {
-          "Text": "Chomik",
-          "Points": 12
+          "Text": "internet",
+          "Points": 11
         },
         {
-          "Text": "Papuga",
-          "Points": 8
+          "Text": "pociąg",
+          "Points": 6
+        }
+      ]
+    },
+    {
+      "Id": 5,
+      "Text": "Co może być ślepe",
+      "Answers": [
+        {
+          "Text": "zaułek",
+          "Points": 30
+        },
+        {
+          "Text": "nabój",
+          "Points": 25
+        },
+        {
+          "Text": "miłość",
+          "Points": 18
+        },
+        {
+          "Text": "kiszka",
+          "Points": 14
+        },
+        {
+          "Text": "los",
+          "Points": 12
+        }
+      ]
+    },
+    {
+      "Id": 6,
+      "Text": "Ma zęby a nie gryzie",
+      "Answers": [
+        {
+          "Text": "grzebień",
+          "Points": 24
+        },
+        {
+          "Text": "piła",
+          "Points": 21
+        },
+        {
+          "Text": "koło zębate",
+          "Points": 19
+        },
+        {
+          "Text": "grabie",
+          "Points": 14
+        },
+        {
+          "Text": "widelec",
+          "Points": 12
         }
       ]
     }

@@ -21,8 +21,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-
         <!-- Lista odpowiedzi all pytania-->
         <ScrollViewer HorizontalScrollBarVisibility="Auto"
               VerticalScrollBarVisibility="Disabled">
@@ -88,27 +86,21 @@
                                                 FontSize="8"
                                                 Visibility="{Binding IsRevealed, Converter={StaticResource InverseBoolToVisibilityConverter}}"
                                                 />
-                                                
                                             </Grid>
-
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
-
                             </StackPanel>
                         </Border>
-
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-
-            </ItemsControl>
+s            </ItemsControl>
         </ScrollViewer>
 
         <!-- Scoreboard Preview text -->
         <Grid Grid.Row="1">
             <TextBlock FontSize="22" Text="{Binding RoundPointsText}"/>
         </Grid>
-
 
         <!-- Scoreboard Preview  -->
         <Border Grid.Row="2" Margin="8"
@@ -202,8 +194,6 @@
             
             <Button Content="Outro" Background="Wheat" Width="80" Margin="5"
                 Command="{Binding PlayOutroCommand}"></Button>
-            
         </StackPanel>
-        
     </Grid>
 </UserControl>

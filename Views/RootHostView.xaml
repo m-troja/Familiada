@@ -7,9 +7,6 @@
         Left="{Binding HostOffsetX}"
         Top="{Binding HostOffsetY}"
         >
-
-
-    
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:GameViewModel}">
             <views:HostGameUserControl/>

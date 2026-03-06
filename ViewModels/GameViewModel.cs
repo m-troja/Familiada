@@ -113,9 +113,10 @@ public class GameViewModel : INotifyPropertyChanged
         {
             if (GameState.RoundPoints != value)
             {
+               
                 GameState.RoundPoints = value;
-                OnPropertyChanged(nameof(RoundPoints));
             }
+            OnPropertyChanged(nameof(RoundPoints));
         }
     }
     public string TotalPointsText => $"SUMA: {GameState.RoundPoints}";
@@ -347,12 +348,34 @@ public class GameViewModel : INotifyPropertyChanged
 
     private void TeamAwinsRound()
     {
-        TeamAPoints += GameState.RoundPoints;
+        if (GameState.RoundNumber == 3)
+        {
+            TeamAPoints += GameState.RoundPoints * 2;
+        }
+        else if (GameState.RoundNumber == 4)
+        {
+            TeamAPoints += GameState.RoundPoints * 3;
+        }
+        else
+        {
+            TeamAPoints += GameState.RoundPoints;
+        }
         EndRound();
     }
     private void TeamBwinsRound()
     {
-        TeamBPoints += GameState.RoundPoints;
+        if (GameState.RoundNumber == 5)
+        {
+            TeamBPoints += GameState.RoundPoints * 2;
+        }
+        else if (GameState.RoundNumber == 6)
+        {
+            TeamBPoints += GameState.RoundPoints * 3;
+        }
+        else
+        {
+            TeamBPoints += GameState.RoundPoints;
+        }
         EndRound();
     }
     private void UpdateFrontend() 

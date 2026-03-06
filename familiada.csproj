@@ -26,12 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Answers\final1.json" />
     <None Remove="Assets\Fonts\familiada.ttf" />
     <None Remove="Assets\Sounds\correct.wav" />
     <None Remove="Assets\Sounds\dzwonki.wav" />
     <None Remove="Assets\Sounds\final_powtorzenie.wav" />
     <None Remove="Assets\Sounds\incorrect.wav" />
+    <None Remove="Assets\Sounds\intro.wav" />
+    <None Remove="Assets\Sounds\outro.wav" />
     <None Remove="Assets\Sounds\po_1_rundzie_finalu.wav" />
     <None Remove="Assets\Sounds\przed_i_po_rundzie.wav" />
   </ItemGroup>
@@ -49,6 +50,12 @@
     <Content Include="Assets\Sounds\incorrect.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Sounds\intro.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\outro.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Sounds\po_1_rundzie_finalu.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -60,7 +67,7 @@
 
   <ItemGroup>
     <Resource Include="Assets\Fonts\familiada.ttf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
@@ -80,6 +87,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Assets\Answers\answers3.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Answers\test.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Answers\answers2.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -89,17 +102,17 @@
     <None Update="Assets\Answers\final1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Answers\final2 - Copy.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Answers\final3.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Answers\final2.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Sounds\intro.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Sounds\outro.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="familiada.dev.env">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

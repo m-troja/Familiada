@@ -203,16 +203,16 @@ public class RootViewModel : INotifyPropertyChanged
 
     public RootViewModel(GameState gameState)
     {
-        LoadEnvironmentVariables();
-        GameState = new GameState();
-        CurrentViewModel = new GameViewModel(GameState, this);
         GameState = gameState;
+
+        CurrentViewModel = new GameViewModel(GameState, this);
+        LoadEnvironmentVariables();
     }
     public RootViewModel()
     {
-        LoadEnvironmentVariables();
-        GameState = new GameState(); 
+        GameState = new GameState();
         CurrentViewModel = new GameViewModel(GameState, this);
+        LoadEnvironmentVariables();
     }
 
     public void SwitchToFinal()

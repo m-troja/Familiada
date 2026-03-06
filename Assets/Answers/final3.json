@@ -2,131 +2,131 @@
   "Questions": [
     {
       "Id": 1,
-      "Text": "Co ludzie robią w windzie3",
+      "Text": "Co można otworzyć",
       "Answers": [
         {
-          "Text": "Patrzą w telefon",
+          "Text": "drzwi",
           "Points": 30
         },
         {
-          "Text": "Stoją w ciszy",
+          "Text": "okno",
           "Points": 24
         },
         {
-          "Text": "Patrzą na numery pięter",
+          "Text": "butelkę",
           "Points": 20
         },
         {
-          "Text": "Rozmawiają",
-          "Points": 14
+          "Text": "sklep",
+          "Points": 16
         },
         {
-          "Text": "Udają, że nikogo nie widzą",
-          "Points": 12
+          "Text": "parasol",
+          "Points": 10
         }
       ]
     },
     {
       "Id": 2,
-      "Text": "Co można zgubić w domu",
+      "Text": "Coś okrągłego",
       "Answers": [
         {
-          "Text": "Klucze",
-          "Points": 38
+          "Text": "piłka",
+          "Points": 28
         },
         {
-          "Text": "Pilot",
-          "Points": 26
+          "Text": "koło",
+          "Points": 24
         },
         {
-          "Text": "Telefon",
-          "Points": 18
+          "Text": "moneta",
+          "Points": 20
         },
         {
-          "Text": "Okulary",
-          "Points": 10
+          "Text": "talerz",
+          "Points": 16
         },
         {
-          "Text": "Portfel",
-          "Points": 8
+          "Text": "zegarek",
+          "Points": 12
         }
       ]
     },
     {
       "Id": 3,
-      "Text": "Co robimy, gdy nie możemy zasnąć",
+      "Text": "Nie ma ust a mówi",
       "Answers": [
         {
-          "Text": "Przeglądamy telefon",
-          "Points": 34
+          "Text": "echo",
+          "Points": 30
         },
         {
-          "Text": "Przewracamy się z boku na bok",
+          "Text": "radio",
           "Points": 24
         },
         {
-          "Text": "Liczymy w myślach",
+          "Text": "telefon",
+          "Points": 18
+        },
+        {
+          "Text": "telewizor",
           "Points": 16
         },
         {
-          "Text": "Wstajemy z łóżka",
-          "Points": 14
-        },
-        {
-          "Text": "Włączamy telewizor",
+          "Text": "głośnik",
           "Points": 12
         }
       ]
-    },
+    }
     {
       "Id": 4,
-      "Text": "Co denerwuje kierowców",
+      "Text": "Coś słodkiego",
       "Answers": [
         {
-          "Text": "Korki",
-          "Points": 40
+          "Text": "cukierek",
+          "Points": 30
         },
         {
-          "Text": "Wolna jazda innych",
-          "Points": 22
+          "Text": "czekolada",
+          "Points": 24
         },
         {
-          "Text": "Brak miejsc parkingowych",
+          "Text": "miód",
+          "Points": 20
+        },
+        {
+          "Text": "ciasto",
           "Points": 16
         },
         {
-          "Text": "Piesi",
-          "Points": 12
-        },
-        {
-          "Text": "Radar/policja",
+          "Text": "lody",
           "Points": 10
         }
       ]
     },
     {
       "Id": 5,
-      "Text": "Co ludzie jedzą na szybko",
+      "Text": "Co robimy rano",
       "Answers": [
         {
-          "Text": "Kanapkę",
-          "Points": 34
+          "Text": "wstajemy",
+          "Points": 30
         },
         {
-          "Text": "Pizzę",
-          "Points": 22
+          "Text": "myjemy zęby",
+          "Points": 24
         },
         {
-          "Text": "Hot-doga",
-          "Points": 18
+          "Text": "jemy śniadanie",
+          "Points": 20
         },
         {
-          "Text": "Batonika",
-          "Points": 14
+          "Text": "pijemy kawę",
+          "Points": 16
         },
         {
-          "Text": "Zupkę instant",
-          "Points": 12
+          "Text": "ubieramy się",
+          "Points": 10
         }
       ]
     }

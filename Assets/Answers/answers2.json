@@ -1,158 +1,158 @@
 {
   "Questions": [
-    {
+        {
       "Id": 1,
-      "Text": "Zwierzę domowe",
+      "Text": "Nie ma skrzydeł a leci",
       "Answers": [
         {
-          "Text": "Pies",
+          "Text": "czas",
           "Points": 30
         },
         {
-          "Text": "Kot",
-          "Points": 27
+          "Text": "balon",
+          "Points": 24
         },
         {
-          "Text": "Rybka",
-          "Points": 15
+          "Text": "muzyka",
+          "Points": 18
         },
         {
-          "Text": "Chomik",
+          "Text": "latawiec",
+          "Points": 16
+        },
+        {
+          "Text": "krew z nosa",
           "Points": 12
-        },
-        {
-          "Text": "Papuga",
-          "Points": 8
         }
       ]
     },
     {
       "Id": 2,
-      "Text": "Co robisz zaraz po przebudzeniu?",
+      "Text": "Co można prowadzić",
       "Answers": [
         {
-          "Text": "Sprawdzam telefon",
+          "Text": "samochód",
           "Points": 32
         },
         {
-          "Text": "Idę do toalety",
+          "Text": "firmę",
           "Points": 24
         },
         {
-          "Text": "Wstaję z łóżka",
+          "Text": "rozmowę",
           "Points": 18
         },
         {
-          "Text": "Przeciągam się",
+          "Text": "blog",
           "Points": 14
         },
         {
-          "Text": "Zasypiam dalej",
+          "Text": "lekcję",
           "Points": 12
         }
       ]
     },
     {
       "Id": 3,
-      "Text": "Powód spóźnienia do pracy",
+      "Text": "Na czym można grać",
       "Answers": [
         {
-          "Text": "Zaspałem",
-          "Points": 35
+          "Text": "komputer",
+          "Points": 34
         },
         {
-          "Text": "Korki",
+          "Text": "instrument",
           "Points": 22
         },
         {
-          "Text": "Problemy z komunikacją",
+          "Text": "telefon",
           "Points": 18
         },
         {
-          "Text": "Dziecko",
-          "Points": 13
+          "Text": "scena",
+          "Points": 14
         },
         {
-          "Text": "Nie chciało mi się",
+          "Text": "nerwy",
           "Points": 12
         }
       ]
     },
     {
       "Id": 4,
-      "Text": "Co ludzie robią w toalecie oprócz tego, co trzeba?",
+      "Text": "Co najczęściej gubi się w domu",
       "Answers": [
         {
-          "Text": "Przeglądają telefon",
-          "Points": 40
+          "Text": "pilot",
+          "Points": 31
         },
         {
-          "Text": "Czytają",
-          "Points": 20
+          "Text": "klucze",
+          "Points": 27
         },
         {
-          "Text": "Myślą",
-          "Points": 15
+          "Text": "telefon",
+          "Points": 18
         },
         {
-          "Text": "Uciekają od obowiązków",
+          "Text": "okulary",
           "Points": 13
         },
         {
-          "Text": "Siedzą za długo",
-          "Points": 12
+          "Text": "skarpetki",
+          "Points": 11
         }
       ]
     },
     {
       "Id": 5,
-      "Text": "Co najczęściej gubi się w domu?",
+      "Text": "Na co można mieć uczulenie",
       "Answers": [
         {
-          "Text": "Pilot",
-          "Points": 34
-        },
-        {
-          "Text": "Klucze",
+          "Text": "pyłki",
           "Points": 28
         },
         {
-          "Text": "Telefon",
+          "Text": "kurz",
+          "Points": 24
+        },
+        {
+          "Text": "jedzenie",
           "Points": 18
         },
         {
-          "Text": "Skarpetki",
-          "Points": 12
+          "Text": "sierść",
+          "Points": 16
         },
         {
-          "Text": "Okulary",
-          "Points": 8
+          "Text": "użądlenia",
+          "Points": 14
         }
       ]
     },
     {
       "Id": 6,
-      "Text": "Co ludzie jedzą w nocy?",
+      "Text": "Słowa występujące tylko w liczbie mnogiej",
       "Answers": [
         {
-          "Text": "Kanapki",
+          "Text": "drzwi",
           "Points": 26
         },
         {
-          "Text": "Słodycze",
-          "Points": 24
+          "Text": "spodnie",
+          "Points": 22
         },
         {
-          "Text": "Chipsy",
-          "Points": 20
-        },
-        {
-          "Text": "Resztki z obiadu",
+          "Text": "sanki",
           "Points": 18
         },
         {
-          "Text": "Cokolwiek jest",
-          "Points": 12
+          "Text": "nożyczki",
+          "Points": 17
+        },
+        {
+          "Text": "usta",
+          "Points": 15
         }
       ]
     }

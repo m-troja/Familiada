@@ -46,7 +46,6 @@
                            FontSize="22"
                            HorizontalAlignment="Center"/>
 
-
                         <!-- Tekst odpowiedzi -->
                         <TextBlock Grid.Column="1"
                            Text="{Binding Text}"
@@ -64,12 +63,10 @@
                             CommandParameter="{Binding}"
                             Visibility="{Binding IsRevealed, Converter={StaticResource InverseBoolToVisibilityConverter}}"
                                  />
-
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-
 
         <!-- Kto pierwszy ten lepszy -->
         <StackPanel Grid.Row="2" Margin="5">
@@ -121,6 +118,5 @@
                 Command="{Binding TestSwitchToFinal}"/>
             
         </StackPanel>
-        
     </Grid>
 </UserControl>

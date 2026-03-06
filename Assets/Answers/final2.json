@@ -1,132 +1,132 @@
 ﻿{
   "Questions": [
-      {
+    {
       "Id": 1,
-      "Text": "Podaj coś, co ludzie jedzą na szybko2",
+      "Text": "Co można zgasić",
       "Answers": [
         {
-          "Text": "Kanapkę",
-          "Points": 34
+          "Text": "pragnienie",
+          "Points": 32
         },
         {
-          "Text": "Pizzę",
-          "Points": 22
+          "Text": "ognisko",
+          "Points": 24
         },
         {
-          "Text": "Hot-doga",
-          "Points": 18
+          "Text": "światło",
+          "Points": 20
         },
         {
-          "Text": "Batonika",
+          "Text": "papierosa",
           "Points": 14
         },
         {
-          "Text": "Zupkę instant",
-          "Points": 12
+          "Text": "silnik",
+          "Points": 10
         }
       ]
     },
     {
       "Id": 2,
-      "Text": "Podaj coś, co sprawdzamy przed wyjściem z domu",
+      "Text": "Coś pieniącego",
       "Answers": [
         {
-          "Text": "Czy mamy klucze",
-          "Points": 36
+          "Text": "piwo",
+          "Points": 30
         },
         {
-          "Text": "Telefon",
-          "Points": 24
+          "Text": "mydło",
+          "Points": 25
         },
         {
-          "Text": "Portfel",
-          "Points": 20
+          "Text": "szampon",
+          "Points": 18
         },
         {
-          "Text": "Pogodę",
-          "Points": 10
+          "Text": "płyn do kąpieli",
+          "Points": 15
         },
         {
-          "Text": "Czy zamknęliśmy drzwi",
-          "Points": 10
+          "Text": "pasta do zębów",
+          "Points": 12
         }
       ]
     },
     {
       "Id": 3,
-      "Text": "Podaj coś, co ludzie robią w weekend",
+      "Text": "Co można odświeżyć",
       "Answers": [
         {
-          "Text": "Odpoczywają",
-          "Points": 30
+          "Text": "powietrze",
+          "Points": 28
         },
         {
-          "Text": "Sprzątają",
-          "Points": 22
+          "Text": "stronę internetową",
+          "Points": 24
         },
         {
-          "Text": "Spotykają się ze znajomymi",
+          "Text": "oddech",
           "Points": 20
         },
         {
-          "Text": "Śpią dłużej",
+          "Text": "pamięć",
           "Points": 16
         },
         {
-          "Text": "Oglądają filmy",
+          "Text": "makijaż",
           "Points": 12
         }
       ]
     },
     {
       "Id": 4,
-      "Text": "Podaj coś, co może się zepsuć w domu",
+      "Text": "Napełniamy powietrzem",
       "Answers": [
         {
-          "Text": "Pralka",
-          "Points": 28
+          "Text": "balon",
+          "Points": 30
         },
         {
-          "Text": "Telewizor",
+          "Text": "opona",
           "Points": 24
         },
         {
-          "Text": "Lodówka",
+          "Text": "materac",
           "Points": 20
         },
         {
-          "Text": "Zmywarka",
+          "Text": "ponton",
           "Points": 16
         },
         {
-          "Text": "Czajnik",
-          "Points": 12
+          "Text": "piłka",
+          "Points": 10
         }
       ]
     },
     {
       "Id": 5,
-      "Text": "Podaj coś, co robimy, gdy pada deszcz",
+      "Text": "Co można zapalić",
       "Answers": [
         {
-          "Text": "Otwieramy parasol",
-          "Points": 38
+          "Text": "świecę",
+          "Points": 30
         },
         {
-          "Text": "Uciekamy pod dach",
+          "Text": "ognisko",
           "Points": 24
         },
         {
-          "Text": "Zakładamy kurtkę",
-          "Points": 18
+          "Text": "papierosa",
+          "Points": 20
         },
         {
-          "Text": "Narzekamy",
-          "Points": 12
+          "Text": "światło",
+          "Points": 16
         },
         {
-          "Text": "Czekamy aż przestanie",
-          "Points": 8
+          "Text": "lampkę",
+          "Points": 10
         }
       ]
     }

@@ -18,6 +18,8 @@ namespace Familiada.Views
         {
             InitializeComponent();
             DataContext = viewModel;
+            this.Width = viewModel.HostWidth;
+            this.Height = viewModel.HostHeight;
         }
         public RootScoreboardView()
         {

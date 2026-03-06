@@ -12,7 +12,6 @@ public partial class HostFinalUserControl : UserControl
 
     }
 
-
     private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
     {
         var vm = DataContext as GameViewModel;
