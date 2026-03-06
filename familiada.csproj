@@ -90,7 +90,10 @@
     <None Update="Assets\Answers\answers3.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Answers\test.json">
+    <None Update="Assets\Answers\finaltest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Answers\answerstest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Answers\answers2.json">

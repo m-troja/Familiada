@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Familiada.Views
 {
@@ -17,13 +8,27 @@ namespace Familiada.Views
         public RootScoreboardView(ViewModels.RootViewModel viewModel)
         {
             InitializeComponent();
+
             DataContext = viewModel;
+
             this.Width = viewModel.HostWidth;
             this.Height = viewModel.HostHeight;
+
+            // Debugowanie DataContext i CurrentViewModel
+            Debug.WriteLine("[Debug] RootScoreboardView initialized.");
+            Debug.WriteLine("[Debug] DataContext type: " + (DataContext?.GetType().Name ?? "null"));
+            Debug.WriteLine("[Debug] CurrentViewModel type: " + (viewModel.CurrentViewModel?.GetType().Name ?? "null"));
+
+            if (viewModel.CurrentViewModel != null)
+            {
+                Debug.WriteLine("[Debug] CurrentViewModel: " + viewModel.CurrentViewModel.GetType().FullName);
+            }
         }
+
         public RootScoreboardView()
         {
             InitializeComponent();
+            Debug.WriteLine("[Debug] RootScoreboardView parameterless constructor called.");
         }
     }
 }

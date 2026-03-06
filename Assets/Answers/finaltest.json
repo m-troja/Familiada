@@ -1,0 +1,30 @@
+{
+  "Questions": [
+    {
+      "Id": 1,
+      "Text": "Zwierzę domowe",
+      "Answers": [
+        {
+          "Text": "Pies",
+          "Points": 30
+        },
+        {
+          "Text": "Kot",
+          "Points": 27
+        },
+        {
+          "Text": "Rybka",
+          "Points": 15
+        },
+        {
+          "Text": "Chomik",
+          "Points": 12
+        },
+        {
+          "Text": "Papuga",
+          "Points": 8
+        }
+      ]
+    }
+  ]
+}

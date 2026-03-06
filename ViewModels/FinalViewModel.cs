@@ -3,6 +3,7 @@ using Familiada.Services;
 using System.Collections.Frozen;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Media;
 using System.Threading.Tasks;
@@ -21,7 +22,6 @@ namespace Familiada.ViewModels
         public ICommand ResetTimerCommand { get; }
         public ICommand ResetCommand { get; }
         public ICommand PlayOutroCommand { get; }
-        public FinalViewModel() : this(new GameState()) { }
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string name)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -35,9 +35,8 @@ namespace Familiada.ViewModels
                 OnPropertyChanged(nameof(Answers));
             }
         }
-        public ObservableCollection<Answer> AnswersFinalPlayer1 => GameState.AnswersFinalPlayer1;
-        public ObservableCollection<Answer> AnswersFinalPlayer2 => GameState.AnswersFinalPlayer2;
-
+        public ObservableCollection<Answer> AnswersFinalPlayer1 { get; }
+        public ObservableCollection<Answer> AnswersFinalPlayer2 { get; }
         public GameState GameState { get; }
         public int RoundNumber => GameState.RoundNumber;
         public string FinalText => $"Odpowiada gracz {(GameState.IsFinalSecondPlayerAnswering ? 2 : 1)}";
@@ -63,6 +62,26 @@ namespace Familiada.ViewModels
 
         public FinalViewModel(GameState gameState)
         {
+            // Debug
+            Debug.WriteLine("[Debug] Creating FinalViewModel...");
+
+            AnswersFinalPlayer1 = new ObservableCollection<Answer>();
+            AnswersFinalPlayer2 = new ObservableCollection<Answer>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                AnswersFinalPlayer1.Add(new Answer { Text = "......................................", Points = 0, Position = i + 1 });
+                AnswersFinalPlayer2.Add(new Answer { Text = "......................................", Points = 0, Position = i + 1 });
+            }
+
+            Debug.WriteLine($"[Debug] AnswersFinalPlayer1 count: {AnswersFinalPlayer1.Count}");
+            foreach (var a in AnswersFinalPlayer1)
+                Debug.WriteLine($"[Debug] Player1 Answer: Text='{a.Text}', Points={a.Points}");
+
+            Debug.WriteLine($"[Debug] AnswersFinalPlayer2 count: {AnswersFinalPlayer2.Count}");
+            foreach (var a in AnswersFinalPlayer2)
+                Debug.WriteLine($"[Debug] Player2 Answer: Text='{a.Text}', Points={a.Points}");
+
             GameState = gameState;
             _soundService = new SoundService();
             GameState.PropertyChanged += GameState_PropertyChanged;
@@ -127,8 +146,14 @@ namespace Familiada.ViewModels
                 answer.IsRevealed = false;
             }
 
-            GameState.AnswersFinalPlayer1 = new ObservableCollection<Answer>(new List<Answer> { new(), new(), new(), new(), new() });
-            GameState.AnswersFinalPlayer2 = new ObservableCollection<Answer>(new List<Answer> { new(), new(), new(), new(), new() });
+            GameState.AnswersFinalPlayer1.Clear();
+            GameState.AnswersFinalPlayer2.Clear();
+
+            for (int i = 0; i < 5; i++)
+            {
+                GameState.AnswersFinalPlayer1.Add(new Answer());
+                GameState.AnswersFinalPlayer2.Add(new Answer());
+            }
             GameState.IsFinalSecondPlayerAnswering = false;
             GameState.RoundNumber = 0;
             GameState.RoundPoints = 0;

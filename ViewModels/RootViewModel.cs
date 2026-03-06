@@ -163,6 +163,16 @@ public class RootViewModel : INotifyPropertyChanged
             {
                 _currentViewModel = value;
                 OnPropertyChanged(nameof(CurrentViewModel));
+
+                Debug.WriteLine("[Debug] CurrentViewModel set to: " +
+                                (_currentViewModel?.GetType().Name ?? "null"));
+
+                // jeśli FinalViewModel, wypisz liczbę odpowiedzi
+                if (_currentViewModel is FinalViewModel finalVM)
+                {
+                    Debug.WriteLine("[Debug] AnswersFinalPlayer1 count: " + finalVM.AnswersFinalPlayer1.Count);
+                    Debug.WriteLine("[Debug] AnswersFinalPlayer2 count: " + finalVM.AnswersFinalPlayer2.Count);
+                }
             }
         }
     }
@@ -189,7 +199,7 @@ public class RootViewModel : INotifyPropertyChanged
         _hostOffsetX = double.TryParse(envHostOffsetX, out double hostOffsetX) ? hostOffsetX : 507;
         _hostOffsetY = double.TryParse(envHostOffsetY, out double hostOffsetY) ? hostOffsetY : 508;
         _fontsizeGameScoreboard = double.TryParse(envFontsizeGameScoreboard, out double fontsizeGameScoreboard) ? fontsizeGameScoreboard :66;
-        _fontsizeGameScoreboardX = double.TryParse(envFontsizeGameScoreboard, out double fontsizeGameScoreboardX) ? fontsizeGameScoreboardX : 100;
+        _fontsizeGameScoreboardX = double.TryParse(envFontsizeGameScoreboardX, out double fontsizeGameScoreboardX) ? fontsizeGameScoreboardX : 100;
 
         Debug.WriteLine("Parsed ScoreboardWidth: " + _scoreboardWidth);
         Debug.WriteLine("Parsed ScoreboardHeight: " + _scoreboardHeight);
@@ -217,6 +227,8 @@ public class RootViewModel : INotifyPropertyChanged
 
     public void SwitchToFinal()
     {
+        Debug.WriteLine("[Debug] Switching to FinalViewModel...");
+
         CurrentViewModel = new FinalViewModel(GameState);
     }
 
